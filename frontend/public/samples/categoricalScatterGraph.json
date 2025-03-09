@@ -1,0 +1,17 @@
+{
+    "title": "Dengue Risk by Week",
+    "xAxisLabel": "Year-Week",
+    "yAxisLabel": "Dengue Cases",
+    "categoryKey": "riskLevel",
+    "categoryColors": {
+      "low": "green",
+      "medium": "orange",
+      "high": "red"
+    },
+    "data": [
+      { "year": 2018, "week": 1, "data1": 5, "riskLevel": "low" },
+      { "year": 2018, "week": 2, "data1": 12, "riskLevel": "medium" },
+      { "year": 2018, "week": 3, "data1": 20, "riskLevel": "high" }
+    ]
+  }
+  

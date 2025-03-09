@@ -1,0 +1,70 @@
+import path from 'path';
+import express from 'express';
+import dotenv from 'dotenv';
+dotenv.config();
+import cors from 'cors';
+
+import connectDB from './config/db.js';
+import cookieParser from 'cookie-parser';
+import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+import userRoutes from './routes/userRoutes.js';
+import dngRoutes from './routes/dengueDataRoutes.js';
+import monthRoutes from "./routes/monthRoutes.js";
+import graphsRoutes from './routes/graphsRoutes.js';
+import userGraphsRoutes from './routes/userGraphsRoutes.js';
+// Import your routes
+
+// Select the server running port
+const port = process.env.PORT || 5000;
+
+// Make the database Connection
+connectDB();  // config -> db..js
+
+// Use express framework
+const app = express();
+
+// Body parser middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// CORS Middleware
+app.use(cookieParser());
+app.use(cors({
+  origin: 'http://localhost:3000',  // Replace with your actual frontend URL if different
+  credentials: true,                // Allow cookies (e.g., your JWT) to be sent/received
+}));
+
+
+// Define your routes
+app.get('/dengue_risk', (req, res) => {
+  // Return JSON data
+  res.json({ title: "Dengue Risk Data", data: [] });
+});
+
+// Routes
+app.use('/api/users', userRoutes);
+app.use('/api/dngData', dngRoutes);
+app.use('/api/months', monthRoutes);
+app.use('/api/graphs', graphsRoutes);
+app.use('/api/usergraphs',userGraphsRoutes);
+
+
+
+// Select the development mode or product mode
+if (process.env.NODE_ENV === 'production') {
+  const __dirname = path.resolve();
+  app.use(express.static(path.join(__dirname, '/frontend/dist')));
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
+  );
+} else {
+  app.get('/', (req, res) => {
+    res.send('API is running....');
+  });
+}
+
+// Error Handles
+app.use(notFound);
+app.use(errorHandler);
+
+app.listen(port, () => console.log(`Server started on port ${port}`));

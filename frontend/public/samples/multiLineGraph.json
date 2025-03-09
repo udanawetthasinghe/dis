@@ -1,0 +1,15 @@
+{
+    "title": "Expected vs. Real Dengue Cases",
+    "xAxisLabel": "Year-Week",
+    "yAxisLabel": "Cases",
+    "legend": {
+      "data1": "Expected Cases",
+      "data2": "Real Cases"
+    },
+    "data": [
+      { "year": 2018, "week": 1, "data1": 10, "data2": 12 },
+      { "year": 2018, "week": 2, "data1": 14, "data2": 16 },
+      { "year": 2018, "week": 3, "data1": 20, "data2": 18 }
+    ]
+  }
+  

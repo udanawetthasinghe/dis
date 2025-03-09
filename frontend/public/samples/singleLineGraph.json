@@ -1,0 +1,10 @@
+{
+  "title": "Dengue Cases Over Time",
+  "xAxisLabel": "Year-Week",
+  "yAxisLabel": "Cases",
+  "data": [
+    { "year": 2018, "week": 1, "value": 0.02 },
+    { "year": 2018, "week": 2, "value": 0.05 },
+    { "year": 2018, "week": 3, "value": 0.09 }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "data": [
+    {
+      "risk": 1,
+      "week": 1,
+      "year": 2013
+    },
+    {
+      "risk": 2,
+      "week": 2,
+      "year": 2013
+    },
+
+    {
+      "risk": 6,
+      "week": 6,
+      "year": 2013
+    }
+  ],
+  "title": "Dengue Risk in Colombo District during 018",
+  "xAxisLabel": "Year-Week",
+  "yAxisLabel": "Dengue Risk"
+}
