@@ -23,9 +23,7 @@ export class SignUpPageActions {
     }
 
     selectUserCategory(userType) {
-        cy.get(Locators.userCategory).within(() => {
-            cy.contains(userType).click();
-        });
+        cy.get(Locators.userCategory).check(userType);
     }
 
     clickRegisterButton() {

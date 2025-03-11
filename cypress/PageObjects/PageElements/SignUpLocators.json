@@ -3,6 +3,6 @@
     "email": "[data-testid='email']",
     "password": "[data-testid='password']",
     "confirmPassword": "[data-testid='confirmPassword']",
-    "userCategory": "[data-testid='userCategory']",
+    "userCategory": "[data-testid='userCategory'] input[type='radio']",
     "registerBtn": "[data-testid='registerBtn']"
 }
