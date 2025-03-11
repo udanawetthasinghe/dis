@@ -18,5 +18,6 @@ describe('User Sign-In Functionality', () => {
     signInPageActions.clickSignInButton();
     signInPageActions.typeEmail(signInData.email);
     signInPageActions.typePassword(signInData.password);
+    signInPageActions.clickSignInButton();
   })
 })

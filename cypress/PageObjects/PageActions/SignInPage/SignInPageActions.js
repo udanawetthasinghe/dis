@@ -13,5 +13,9 @@ export class SignInPageActions {
     typePassword(typePassword) {
         cy.get(Locators.password).type(typePassword);
     }
+
+    clickSignInButton() {
+        cy.get(Locators.submitBtn).click();
+    }
 }
 export default SignInPageActions;
