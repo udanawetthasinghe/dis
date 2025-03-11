@@ -1,0 +1,5 @@
+{
+    "email": "[data-testid='email']",
+    "password": "[data-testid='password']",
+    "submitBtn": "[data-testid='submitBtn']"
+}
