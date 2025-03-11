@@ -1,6 +1,6 @@
 {
-    "name": "test",
-    "email": "test@test.fi",
-    "password": "test1",
-    "confirmPassword": "test1"
+    "name": "Cypress",
+    "email": "cypress@test.fi",
+    "password": "cypress1",
+    "confirmPassword": "cypress1"
   }
