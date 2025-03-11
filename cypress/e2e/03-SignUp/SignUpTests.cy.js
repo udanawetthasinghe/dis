@@ -15,11 +15,12 @@ describe('User Sign-Up Functionality', () => {
       cy.visit('http://localhost:3000/')
   
       //Test Steps
+      signUpPageActions.clickSignUpButton();
       signUpPageActions.typeName(signUpData.name);
       signUpPageActions.typeEmail(signUpData.email);
       signUpPageActions.typePassword(signUpData.password);
       signUpPageActions.typeConfirmPassword(signUpData.confirmPassword);
       signUpPageActions.selectUserCategory('General User');
-      signUpPageActions.clickSignInButton();
+      signUpPageActions.clickRegisterButton();
     })
   })
