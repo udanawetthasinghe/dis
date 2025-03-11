@@ -11,7 +11,7 @@ before(() => {
 });
 
 describe('User Sign-Up Functionality', () => {
-    it('should sign up successfully with valid credentials', () => {
+    it('should General User sign up successfully with valid details', () => {
       cy.visit('/');
   
       //Test Steps
@@ -21,6 +21,19 @@ describe('User Sign-Up Functionality', () => {
       signUpPageActions.typePassword(signUpData.password);
       signUpPageActions.typeConfirmPassword(signUpData.confirmPassword);
       signUpPageActions.selectUserCategory('General User');
+      signUpPageActions.clickRegisterButton();
+    })
+
+    it('should Researcher sign up successfully with valid details', () => {
+      cy.visit('/');
+  
+      //Test Steps
+      signUpPageActions.clickSignUpButton();
+      signUpPageActions.typeName(signUpData.name);
+      signUpPageActions.typeEmail(signUpData.email);
+      signUpPageActions.typePassword(signUpData.password);
+      signUpPageActions.typeConfirmPassword(signUpData.confirmPassword);
+      signUpPageActions.selectUserCategory('Researcher');
       signUpPageActions.clickRegisterButton();
     })
   })
