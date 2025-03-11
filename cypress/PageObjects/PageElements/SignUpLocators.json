@@ -1,0 +1,8 @@
+{
+    "name": "[data-testid='name']",
+    "email": "[data-testid='email']",
+    "password": "[data-testid='password']",
+    "confirmPassword": "[data-testid='confirmPassword']",
+    "userCategory": "[data-testid='userCategory']",
+    "registerBtn": "[data-testid='registerBtn']"
+}

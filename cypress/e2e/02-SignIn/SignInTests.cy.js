@@ -10,8 +10,8 @@ before(() => {
   });
 });
 
-describe('Login', () => {
-  it('with', () => {
+describe('User Sign-In Functionality', () => {
+  it('should sign in successfully with valid credentials', () => {
     cy.visit('http://localhost:3000/')
 
     //Test Steps
