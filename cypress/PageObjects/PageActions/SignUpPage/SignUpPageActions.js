@@ -2,7 +2,7 @@ const HomeLocators = require('../../../PageObjects/PageElements/HomeLocators.jso
 const Locators = require('../../../PageObjects/PageElements/SignUpLocators.json');
 
 export class SignUpPageActions {
-    clickSignInButton() {
+    clickSignUpButton() {
         cy.get(HomeLocators.signUpBtn).click();
     }
 
