@@ -12,7 +12,7 @@ before(() => {
 
 describe('User Sign-Up Functionality', () => {
     it('should sign up successfully with valid credentials', () => {
-      cy.visit('http://localhost:3000/')
+      cy.visit('/');
   
       //Test Steps
       signUpPageActions.clickSignUpButton();

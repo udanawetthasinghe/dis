@@ -12,12 +12,12 @@ before(() => {
 
 describe('User Sign-In Functionality', () => {
   it('should sign in successfully with valid credentials', () => {
-    cy.visit('http://localhost:3000/')
+    cy.visit('/');
 
     //Test Steps
     signInPageActions.clickSignInButton();
     signInPageActions.typeEmail(signInData.email);
     signInPageActions.typePassword(signInData.password);
-    signInPageActions.clickSignInButton();
+    signInPageActions.clickSignInFormButton();
   })
 })
