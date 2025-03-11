@@ -1,7 +1,7 @@
 import Locators from '../../PageObjects/PageElements/HomeLocators.json';
 
-describe('Login', () => {
-  it('with', () => {
+describe('Home Page Load Test', () => {
+  it('should load the home page and display main elements', () => {
     cy.visit('http://localhost:3000/')
   //Assertion
   cy.get(Locators.mainImage).should('be.visible');
