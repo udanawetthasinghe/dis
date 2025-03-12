@@ -24,7 +24,6 @@ describe('User sign-up functionality', () => {
       signUpPageActions.clickRegisterButton();
 
       //Assertion
-      // Ensure the variable is properly referenced
       signUpPageActions.assertSuccessPopupMessage(`Welcome ${signUpData.nameGeneralUser}, Account created successfully - Please login here`);
     })
 
