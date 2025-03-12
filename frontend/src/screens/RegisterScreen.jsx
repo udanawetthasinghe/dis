@@ -37,14 +37,20 @@ const RegisterScreen = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      toast.error('Passwords do not match');
+      toast.error(
+        <div data-testid="errorPopup">Passwords do not match</div>
+      );
     } else {
       try {
         const userCat = userCatNo(userCategory);
 
         const res = await register({ name, email, password, userCat}).unwrap();
        // dispatch(setCredentials({ ...res }));
-       toast.success(`Welcome ${res.name}, Account created successfully - Please login here`);
+       toast.success(
+        <div data-testid="successPopup">
+        Welcome {res.name}, Account created successfully - Please login here
+      </div>
+      );
        navigate('/login');
 
       } catch (err) {

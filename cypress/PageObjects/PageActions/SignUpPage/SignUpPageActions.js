@@ -29,5 +29,17 @@ export class SignUpPageActions {
     clickRegisterButton() {
         cy.get(Locators.registerBtn).click();
     }
+
+    assertSuccessPopupMessage(enterExpectedMessage) {
+        cy.get(Locators.successPopup)
+          .should('be.visible')
+          .and('contain.text', enterExpectedMessage);
+    }
+
+    assertErrorPopupMessage(enterExpectedMessage) {
+        cy.get(Locators.errorPopup)
+          .should('be.visible')
+          .and('contain.text', enterExpectedMessage);
+    } 
 }
 export default SignUpPageActions;

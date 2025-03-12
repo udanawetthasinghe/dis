@@ -24,7 +24,8 @@ describe('User sign-up functionality', () => {
       signUpPageActions.clickRegisterButton();
 
       //Assertion
-
+      // Ensure the variable is properly referenced
+      signUpPageActions.assertSuccessPopupMessage(`Welcome ${signUpData.nameGeneralUser}, Account created successfully - Please login here`);
     })
 
     it('should researcher sign up successfully with valid details', () => {
@@ -38,5 +39,8 @@ describe('User sign-up functionality', () => {
       signUpPageActions.typeConfirmPassword(signUpData.confirmPasswordResearcherUser);
       signUpPageActions.selectUserCategory('Researcher');
       signUpPageActions.clickRegisterButton();
+
+      //Assertion
+      signUpPageActions.assertSuccessPopupMessage(`Welcome ${signUpData.nameResearcherUser}, Account created successfully - Please login here`);
     })
   })

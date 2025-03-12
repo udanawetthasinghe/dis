@@ -4,5 +4,7 @@
     "password": "[data-testid='password']",
     "confirmPassword": "[data-testid='confirmPassword']",
     "userCategory": "[data-testid='userCategory'] input[type='radio']",
-    "registerBtn": "[data-testid='registerBtn']"
+    "registerBtn": "[data-testid='registerBtn']",
+    "errorPopup": "[data-testid='errorPopup']",
+    "successPopup": "[data-testid='successPopup']"
 }

@@ -36,6 +36,9 @@ describe('User sign-in functionality', () => {
     signInPageActions.typeEmail(signUpData.emailGeneralUser);
     signInPageActions.typePassword(signUpData.passwordGeneralUser);
     signInPageActions.clickSignInFormButton();
+
+    //Assertion
+    
   })
 
   it('should researcher user sign in successfully with valid credentials', () => {
