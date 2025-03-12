@@ -25,6 +25,7 @@
   "devDependencies": {
     "concurrently": "^8.0.1",
     "cypress": "14.1.0",
+    "cypress-mongodb": "6.2.1",
     "nodemon": "^3.1.9"
   }
 }
