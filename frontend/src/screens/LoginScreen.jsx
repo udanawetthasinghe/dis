@@ -34,7 +34,11 @@ const LoginScreen = () => {
       dispatch(setCredentials({ ...res }));
       navigate('/');
     } catch (err) {
-      toast.error(err?.data?.message || err.error);
+      toast.error(
+        <div data-testid="errorPopup">
+        {err?.data?.message || err.error}
+      </div>
+       );
     }
   };
 
@@ -67,7 +71,7 @@ const LoginScreen = () => {
 
         <Button
           disabled={isLoading}
-          data-testid="submitBtn"
+          data-testid="submitSigninBtn"
           type='submit'
           variant='primary'
           className='mt-3'

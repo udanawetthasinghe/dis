@@ -15,7 +15,13 @@ export class SignInPageActions {
     }
 
     clickSignInFormButton() {
-        cy.get(Locators.submitBtn).click();
+        cy.get(Locators.submitSigninBtn).click();
     }
+
+    assertPopupMessage(enterExpectedMessage) {
+        cy.get(Locators.errorPopup)
+          .should('be.visible')
+          .and('contain.text', enterExpectedMessage);
+    }     
 }
 export default SignInPageActions;

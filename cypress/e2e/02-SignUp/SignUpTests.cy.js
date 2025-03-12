@@ -10,29 +10,32 @@ before(() => {
   });
 });
 
-describe('User Sign-Up Functionality', () => {
-    it('should General User sign up successfully with valid details', () => {
+describe('User sign-up functionality', () => {
+    it('should general user sign up successfully with valid details', () => {
       cy.visit('/');
   
       //Test Steps
       signUpPageActions.clickSignUpButton();
-      signUpPageActions.typeName(signUpData.name);
-      signUpPageActions.typeEmail(signUpData.email);
-      signUpPageActions.typePassword(signUpData.password);
-      signUpPageActions.typeConfirmPassword(signUpData.confirmPassword);
+      signUpPageActions.typeName(signUpData.nameGeneralUser);
+      signUpPageActions.typeEmail(signUpData.emailGeneralUser);
+      signUpPageActions.typePassword(signUpData.passwordGeneralUser);
+      signUpPageActions.typeConfirmPassword(signUpData.confirmPasswordGeneralUser);
       signUpPageActions.selectUserCategory('General User');
       signUpPageActions.clickRegisterButton();
+
+      //Assertion
+
     })
 
-    it('should Researcher sign up successfully with valid details', () => {
+    it('should researcher sign up successfully with valid details', () => {
       cy.visit('/');
   
       //Test Steps
       signUpPageActions.clickSignUpButton();
-      signUpPageActions.typeName(signUpData.name);
-      signUpPageActions.typeEmail(signUpData.email);
-      signUpPageActions.typePassword(signUpData.password);
-      signUpPageActions.typeConfirmPassword(signUpData.confirmPassword);
+      signUpPageActions.typeName(signUpData.nameResearcherUser);
+      signUpPageActions.typeEmail(signUpData.emailResearcherUser);
+      signUpPageActions.typePassword(signUpData.passwordResearcherUser);
+      signUpPageActions.typeConfirmPassword(signUpData.confirmPasswordResearcherUser);
       signUpPageActions.selectUserCategory('Researcher');
       signUpPageActions.clickRegisterButton();
     })

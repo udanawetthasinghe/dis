@@ -1,4 +1,4 @@
 {
-  "email": "cypress@test.fi",
-  "password": "cypress@1"
+  "emailInvalid": "john.doe@com",
+  "passwordIncorrect": "Incorrec"
 }

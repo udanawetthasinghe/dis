@@ -3,21 +3,48 @@ import SignInPageActions from '../../PageObjects/PageActions/SignInPage/SignInPa
 const signInPageActions = new SignInPageActions();
 
 let signInData;
+let signUpData;
 
 before(() => {
   cy.fixture('signIn').then(data => {
     signInData = data;
   });
+  cy.fixture('signUp').then(data => {
+    signUpData = data;
+  });
 });
 
-describe('User Sign-In Functionality', () => {
-  it('should sign in successfully with valid credentials', () => {
+describe('User sign-in functionality', () => {
+  it('should not sign in successfully with invalid credentials', () => {
     cy.visit('/');
 
     //Test Steps
     signInPageActions.clickSignInButton();
-    signInPageActions.typeEmail(signInData.email);
-    signInPageActions.typePassword(signInData.password);
+    signInPageActions.typeEmail(signInData.emailInvalid);
+    signInPageActions.typePassword(signInData.passwordIncorrect);
+    signInPageActions.clickSignInFormButton();
+
+    //Assertion
+    signInPageActions.assertPopupMessage('Invalid email or password');
+  })
+
+  it('should general user sign in successfully with valid credentials', () => {
+    cy.visit('/');
+
+    //Test Steps
+    signInPageActions.clickSignInButton();
+    signInPageActions.typeEmail(signUpData.emailGeneralUser);
+    signInPageActions.typePassword(signUpData.passwordGeneralUser);
+    signInPageActions.clickSignInFormButton();
+  })
+
+  it('should researcher user sign in successfully with valid credentials', () => {
+    cy.visit('/');
+
+    //Test Steps
+    signInPageActions.clickSignInButton();
+    signInPageActions.typeEmail(signUpData.emailResearcherUser);
+    signInPageActions.typePassword(signUpData.passwordResearcherUser);
     signInPageActions.clickSignInFormButton();
   })
 })
