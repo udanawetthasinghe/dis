@@ -7,9 +7,9 @@ dotenv.config();
 
 export default defineConfig({
   e2e: {
-    baseUrl: "http://localhost:3000",  // Set your base URL here
+    baseUrl: process.env.BASE_URL,
     env: {
-      MONGO_URI: process.env.MONGO_URI, // Ensure MONGO_URI is loaded
+      MONGO_URI: process.env.MONGO_URI,
     },
     setupNodeEvents(on, config) {
       on("task", {
