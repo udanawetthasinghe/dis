@@ -15,7 +15,7 @@ before(() => {
 });
 
 describe('User sign-in functionality', () => {
-  it('should not sign in successfully with invalid credentials', () => {
+  it('should display an error message when signing in with invalid credentials', () => {
     cy.visit('/');
 
     //Test Steps
