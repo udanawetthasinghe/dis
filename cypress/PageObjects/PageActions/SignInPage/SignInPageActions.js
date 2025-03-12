@@ -22,6 +22,12 @@ export class SignInPageActions {
         cy.get(Locators.errorPopup)
           .should('be.visible')
           .and('contain.text', enterExpectedMessage);
-    }     
+    }
+
+    assertSiginSuccess(enterExpectedUserName) {
+        cy.get(Locators.userNameDropDown)
+          .should('be.visible')
+          .and('contain.text', enterExpectedUserName);
+    } 
 }
 export default SignInPageActions;

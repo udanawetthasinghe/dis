@@ -38,10 +38,10 @@ describe('User sign-in functionality', () => {
     signInPageActions.clickSignInFormButton();
 
     //Assertion
-    
+    signInPageActions.assertSiginSuccess(signUpData.nameGeneralUser);
   })
 
-  it('should researcher user sign in successfully with valid credentials', () => {
+  it('should display an error message when signing in with not activated resercher user', () => {
     cy.visit('/');
 
     //Test Steps
@@ -49,5 +49,8 @@ describe('User sign-in functionality', () => {
     signInPageActions.typeEmail(signUpData.emailResearcherUser);
     signInPageActions.typePassword(signUpData.passwordResearcherUser);
     signInPageActions.clickSignInFormButton();
+
+    //Assertion
+    signInPageActions.assertPopupMessage('Still your account is not activated');
   })
 })
