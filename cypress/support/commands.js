@@ -23,3 +23,11 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("deleteTestUsers", () => {
+    cy.task("deleteTestUsers") // Call the correct task name
+      .then((deletedCount) => {
+        cy.log(`Deleted ${deletedCount} test users`);
+      });
+  });
+  
