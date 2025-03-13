@@ -22,7 +22,7 @@
     "mongoose": "^7.1.0"
   },
   "devDependencies": {
-    "allure-cypress": "^3.2.0",
+    "allure-cypress": "3.2.0",
     "concurrently": "^8.0.1",
     "cypress": "14.1.0",
     "cypress-mongodb": "6.2.1",
