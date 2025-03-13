@@ -37,14 +37,20 @@ const RegisterScreen = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      toast.error('Passwords do not match');
+      toast.error(
+        <div data-testid="errorPopup">Passwords do not match</div>
+      );
     } else {
       try {
         const userCat = userCatNo(userCategory);
 
         const res = await register({ name, email, password, userCat}).unwrap();
        // dispatch(setCredentials({ ...res }));
-       toast.success(`Welcome ${res.name}, Account created successfully - Please login here`);
+       toast.success(
+        <div data-testid="successPopup">
+        Welcome {res.name}, Account created successfully - Please login here
+      </div>
+      );
        navigate('/login');
 
       } catch (err) {
@@ -64,6 +70,7 @@ const RegisterScreen = () => {
         <Form.Group className='my-2' controlId='name'>
           <Form.Label>Name</Form.Label>
           <Form.Control
+            data-testid="name"
             type='name'
             placeholder='Enter name'
             value={name}
@@ -74,6 +81,7 @@ const RegisterScreen = () => {
         <Form.Group className='my-2' controlId='email'>
           <Form.Label>Email Address</Form.Label>
           <Form.Control
+            data-testid="email"
             type='email'
             placeholder='Enter email'
             value={email}
@@ -84,6 +92,7 @@ const RegisterScreen = () => {
         <Form.Group className='my-2' controlId='password'>
           <Form.Label>Password</Form.Label>
           <Form.Control
+            data-testid="password"
             type='password'
             placeholder='Enter password'
             value={password}
@@ -93,6 +102,7 @@ const RegisterScreen = () => {
         <Form.Group className='my-2' controlId='confirmPassword'>
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
+            data-testid="confirmPassword"
             type='password'
             placeholder='Confirm password'
             value={confirmPassword}
@@ -100,7 +110,7 @@ const RegisterScreen = () => {
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group className='my-2' controlId='userCategory'>
+        <Form.Group data-testid="userCategory" className='my-2' controlId='userCategory'>
           <Form.Label>User Category</Form.Label>
           <div>
             <Form.Check
@@ -123,7 +133,7 @@ const RegisterScreen = () => {
         </Form.Group>
 
         
-        <Button type='submit' variant='primary' className='mt-3'>
+        <Button data-testid="registerBtn" type='submit' variant='primary' className='mt-3'>
           Register
         </Button>
 

@@ -14,6 +14,7 @@ const Hero = () => {
             alt="Main"
             className="mb-4"
             style={{ width: "100%", height: "auto" }}
+            data-testid="mainImage"
           />
           <p className="text-center mb-4">
             we introduce a multi-platform, centralized proactive management

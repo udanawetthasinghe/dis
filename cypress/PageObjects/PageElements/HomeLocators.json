@@ -1,0 +1,6 @@
+{
+    "mainImage": "[data-testid='mainImage']",
+    "signInBtn": "[data-testid='signInBtn']",
+    "signUpBtn": "[data-testid='signUpBtn']"
+}
+  

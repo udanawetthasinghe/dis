@@ -34,7 +34,11 @@ const LoginScreen = () => {
       dispatch(setCredentials({ ...res }));
       navigate('/');
     } catch (err) {
-      toast.error(err?.data?.message || err.error);
+      toast.error(
+        <div data-testid="errorPopup">
+        {err?.data?.message || err.error}
+      </div>
+       );
     }
   };
 
@@ -46,6 +50,7 @@ const LoginScreen = () => {
         <Form.Group className='my-2' controlId='email'>
           <Form.Label>Email Address</Form.Label>
           <Form.Control
+            data-testid="email"
             type='email'
             placeholder='Enter email'
             value={email}
@@ -56,6 +61,7 @@ const LoginScreen = () => {
         <Form.Group className='my-2' controlId='password'>
           <Form.Label>Password</Form.Label>
           <Form.Control
+            data-testid="password"
             type='password'
             placeholder='Enter password'
             value={password}
@@ -65,6 +71,7 @@ const LoginScreen = () => {
 
         <Button
           disabled={isLoading}
+          data-testid="submitSigninBtn"
           type='submit'
           variant='primary'
           className='mt-3'
