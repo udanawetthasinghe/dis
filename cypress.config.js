@@ -1,6 +1,8 @@
 import { defineConfig } from "cypress";
 import dotenv from "dotenv";
 import { MongoClient } from "mongodb";
+import { allureCypress } from "allure-cypress/reporter";
+
 
 // Load .env file
 dotenv.config();
@@ -12,6 +14,9 @@ export default defineConfig({
       MONGO_URI: process.env.MONGO_URI,
     },
     setupNodeEvents(on, config) {
+      allureCypress(on, config, {
+        resultsDir: "allure-results",
+      });
       on("task", {
         async deleteTestUsers() {
           if (!config.env.MONGO_URI) {
