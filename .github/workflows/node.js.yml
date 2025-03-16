@@ -2,9 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "add-cypress-scripts" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "add-cypress-scripts" ]
 
 jobs:
   build:
