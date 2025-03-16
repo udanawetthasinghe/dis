@@ -12,6 +12,8 @@ import dngRoutes from './routes/dengueDataRoutes.js';
 import monthRoutes from "./routes/monthRoutes.js";
 import graphsRoutes from './routes/graphsRoutes.js';
 import userGraphsRoutes from './routes/userGraphsRoutes.js';
+import weeklyDngDataRoutes from './routes/weeklyDngDataRoutes.js';
+
 // Import your routes
 
 // Select the server running port
@@ -29,8 +31,8 @@ app.use(express.urlencoded({ extended: true }));
 // CORS Middleware
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:3000',  // Replace with your actual frontend URL if different
-  credentials: true,                // Allow cookies (e.g., your JWT) to be sent/received
+  origin: 'http://localhost:3000',  
+  credentials: true,                // Allow cookies (e.g.,  JWT) to be sent/received
 }));
 
 
@@ -46,6 +48,7 @@ app.use('/api/dngData', dngRoutes);
 app.use('/api/months', monthRoutes);
 app.use('/api/graphs', graphsRoutes);
 app.use('/api/usergraphs',userGraphsRoutes);
+app.use('/api/weeklyDngData', weeklyDngDataRoutes);
 
 
 

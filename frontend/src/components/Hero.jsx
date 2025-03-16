@@ -7,7 +7,7 @@ const Hero = () => {
       <Container className="d-flex justify-content-center">
         <Card className="p-5 d-flex flex-column align-items-center hero-card bg-light w-75">
           <h1 className="text-center mb-4">
-            Pro - Active Dengue Management System
+            Dengue Information System
           </h1>
           <img
             src={mainImage}
@@ -18,7 +18,7 @@ const Hero = () => {
           <p className="text-center mb-4">
             we introduce a multi-platform, centralized proactive management
             system to manage dengue controlling activities in Sri Lanka. The
-            system make common platform (ProDMS) for all sectors who contribute
+            system make common platform (DIS) for all sectors who contribute
             their services for mitigating dengue. We mainly focused to the
             special feature of the system which enhance the centralized
             property. Cross platform environment was developed under this
@@ -28,8 +28,7 @@ const Hero = () => {
             graphs through the web system
           </p>
           <p className="text-center mb-4">
-            Here you can add some additional text to provide more information
-            about your project or any other relevant details.
+for more
           </p>
           <div className="d-flex">
           
