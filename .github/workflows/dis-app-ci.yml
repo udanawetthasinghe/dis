@@ -7,7 +7,7 @@ on:
     branches: [ "main", "add-cypress-scripts" ]
 
 jobs:
-  build dis app:
+  build_dis_app:
     runs-on: ubuntu-latest
 
     steps:
