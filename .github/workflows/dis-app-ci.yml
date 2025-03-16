@@ -32,7 +32,9 @@ jobs:
 
     - name: Build and tag Docker image
       run: |
-        docker build . -t ghcr.io/nishan-silva/dis-app:latest -t ghcr.io/nishan-silva/dis-app:${{ github.sha }}
+        docker build . \
+          -t ghcr.io/nishan-silva/dis-app:latest \
+          -t ghcr.io/nishan-silva/dis-app:${{ github.sha }}
 
     - name: Push Docker image
       run: |
