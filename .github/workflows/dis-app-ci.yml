@@ -8,7 +8,8 @@ on:
 
 jobs:
   build:
-    container: node:20  # Use the official Node.js 20 Docker image
+    runs-on: ubuntu-latest  # ✅ REQUIRED
+    container: node:20  # ✅ Run inside the Node.js 20 Docker image
 
     steps:
     - name: Checkout repository
