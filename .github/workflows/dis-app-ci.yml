@@ -1,4 +1,4 @@
-name: Dis App CI
+name: DIS App CI/CD
 
 on:
   push:
