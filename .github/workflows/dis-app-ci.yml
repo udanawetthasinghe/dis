@@ -2,9 +2,9 @@ name: DIS App CI/CD
 
 on:
   push:
-    branches: [ "main", "adding-docker-compose-file" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "adding-docker-compose-file" ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
