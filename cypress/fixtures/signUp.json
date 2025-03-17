@@ -1,0 +1,10 @@
+{
+    "nameGeneralUser": "Cypress General User",
+    "emailGeneralUser": "cypress.general@test.fi",
+    "passwordGeneralUser": "cypressGeneral@1",
+    "confirmPasswordGeneralUser": "cypressGeneral@1",
+    "nameResearcherUser": "Cypress Researcher User",
+    "emailResearcherUser": "cypress.researcher@test.fi",
+    "passwordResearcherUser": "cypressResearcher@1",
+    "confirmPasswordResearcherUser": "cypressResearcher@1"
+  }
