@@ -7,41 +7,7 @@ on:
     branches: [ "main", "adding-cypress-to-ci-file" ]
   workflow_dispatch:
 
-jobs:
-  # build_dis_app:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #   - name: Checkout repository
-  #     uses: actions/checkout@v4
-
-  #   - name: Set up Node.js
-  #     uses: actions/setup-node@v4
-  #     with:
-  #       node-version: 20
-  #       cache: 'npm'
-
-  #   - name: Install dependencies
-  #     run: npm ci
-
-  #   - name: Log in to GitHub Container Registry
-  #     uses: docker/login-action@v3
-  #     with:
-  #       registry: ghcr.io
-  #       username: ${{ secrets.GHCR_USERNAME }}
-  #       password: ${{ secrets.GHCR_TOKEN }}
-
-  #   - name: Build and tag Docker image
-  #     run: |
-  #       docker build . \
-  #         -t ghcr.io/nishan-silva/dis-app:latest \
-  #         -t ghcr.io/nishan-silva/dis-app:${{ github.sha }}
-
-  #   - name: Push Docker image
-  #     run: |
-  #       docker push ghcr.io/nishan-silva/dis-app:latest
-  #       docker push ghcr.io/nishan-silva/dis-app:${{ github.sha }}
-        
+jobs:   
  end-to-end-test:
     runs-on: ubuntu-latest
     container:
