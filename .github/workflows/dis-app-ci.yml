@@ -55,9 +55,12 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Print Secret (DO NOT USE!)
+        run: echo "DIS_BASE_URL=$DIS_BASE_URL"
+
       - name: Run Cypress End-to-End Tests
         run: |
           echo "Running Cypress E2E tests..."
-          npx cypress run --spec "cypress/e2e/**/*.cy.js"
+          npx cypress run
 
       
