@@ -26,7 +26,7 @@ describe('User sign-in functionality', () => {
 
     //Assertion
     signInPageActions.assertPopupMessage('Invalid email or password');
-  })
+  });
 
   it('should general user sign in successfully with valid credentials', () => {
     cy.visit('/');
@@ -39,7 +39,7 @@ describe('User sign-in functionality', () => {
 
     //Assertion
     signInPageActions.assertSiginSuccess(signUpData.nameGeneralUser);
-  })
+  });
 
   it('should display an error message when signing in with not activated resercher user', () => {
     cy.visit('/');
@@ -52,8 +52,9 @@ describe('User sign-in functionality', () => {
 
     //Assertion
     signInPageActions.assertPopupMessage('Still your account is not activated');
-  })
+  });
+
 after(() => {
   cy.deleteTestUsers(); // Calls the custom command to delete test users
-  })
+  });
 });
