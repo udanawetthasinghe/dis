@@ -48,9 +48,13 @@ jobs:
       image: cypress/included:11.0.0
     env:
       DIS_BASE_URL: ${{ secrets.DIS_BASE_URL }}  # Load environment variable from GitHub Secrets
+      CYPRESS_CACHE_FOLDER: /tmp/.cache
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+
+      - name: Set Correct Permissions for Cypress Cache
+        run: mkdir -p /tmp/.cache && chmod -R 777 /tmp/.cache
 
       - name: Print Secret (DO NOT USE!)
         run: echo "DIS_BASE_URL=$DIS_BASE_URL"
