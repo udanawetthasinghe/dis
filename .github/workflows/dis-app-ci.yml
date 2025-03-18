@@ -66,3 +66,12 @@ jobs:
           name: cypress-results
           path: cypress/screenshots/
           retention-days: 5
+      - name: Upload Cypress Test Results
+        if: success() || failure()  # Ensures this step runs even if tests fail
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-results
+          path: |
+            cypress/screenshots/
+            cypress/videos/
+          retention-days: 5
