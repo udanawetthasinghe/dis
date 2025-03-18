@@ -47,7 +47,7 @@ jobs:
     container:
       image: cypress/included:11.0.0
     env:
-      DIS_BASE_URL: ${{ secrets.DIS_BASE_URL }}  # Load environment variable from GitHub Secrets
+      DIS_BASE_URL: ${{ secrets.DIS_BASE_URL }}
       CYPRESS_CACHE_FOLDER: /tmp/.cache
     steps:
       - name: Checkout Repository
@@ -55,9 +55,6 @@ jobs:
 
       - name: Set Correct Permissions for Cypress Cache
         run: mkdir -p /tmp/.cache && chmod -R 777 /tmp/.cache
-
-      - name: Print Secret (DO NOT USE!)
-        run: echo "DIS_BASE_URL=$DIS_BASE_URL"
 
       - name: Install Dependencies
         run: npm install
@@ -67,4 +64,10 @@ jobs:
           echo "Running Cypress E2E tests..."
           npx cypress run
 
+      - name: Upload Allure Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results
+          path: allure-results
+          retention-days: 7
       
