@@ -9,7 +9,7 @@ dotenv.config();
 
 export default defineConfig({
   e2e: {
-    baseUrl: process.env.BASE_URL,
+    baseUrl: process.env.DIS_BASE_URL,
     env: {
       MONGO_URI: process.env.MONGO_URI,
     },
