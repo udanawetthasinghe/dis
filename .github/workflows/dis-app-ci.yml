@@ -7,13 +7,47 @@ on:
     branches: [ "main", "adding-cypress-to-ci-file" ]
   workflow_dispatch:
 
-jobs:   
- end-to-end-test:
+jobs:
+  # build_dis_app:
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4
+
+  #   - name: Set up Node.js
+  #     uses: actions/setup-node@v4
+  #     with:
+  #       node-version: 20
+  #       cache: 'npm'
+
+  #   - name: Install dependencies
+  #     run: npm ci
+
+  #   - name: Log in to GitHub Container Registry
+  #     uses: docker/login-action@v3
+  #     with:
+  #       registry: ghcr.io
+  #       username: ${{ secrets.GHCR_USERNAME }}
+  #       password: ${{ secrets.GHCR_TOKEN }}
+
+  #   - name: Build and tag Docker image
+  #     run: |
+  #       docker build . \
+  #         -t ghcr.io/nishan-silva/dis-app:latest \
+  #         -t ghcr.io/nishan-silva/dis-app:${{ github.sha }}
+
+  #   - name: Push Docker image
+  #     run: |
+  #       docker push ghcr.io/nishan-silva/dis-app:latest
+  #       docker push ghcr.io/nishan-silva/dis-app:${{ github.sha }}
+        
+   end-to-end-test:
     runs-on: ubuntu-latest
     container:
       image: cypress/included:11.0.0
     env:
-      DIS_BASE_URL: ${{ secrets.DIS_BASE_URL }}
+      DIS_BASE_URL: ${{ secrets.DIS_BASE_URL }}  # Load environment variable from GitHub Secrets
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -21,66 +55,14 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run Cypress Tests
-        run: npx cypress run
-
-      - name: Move Allure Reports
+      - name: Run Cypress End-to-End Tests
         run: |
-          mkdir -p allure-results
-          mv allure-results allure-results/cypress
+          echo "Running Cypress E2E tests..."
+          npx cypress run --spec "cypress/e2e/**/*.cy.js"
 
       - name: Upload Cypress Test Results
-        uses: actions/upload-artifact@v3  # ✅ Explicit version usage
+        uses: actions/upload-artifact@v3
         with:
-          name: allure-results
-          path: allure-results/
-          retention-days: 5
-
- allure-report:
-    runs-on: ubuntu-latest
-    needs: end-to-end-test
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Download Cypress Test Results
-        uses: actions/download-artifact@v3  # ✅ Explicit version usage
-        with:
-          name: allure-results
-          path: allure-results/
-
-      - name: Install Allure CLI
-        run: npm install -g allure-commandline
-
-      - name: Generate Allure Report
-        run: allure generate allure-results --output allure-report
-
-      - name: Upload Allure Report
-        uses: actions/upload-artifact@v3  # ✅ Explicit version usage
-        with:
-          name: allure-report
-          path: allure-report/
-          retention-days: 5
-
- report:
-    runs-on: ubuntu-latest
-    needs: allure-report
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Download Allure Report
-        uses: actions/download-artifact@v3  # ✅ Explicit version usage
-        with:
-          name: allure-report
-          path: public/
-
-      - name: List Report Files
-        run: ls -lh public/
-
-      - name: Upload Final Report as Artifact
-        uses: actions/upload-artifact@v3  # ✅ Explicit version usage
-        with:
-          name: final-report
-          path: public/
+          name: cypress-results
+          path: cypress/screenshots/
           retention-days: 5
