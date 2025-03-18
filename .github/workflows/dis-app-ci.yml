@@ -52,11 +52,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Install Dependencies
-        run: npm install
-
       - name: Print Secret (DO NOT USE!)
         run: echo "DIS_BASE_URL=$DIS_BASE_URL"
+
+      - name: Install Dependencies
+        run: npm install
 
       - name: Run Cypress End-to-End Tests
         run: |
