@@ -60,9 +60,4 @@ jobs:
           echo "Running Cypress E2E tests..."
           npx cypress run --spec "cypress/e2e/**/*.cy.js"
 
-      - name: Upload Cypress Test Results
-        uses: actions/upload-artifact@v3
-        with:
-          name: cypress-results
-          path: cypress/screenshots/
-          retention-days: 5
+      
