@@ -53,7 +53,7 @@ describe('User sign-in functionality', () => {
     //Assertion
     signInPageActions.assertPopupMessage('Still your account is not activated');
   })
-  after(() => {
-    cy.deleteTestUsers(); // Calls the custom command to delete test users
-  });
-})
+after(() => {
+  cy.deleteTestUsers(); // Calls the custom command to delete test users
+  })
+});
