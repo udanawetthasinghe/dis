@@ -8,6 +8,7 @@ import { allureCypress } from "allure-cypress/reporter";
 dotenv.config();
 
 export default defineConfig({
+  screenshotOnRunFailure: false,
   e2e: {
     baseUrl: process.env.DIS_BASE_URL,
     env: {
