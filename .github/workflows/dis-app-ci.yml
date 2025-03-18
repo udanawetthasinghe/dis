@@ -47,7 +47,6 @@ jobs:
     container:
       image: cypress/included:11.0.0
     env:
-      DIS_BASE_URL: ${{ secrets.DIS_BASE_URL }}
       CYPRESS_CACHE_FOLDER: /tmp/.cache
     steps:
       - name: Checkout Repository
