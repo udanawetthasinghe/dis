@@ -43,7 +43,9 @@ jobs:
   #       docker push ghcr.io/nishan-silva/dis-app:${{ github.sha }}
         
    end-to-end-test:
-    runs-on: cypress/included:11.0.0
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/included:11.0.0
     env:
       DIS_BASE_URL: ${{ secrets.DIS_BASE_URL }}
       MONGO_URI: ${{ secrets.MONGO_URI }}
