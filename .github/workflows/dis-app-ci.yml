@@ -32,13 +32,13 @@ jobs:
     - name: Build and tag Docker image
       run: |
         docker build . \
-          -t ghcr.io/nishan-silva/dis-app:latest \
-          -t ghcr.io/nishan-silva/dis-app:${{ github.sha }}
+          -t ghcr.io/udanawetthasinghe/dis-app:latest \
+          -t ghcr.io/udanawetthasinghe/dis-app:${{ github.sha }}
 
     - name: Push Docker image
       run: |
-        docker push ghcr.io/nishan-silva/dis-app:latest
-        docker push ghcr.io/nishan-silva/dis-app:${{ github.sha }}
+        docker push ghcr.io/udanawetthasinghe/dis-app:latest
+        docker push ghcr.io/udanawetthasinghe/dis-app:${{ github.sha }}
         
   end-to-end-test:
     runs-on: ubuntu-latest
