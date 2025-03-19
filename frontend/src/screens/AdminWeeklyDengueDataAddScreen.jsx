@@ -142,6 +142,28 @@ const dropdownRef = useRef(null);
     reader.readAsText(file);
   };
 
+
+// Validate each record from the JSON file upload
+const validateRecord = (record, index) => {
+  let errorMessage = "";
+  if (!record.year || isNaN(record.year)) {
+    errorMessage += `Record ${index + 1}: Year must be a valid number. `;
+  }
+  if (!record.week || isNaN(record.week)) {
+    errorMessage += `Record ${index + 1}: Week must be a valid number. `;
+  }
+  if (!record.district || !record.district.trim()) {
+    errorMessage += `Record ${index + 1}: District is required. `;
+  }
+  if (record.dengueCases === undefined || isNaN(record.dengueCases)) {
+    errorMessage += `Record ${index + 1}: Dengue cases must be a valid number. `;
+  }
+  return errorMessage;
+};
+
+
+
+
   const uploadJsonHandler = async () => {
     if (!fileData) {
       toast.error("Please select a valid JSON file first");
@@ -151,8 +173,26 @@ const dropdownRef = useRef(null);
     // fileData should be an array of objects, each with: { year, week, districtName, dengueCases }
     // Convert districtName to districtId for each record
     let records = Array.isArray(fileData) ? fileData : [fileData];
+
+    // Validate each record before proceeding
+    for (let i = 0; i < records.length; i++) {
+      const validationError = validateRecord(records[i], i);
+      if (validationError) {
+        toast.error(validationError);
+        return;
+      }
+    }
+
+
+    // Convert district (name) to districtId for each record
+
     records = records.map((item) => {
-      const distId = getDistrictIdByName(item.district);
+        const distId = getDistrictIdByName(item.district);
+        if (!distId) {
+          toast.error("Please add valid district names");
+          return;
+        }
+    
       return {
         year: Number(item.year),
         week: Number(item.week),

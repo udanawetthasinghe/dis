@@ -138,7 +138,7 @@ const [updateUserState] = useUpdateUserDataMutation();
                   <Button
                     variant="danger"
                     className="btn-sm"
-                    onClick={() => activateHandler(users._id)}
+                    onClick={() => deleteHandler(users._id)}
                   >
                     <FaTrash /> REMOVE
                   </Button>
