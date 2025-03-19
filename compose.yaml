@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  dis-app:
+    image: ghcr.io/nishan-silva/dis-app:latest
+    container_name: dis-app
+    restart: always
+    ports:
+      - "3000:3000"
+      - "5000:5000"
+    env_file:
+      - .env
