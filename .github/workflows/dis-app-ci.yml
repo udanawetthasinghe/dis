@@ -2,9 +2,9 @@ name: DIS App CI/CD
 
 on:
   push:
-    branches: [ "main", "add-cypress-scripts" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "add-cypress-scripts" ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
