@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   dis-app:
-    image: ghcr.io/nishan-silva/dis-app:latest
+    image: ghcr.io/udanawetthasinghe/dis-app:latest
     container_name: dis-app
     restart: always
     ports:
