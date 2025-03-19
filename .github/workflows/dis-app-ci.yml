@@ -1,10 +1,8 @@
 name: DIS App CI/CD
 
 on:
-  push:
-    branches: [ "main", "add-cypress-scripts" ]
-  pull_request:
-    branches: [ "main", "add-cypress-scripts" ]
+  schedule:
+    - cron: "00 00 * * *"
   workflow_dispatch:
 
 jobs:
@@ -34,10 +32,72 @@ jobs:
     - name: Build and tag Docker image
       run: |
         docker build . \
-          -t ghcr.io/nishan-silva/dis-app:latest \
-          -t ghcr.io/nishan-silva/dis-app:${{ github.sha }}
+          -t ghcr.io/udanawetthasinghe/dis-app:latest \
+          -t ghcr.io/udanawetthasinghe/dis-app:${{ github.sha }}
 
     - name: Push Docker image
       run: |
-        docker push ghcr.io/nishan-silva/dis-app:latest
-        docker push ghcr.io/nishan-silva/dis-app:${{ github.sha }}
+        docker push ghcr.io/udanawetthasinghe/dis-app:latest
+        docker push ghcr.io/udanawetthasinghe/dis-app:${{ github.sha }}
+        
+  end-to-end-test:
+    runs-on: ubuntu-latest
+    needs: build_dis_app
+    container:
+      image: cypress/included:11.0.0
+    env:
+      DIS_BASE_URL: ${{ secrets.DIS_BASE_URL }}
+      MONGO_URI: ${{ secrets.MONGO_URI }}
+      CYPRESS_CACHE_FOLDER: /tmp/.cache
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Correct Permissions for Cypress Cache
+        run: mkdir -p /tmp/.cache && chmod -R 777 /tmp/.cache
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Cypress End-to-End Tests
+        run: |
+          echo "Running Cypress E2E tests..."
+          npx cypress run
+
+      - name: Upload Allure Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
+          retention-days: 7
+
+  allure-report:
+    runs-on: ubuntu-latest
+    needs: end-to-end-test
+    if: always()
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Install Rsync (Required for Deployment)
+      run: sudo apt-get update && sudo apt-get install -y rsync
+
+    - name: Download Allure Results
+      uses: actions/download-artifact@v4
+      with:
+        name: allure-results
+        path: allure-results
+
+    - name: Install Allure Commandline
+      run: npm install -g allure-commandline
+
+    - name: Generate Allure Report
+      run: allure generate allure-results --clean -o allure-report
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        folder: allure-report
+        clean: true
