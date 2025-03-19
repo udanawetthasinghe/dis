@@ -76,8 +76,6 @@ jobs:
    allure-report:
     runs-on: ubuntu-latest
     needs: end-to-end-test # This ensures it runs after the Cypress test job
-    container:
-     image: timbru31/java-node:11-jre-18
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
