@@ -2,7 +2,7 @@ name: DIS App CI/CD
 
 on:
   schedule:
-    - cron: "35 16 * * *"
+    - cron: "00 00 * * *"
   workflow_dispatch:
 
 jobs:
