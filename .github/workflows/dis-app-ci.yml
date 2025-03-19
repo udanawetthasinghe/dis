@@ -43,7 +43,6 @@ jobs:
   #       docker push ghcr.io/nishan-silva/dis-app:${{ github.sha }}
         
    end-to-end-test:
-    runs-on: ubuntu-latest
     container:
       image: cypress/included:11.0.0
     env:
