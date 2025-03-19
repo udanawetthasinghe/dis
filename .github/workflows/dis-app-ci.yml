@@ -72,4 +72,31 @@ jobs:
           name: allure-results
           path: allure-results
           retention-days: 7
-      
+
+   allure-report:
+    runs-on: ubuntu-latest
+    needs: end-to-end-test # This ensures it runs after the Cypress test job
+    container:
+     image: timbru31/java-node:11-jre-18
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Download Allure Results
+      uses: actions/download-artifact@v4
+      with:
+        name: allure-results
+        path: allure-results
+
+    - name: Install Allure Commandline
+      run: npm install -g allure-commandline
+
+    - name: Generate Allure Report
+      run: allure generate allure-results --clean -o allure-report
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        folder: allure-report
+        clean: true
