@@ -45,6 +45,9 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
+      <Route path="/activated-user-graphs" element={<ActivatedUserGraphsScreen />} />
+
+
       <Route path="" element={<PrivateRoute />}>
         {" "}
         {/*Only allow for the logged users */}
@@ -80,7 +83,6 @@ const router = createBrowserRouter(
         {/* NEW: User Graphs routes */}
         <Route path="/admin/usergraphs" element={<AdminUserGraphsScreen />} />
         <Route path="/admin/usergraphs/create" element={<AdminCreateUserGraphScreen />} />
-        <Route path="/admin/activated-user-graphs" element={<ActivatedUserGraphsScreen />} />
       </Route>
     </Route>
   )

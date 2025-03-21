@@ -24,10 +24,10 @@ const AdminSideMenu = () => {
         <Nav.Item>
           <Nav.Link disabled>Dengue Data</Nav.Link>
           <Nav className="flex-column ms-3">
-            <LinkContainer to="/admin/dengueData">
+            <LinkContainer to="/admin/weeklyDengueData">
               <Nav.Link>All Dengue Data</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/admin/dengueData/add">
+            <LinkContainer to="/admin/weeklyDengueData/add">
               <Nav.Link>Add Dengue Data</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/admin/dengueData/update">
@@ -47,6 +47,9 @@ const AdminSideMenu = () => {
             </LinkContainer>
             <LinkContainer to="/admin/usergraphs">
               <Nav.Link>Users Graphs</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/activated-user-graphs">
+              <Nav.Link>Activated Graphs</Nav.Link>
             </LinkContainer>
           </Nav>
         </Nav.Item>

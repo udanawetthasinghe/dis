@@ -31,13 +31,13 @@ const Header = () => {
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
-        <LinkContainer to="/">
+          <LinkContainer to="/">
             <Navbar.Brand>
               <Container fluid className="mt-3">
                 <Row className="align-items-center">
                   <Col>
                     <LogoSVG style={{ width: "110px" }} />
-                      Dengue Information System
+                    Dengue Information System
                   </Col>
                 </Row>
               </Container>
@@ -46,9 +46,19 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
+            <LinkContainer to="/activated-user-graphs">
+                <Nav.Link> Insights</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/activated-user-graphs">
+                <Nav.Link> Forecasts</Nav.Link>
+              </LinkContainer>
               {userInfo ? (
                 <>
-                  <NavDropdown data-testid="userNameDropDown" title={userInfo.name} id="username">
+                  <NavDropdown
+                    data-testid="userNameDropDown"
+                    title={userInfo.name}
+                    id="username"
+                  >
                     <LinkContainer to="/profile">
                       <NavDropdown.Item>Profile</NavDropdown.Item>
                     </LinkContainer>
