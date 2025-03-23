@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
+import { MapContainer, GeoJSON } from 'react-leaflet';
 import dengueData from '../config/dengue-data.json';
 import sriDistricts from '../config/sri‑lanka‑districts.json'
+import { districts, getDistrictNameById } from "../config/config";
 
 const DistrictMap = () => {
   const [selected, setSelected] = useState(null);
@@ -18,28 +19,35 @@ const DistrictMap = () => {
     fillColor: getColor(dengueData[properties.id] || 0),
     weight: 1,
     color: '#fff',
-    fillOpacity: 0.7,
+    fillOpacity:1,
   });
   const onEachFeature = (feature, layer) => {
-    layer.on('click', () => {
-      const { id, name } = feature.properties;
-      setSelected({ id, name, cases: dengueData[id]});
-    });
+
+    const {id} = feature.properties;
+    const dstName=districts[id];
+    const cases = dengueData[id] || 0;
+
+    layer.bindTooltip(dstName, { sticky: true, direction: 'auto' });
+    layer.on('click', () => setSelected({ id, dstName, cases }));
+    layer.on('mouseover', () => layer.setStyle({ fillOpacity: 0.7 }));
+    layer.on('mouseout', () => layer.setStyle(style(feature)));
+
+  
   };
 
   return (
-    <div className="flex">
+    <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
       <MapContainer
         center={[7.8731, 80.7718]}
         zoom={7.5}
-        style={{ height: '410px', width: '70%' }}
+        scrollWheelZoom={false}
+        style={{ height: '780px', width: '48%', backgroundColor: '#fff'  }}
       >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <GeoJSON data={sriDistricts} style={style} onEachFeature={onEachFeature} />
       </MapContainer>
-      <div style={{ padding: '1rem', width: '30%' }}>
+      <div style={{ padding: '1rem', width: '52%' }}>
         {selected
-          ? <><h3>{selected.name} ({selected.id})</h3><p>Dengue cases: {selected.cases}</p></>
+          ? <><h3>{selected.dstName} ({selected.id})</h3><p>Dengue cases: {selected.cases}</p></>
           : <p>Click a district for details</p>}
       </div>
     </div>

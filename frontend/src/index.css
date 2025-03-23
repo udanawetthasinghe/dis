@@ -1,0 +1,5 @@
+/* Turn off SVG focus outline for Leaflet polygons */
+.leaflet-container .leaflet-interactive:focus {
+    outline: none !important;
+  }
+  
