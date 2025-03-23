@@ -6,6 +6,8 @@ import Heatmap from '../components/Heatmap';
 import DengueCasesChart from '../components/DengueCasesChart';
 import AdminGraphSamples from '../components/AdminGraphSamples'; // Reusable component for sample JSON examples
 import { useGetDngDataQuery } from '../slices/dngDataApiSlice';
+import DistrictMap from '../components/DistrictMap';
+
 import { districts } from '../config/config';
 
 const AdminDashboardScreen = () => {
@@ -75,6 +77,22 @@ const AdminDashboardScreen = () => {
               </Card>
             </Col>
           </Row>
+
+          {/* Row with Sample Graph Data Formats */}
+          <Row>
+            <Col>
+              <Card className="mb-3">
+                <Card.Body>
+                <div>
+      <h1>Dengue Heatmap</h1>
+      <DistrictMap />
+    </div>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+
+
         </Col>
       </Row>
     </Container>
