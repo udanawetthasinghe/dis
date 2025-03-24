@@ -684,7 +684,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK53", 
+        "id": "LK-53", 
         "name": "Trikuṇāmalaya"
       }, 
       "id": 1
@@ -1296,7 +1296,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK45", 
+        "id": "LK-45", 
         "name": "Mulativ"
       }, 
       "id": 2
@@ -1938,7 +1938,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK41", 
+        "id": "LK-41", 
         "name": "Yāpanaya"
       }, 
       "id": 3
@@ -2352,7 +2352,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK42", 
+        "id": "LK-42", 
         "name": "Kilinŏchchi"
       }, 
       "id": 4
@@ -2798,7 +2798,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK43", 
+        "id": "LK-43", 
         "name": "Mannārama"
       }, 
       "id": 5
@@ -3538,7 +3538,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK62", 
+        "id": "LK-62", 
         "name": "Puttalama"
       }, 
       "id": 6
@@ -3902,7 +3902,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK12", 
+        "id": "LK-12", 
         "name": "Gampaha"
       }, 
       "id": 7
@@ -4158,7 +4158,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK11", 
+        "id": "LK-11", 
         "name": "Kŏḷamba"
       }, 
       "id": 8
@@ -4478,7 +4478,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK13", 
+        "id": "LK-13", 
         "name": "Kaḷutara"
       }, 
       "id": 9
@@ -4954,7 +4954,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK31", 
+        "id": "LK-31", 
         "name": "Gālla"
       }, 
       "id": 10
@@ -5382,7 +5382,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK32", 
+        "id": "LK-32", 
         "name": "Mātara"
       }, 
       "id": 11
@@ -5906,7 +5906,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK33", 
+        "id": "LK-33", 
         "name": "Hambantŏṭa"
       }, 
       "id": 12
@@ -6598,7 +6598,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK52", 
+        "id": "LK-52", 
         "name": "Ampāra"
       }, 
       "id": 13
@@ -7428,7 +7428,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK51", 
+        "id": "LK-51", 
         "name": "Maḍakalapuva"
       }, 
       "id": 14
@@ -7908,7 +7908,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK91", 
+        "id": "LK-91", 
         "name": "Ratnapura"
       }, 
       "id": 15
@@ -8656,7 +8656,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK82", 
+        "id": "LK-82", 
         "name": "Mŏṇarāgala"
       }, 
       "id": 16
@@ -9028,7 +9028,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK92", 
+        "id": "LK-92", 
         "name": "Kægalla"
       }, 
       "id": 17
@@ -9660,7 +9660,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK81", 
+        "id": "LK-81", 
         "name": "Badulla"
       }, 
       "id": 18
@@ -10096,7 +10096,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK22", 
+        "id": "LK-22", 
         "name": "Mātale"
       }, 
       "id": 19
@@ -10524,7 +10524,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK72", 
+        "id": "LK-72", 
         "name": "Pŏḷŏnnaruva"
       }, 
       "id": 20
@@ -11148,7 +11148,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK61", 
+        "id": "LK-61", 
         "name": "Kuruṇægala"
       }, 
       "id": 21
@@ -11744,7 +11744,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK71", 
+        "id": "LK-71", 
         "name": "Anurādhapura"
       }, 
       "id": 22
@@ -12124,7 +12124,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK23", 
+        "id": "LK-23", 
         "name": "Nuvara Ĕliya"
       }, 
       "id": 23
@@ -12472,7 +12472,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK44", 
+        "id": "LK-44", 
         "name": "Vavuniyāva"
       }, 
       "id": 24
@@ -12864,7 +12864,7 @@
       "type": "Feature", 
       "properties": {
         "source": "https://simplemaps.com", 
-        "id": "LK21", 
+        "id": "LK-21", 
         "name": "Mahanuvara"
       }, 
       "id": 25
