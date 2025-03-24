@@ -24,6 +24,23 @@ export const WeeklyDngDataApiSlice = apiSlice.injectEndpoints({
     providesTags: ['WeeklyDengueData'],
   }),
 
+
+    // Get request, year list of dengue data
+    getYears: builder.query({
+      query: () => ({
+        url: `${WEEKLYDNGDATA_URL}/years`,
+      }),
+      providesTags: ['WeeklyDengueData'],
+    }),
+
+    // Get request, weekly data according to a year
+    getWeeklyByYear: builder.query({
+      query: year => ({
+        url: `${WEEKLYDNGDATA_URL}/weekly?year=${year}`,
+      }),
+      providesTags: ['WeeklyDengueData'],
+    }),
+
     // Add data, POST request
     createWeeklyDngCases: builder.mutation({
       query: data => ({
@@ -66,5 +83,6 @@ export const {
   useUpdateWeeklyDngCasesMutation,
   useCreateWeeklyDngCasesMutation,
   useDeleteWeeklyDngCasesMutation,
-  
+  useGetYearsQuery,
+  useGetWeeklyByYearQuery
 } = WeeklyDngDataApiSlice;

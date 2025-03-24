@@ -27,6 +27,36 @@ export const getSingleWeeklyDngData = asyncHandler(async (req, res) => {
   res.status(200).json(record);
 });
 
+
+
+//@desc     returns an array of distinct years
+//@route    GET /api/weeklyDngData/years
+//@access  Public
+
+export const getYears = asyncHandler(async (req, res) => {
+  const years = await weeklyDengueData.distinct('year');
+  res.status(200).json(years.sort((a, b) => b - a));
+});
+
+//@desc     returns all weekly records for that year
+//@route    GET /api/weeklyDngData/years
+//@access  Public
+
+export const getWeeklyByYear = asyncHandler(async (req, res) => {
+  const year = parseInt(req.query.year, 10);
+  if (!year) {
+    res.status(400);
+    throw new Error('Missing required query param: year');
+  }
+  const records = await weeklyDengueData
+    .find({ year })
+    .select('districtId dengueCases week -_id')
+    .lean();
+    res.status(200).json(records);
+});
+
+
+
 //@desc     Create new weekly dengue data record(s)
 //@route    POST /api/weeklyDngData
 //@access  Admin only
