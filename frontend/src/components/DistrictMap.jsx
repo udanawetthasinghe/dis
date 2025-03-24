@@ -7,8 +7,18 @@ import dengueData from '../config/dengue-data.json';
 import sriDistricts from '../config/sri‑lanka‑districts.json'
 import { districts } from "../config/config";
 import { useGetYearsQuery, useGetWeeklyByYearQuery } from '../slices/weeklyDngDataApiSlice';
+import Legend from './Legend';
+
+///////////////////////////// download map
+
+import { toPng } from 'html-to-image';
+import download from 'downloadjs';
+import { Button } from 'react-bootstrap';
+import { useRef } from 'react';
 
 const DistrictMap = () => {
+
+  const mapRef = useRef(null);
 
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState(null);
@@ -41,15 +51,31 @@ const DistrictMap = () => {
     setSelectedDistrict(null);
   }, [selectedYear]);
 
+  // Compute median and sub-range thresholds
+  const { subRange, grades, getColor } = useMemo(() => {
+    const totals = Object.values(yearTotals).sort((a, b) => a - b);
+    if (!totals.length) return { subRange: 0, grades: [], getColor: () => '#FFEDA0' };
 
-  const getColor = cases =>
-    cases > 400 ? '#800026'
-    : cases > 300 ? '#BD0026'
-    : cases > 200 ? '#E31A1C'
-    : cases > 100 ? '#FC4E2A'
-    : cases > 50  ? '#FD8D3C'
-    : cases > 0   ? '#FEB24C'
-    : '#FFEDA0';
+    const mid = totals.length % 2
+      ? totals[(totals.length - 1) / 2]
+      : (totals[totals.length / 2 - 1] + totals[totals.length / 2]) / 2;
+    const sr = Math.max(Math.floor(mid / 3), 1);
+// Now include 6×sr as the top threshold
+const thresholds = [0, sr, sr * 2, sr * 3, sr * 4, sr * 5, sr * 6];
+
+const colorFn = (cases) =>
+  cases > thresholds[6] ? '#800026'
+    : cases > thresholds[5] ? '#BD0026'
+    : cases > thresholds[4] ? '#E31A1C'
+    : cases > thresholds[3] ? '#FC4E2A'
+    : cases > thresholds[2] ? '#FD8D3C'
+    : cases > thresholds[1] ? '#FEB24C'
+    : cases > 0            ? '#FFEDA5'
+    : '#FFEDA0'; // or whatever you want for zero
+
+
+    return { subRange: sr, grades: thresholds, getColor: colorFn };
+  }, [yearTotals]);
 
 
 // Style generator (always uses the latest yearTotals)
@@ -64,8 +90,14 @@ const styleFn = (feature) => {
 };
 
 
-console.log(yearTotals["LK-11"]);
-
+const exportMap = () => {
+  if (!mapRef.current) return;
+  toPng(mapRef.current, { cacheBust: true, backgroundColor: '#fff' })
+    .then((dataUrl) => {
+      download(dataUrl, `SriLanka_Dengue_${selectedYear}.png`, 'image/png');
+    })
+    .catch((err) => console.error('Export failed:', err));
+};
 
 
 
@@ -86,6 +118,9 @@ console.log(yearTotals["LK-11"]);
             ))}
           </Form.Select>
         </Col>
+        <Col md={3}>
+    <Button onClick={exportMap} disabled={loadingData}>Export Map as PNG</Button>
+  </Col>
 </Row>
 
 
@@ -94,8 +129,7 @@ console.log(yearTotals["LK-11"]);
 
 
 
-
-    <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+    <div ref={mapRef} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
       <MapContainer
         center={[7.8731, 80.7718]}
         zoom={7.5}
@@ -113,22 +147,28 @@ console.log(yearTotals["LK-11"]);
       const cases = yearTotals[id] ?? 0;
 
       layer.bindTooltip(name, { sticky: true });
-      layer.on("click", () => setSelectedDistrict({ id, dstName: name, cases }));
+      layer.on("click", () => setSelectedDistrict({ id, dstName: name}));
       layer.on("mouseover", () => layer.setStyle({ weight: 3, fillOpacity: 0.7 }));
       layer.on("mouseout", () => layer.setStyle(styleFn(feature)));
     }}
   />
+  
 )}
+        <Legend grades={grades} getColor={getColor} />
+
       </MapContainer>
+     
       <div style={{ padding: '1rem', width: '52%' }}>
         {selectedDistrict 
-          ? <><h3>{selectedDistrict .dstName} ({selectedDistrict .id})</h3>
-              <p><strong>Dengue Cases ({selectedYear}):</strong> {selectedDistrict.cases.toLocaleString()}</p>
-              </>
+          ? <><h3>{selectedDistrict .dstName}</h3>
+ <p>
+   <strong>Dengue Cases ({selectedYear}):</strong>{" "}
+   {(yearTotals[selectedDistrict.id] || 0).toLocaleString()}
+ </p>              </>
           : <p>Click a district for details</p>}
       </div>
-    </div>
 
+      </div>
     </Container>
 
   );

@@ -242,3 +242,126 @@ In all cases, the x-axis merges `year` and `week` to reflect a unique time slice
 These three graph types—**SingleLine**, **MultiLine**, and **CategoricalScatter**—cover the core needs for time-series and categorical data visualization in dengue-related research. By standardizing data formats and naming conventions, we can streamline both the user interface (where users select the appropriate graph type) and the technical implementation (where D3.js code adapts based on `graphType`).
 
 By following these guidelines, researchers and developers can easily incorporate new data into their existing dashboards, ensuring consistent and informative visualizations for dengue monitoring and analysis.
+
+
+
+
+
+
+
+
+# Sri Lanka Dengue Heatmap
+
+**Date:** 2025‑03‑24  
+**Author:** Development Team  
+
+---
+
+## Overview
+
+This interactive choropleth visualizes annual dengue case totals by district in Sri Lanka. Users can:
+
+- Select a year  
+- View district‑level dengue incidence on a color‑graded map  
+- Click any district to see its total cases  
+- Export the current map view as a PNG  
+- Interpret color bins via a dynamically generated legend  
+
+This feature integrates into our MERN‑based Dengue Information System.
+
+---
+
+## Data Model & API
+
+### MongoDB Schema (`weeklyDngData` collection)
+
+| Field       | Type   | Description                      |
+|-------------|--------|----------------------------------|
+| `year`      | Number | Calendar year (e.g. 2024)        |
+| `week`      | Number | ISO week number (1–52)           |
+| `districtId`| String | Sri Lanka district code (e.g. “LK-11”) |
+| `dengueCases`| Number| Cases reported that week         |
+
+### Backend Endpoints
+
+| Endpoint                                  | Method | Description                                  |
+|-------------------------------------------|--------|----------------------------------------------|
+| `/api/weeklyDngData/years`                | GET    | Returns sorted list of available years       |
+| `/api/weeklyDngData/weekly?year={year}`   | GET    | Returns all weekly records for the specified year |
+
+> Annual totals are aggregated client‑side from weekly data.
+
+---
+
+## Frontend Stack
+
+- **React** + **React‑Leaflet** for map rendering  
+- **RTK Query** for data fetching  
+- **React‑Bootstrap** for UI  
+- **html-to-image** + **downloadjs** for PNG export  
+
+---
+
+## Data Aggregation & Dynamic Binning
+
+1. Fetch weekly records via RTK Query  
+2. Aggregate into `{ districtId: totalCases }` using `Array.reduce()`  
+3. Sort totals, compute median, derive sub‑range (`sr = ⌊median/3⌋`, minimum 1)  
+4. Generate seven thresholds:  [0, sr, 2sr, 3sr, 4sr, 5sr, 6sr]
+
+5. Assign colors (darkest red for >6sr down to pale for zero):
+
+| Range     | Color   |
+|-----------|---------|
+| > 6·sr    | #800026 |
+| > 5·sr    | #BD0026 |
+| > 4·sr    | #E31A1C |
+| > 3·sr    | #FC4E2A |
+| > 2·sr    | #FD8D3C |
+| > 1·sr    | #FEB24C |
+| > 0       | #FFEDA5 |
+| = 0       | #FFEDA0 |
+
+---
+
+## Component Structure
+
+```jsx
+<DistrictMap>
+<Form.Select>  <!-- Year selector --> </Form.Select>
+<MapContainer>
+ <GeoJSON style={styleFn} onEachFeature={...} />
+ <Legend grades={thresholds} getColor={colorFn} />
+</MapContainer>
+<DetailsPanel>  <!-- Selected district cases --> </DetailsPanel>
+<Button onClick={exportMap}>Export as PNG</Button>
+</DistrictMap>
+```
+## Export Feature
+
+Captures the map container and downloads it as a PNG:
+
+```js
+import { toPng } from 'html-to-image';
+import download from 'downloadjs';
+
+const exportMap = () => {
+  toPng(mapRef.current, { backgroundColor: '#fff', cacheBust: true })
+    .then(dataUrl => download(dataUrl, `SriLanka_Dengue_${selectedYear}.png`))
+    .catch(err => console.error('Export failed:', err));
+};
+```
+## Performance Optimizations
+
+- Memoize aggregation and threshold calculations with `useMemo`
+- Remount `<GeoJSON>` on year change (React `key`) to avoid stale styles
+- Leverage Leaflet’s built‑in tile virtualization for smooth panning/zoom
+
+## Future Enhancements
+
+| Feature         | Description                                         |
+|-----------------|-----------------------------------------------------|
+| Loading Spinner | Show `<Spinner>` while fetching data               |
+| CSV Export      | Download annual totals per district as CSV          |
+| Time Slider     | Animate heatmap over years                          |
+| Accessibility   | Add ARIA labels and keyboard navigation support     |
