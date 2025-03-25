@@ -14,14 +14,14 @@ const SingleLineD3 = ({ chartData, width, height }) => {
 
     // Create a tooltip div (absolute positioned)
     let tooltip = d3.select(tooltipRef.current)
-      .style('position', 'absolute')
-      .style('padding', '4px 8px')
-      .style('background', 'rgba(0,0,0,0.7)')
-      .style('color', '#fff')
-      .style('border-radius', '4px')
-      .style('pointer-events', 'none')
-      .style('opacity', 0);
-
+    .style('position', 'fixed')
+    .style('padding', '4px 8px')
+    .style('background', 'rgba(255, 255, 255, 0.9)')
+    .style('color', '#000')
+    .style('border-radius', '4px')
+    .style('pointer-events', 'none')
+    .style('opacity', 0);
+  
     // Margins
     const margin = { top: 50, right: 20, bottom: 70, left: 60 };
     const innerWidth = width - margin.left - margin.right;
@@ -71,34 +71,35 @@ const SingleLineD3 = ({ chartData, width, height }) => {
       .attr('stroke-width', 2)
       .attr('d', lineGenerator);
 
-    // Add circles for each data point
-    g.selectAll('.data-circle')
-      .data(data)
-      .enter()
-      .append('circle')
-      .attr('class', 'data-circle')
-      .attr('cx', d => xScale(`${d.year}-${d.week}`) + xScale.bandwidth() / 2)
-      .attr('cy', d => yScale(d.value))
-      .attr('r', 4)
-      .attr('fill', 'steelblue')
-      .on('mouseover', function (event, d) {
-        // Show tooltip
-        tooltip
-          .style('opacity', 1)
-          .html(`Value: <strong>${d.value}</strong>`)
-          .style('left', (event.pageX + 10) + 'px')
-          .style('top', (event.pageY - 20) + 'px');
-      })
-      .on('mousemove', function (event) {
-        // Move tooltip as mouse moves
-        tooltip
-          .style('left', (event.pageX + 10) + 'px')
-          .style('top', (event.pageY - 20) + 'px');
-      })
-      .on('mouseout', function () {
-        // Hide tooltip
-        tooltip.style('opacity', 0);
-      });
+    // RIGHT AFTER you append circles (replace your existing .on(...) chain with this)
+
+const containerRect = svgRef.current.getBoundingClientRect();
+
+// Add circles for each data point + improved tooltip
+g.selectAll('.data-circle')
+  .data(data)
+  .enter()
+  .append('circle')
+  .attr('class', 'data-circle')
+  .attr('cx', d => xScale(`${d.year}-${d.week}`) + xScale.bandwidth() / 2)
+  .attr('cy', d => yScale(d.value))
+  .attr('r', 4)
+  .attr('fill', 'steelblue')
+  .on('mouseover', (event, d) => {
+    tooltip
+      .style('opacity', 1)
+      .html(`Week: <strong>${d.year}-${d.week}</strong><br/>${yAxisLabel}: <strong>${d.value}</strong>`)
+      .style('left', `${event.clientX + 10}px`)
+      .style('top', `${event.clientY + 10}px`);
+  })
+  .on('mousemove', (event) => {
+    tooltip
+      .style('left', `${event.clientX + 10}px`)
+      .style('top', `${event.clientY + 10}px`);
+  })
+  .on('mouseout', () => {
+    tooltip.style('opacity', 0);
+  });
 
     // X Axis, skipping ticks
     // e.g. show every 5th label
