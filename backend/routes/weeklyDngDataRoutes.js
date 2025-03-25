@@ -19,7 +19,7 @@ router.route('/weekly').get(getWeeklyByYear);
 
 // Get all weekly dengue data, Add weekly dengue data record(s)
 router.route('/')
-  .get(protect, getWeeklyDngData)
+  .get(getWeeklyDngData)
   .post(protect, createWeeklyDngData);
 
 // Get single weekly dengue data record, Update, Delete

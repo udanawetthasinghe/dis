@@ -6,12 +6,12 @@ const router = express.Router();
 
 // GET all user graphs and POST a new user graph (only authenticated users)
 router.route('/')
-  .get(protect, getUserGraphs)
+  .get(getUserGraphs)
   .post(protect, createUserGraph);
 
 // GET, PUT, DELETE a single user graph by ID (only authenticated users)
 router.route('/:id')
-  .get(protect, getUserGraphById)
+  .get(getUserGraphById)
   .put(protect, updateUserGraph)
   .delete(protect, deleteUserGraph);
 

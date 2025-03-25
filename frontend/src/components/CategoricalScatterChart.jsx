@@ -3,14 +3,12 @@ import * as d3 from 'd3';
 
 const ScatterD3 = ({ chartData, width, height }) => {
   const svgRef = useRef();
+  const tooltipRef = useRef(); // NEW tooltip ref
 
   useEffect(() => {
     d3.select(svgRef.current).selectAll('*').remove();
 
     const { title, xAxisLabel, yAxisLabel, categoryKey = 'riskLevel', categoryColors = {}, data = [] } = chartData;
-
-    // For demonstration, let's keep a scaleBand for the x-axis
-    // If you prefer a time scale, convert (year, week) to a date
     const margin = { top: 50, right: 20, bottom: 70, left: 60 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
@@ -31,6 +29,16 @@ const ScatterD3 = ({ chartData, width, height }) => {
     const g = svg.append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
+    // Create tooltip div (fixed positioned)
+    let tooltip = d3.select(tooltipRef.current)
+      .style('position', 'fixed')
+      .style('padding', '4px 8px')
+      .style('background', 'rgba(255, 255, 255, 0.9)')
+      .style('color', '#000')
+      .style('border-radius', '4px')
+      .style('pointer-events', 'none')
+      .style('opacity', 0);
+
     // X scale
     const xDomain = data.map(d => `${d.year}-${d.week}`);
     const xScale = d3.scaleBand()
@@ -44,7 +52,7 @@ const ScatterD3 = ({ chartData, width, height }) => {
       .domain([0, yMax])
       .range([innerHeight, 0]);
 
-    // Scatter points
+    // Scatter points with tooltip event handlers
     g.selectAll('circle')
       .data(data)
       .enter()
@@ -52,13 +60,26 @@ const ScatterD3 = ({ chartData, width, height }) => {
       .attr('cx', d => xScale(`${d.year}-${d.week}`) + xScale.bandwidth() / 2)
       .attr('cy', d => yScale(d.data1))
       .attr('r', 5)
-      .attr('fill', d => categoryColors[d[categoryKey]] || 'gray');
+      .attr('fill', d => categoryColors[d[categoryKey]] || 'gray')
+      .on('mouseover', (event, d) => {
+        tooltip
+          .style('opacity', 1)
+          .html(`Week: <strong>${d.year}-${d.week}</strong><br/>${yAxisLabel}: <strong>${d.data1}</strong><br/>${categoryKey}: <strong>${d[categoryKey]}</strong>`)
+          .style('left', `${event.clientX + 10}px`)
+          .style('top', `${event.clientY + 10}px`);
+      })
+      .on('mousemove', (event) => {
+        tooltip
+          .style('left', `${event.clientX + 10}px`)
+          .style('top', `${event.clientY + 10}px`);
+      })
+      .on('mouseout', () => {
+        tooltip.style('opacity', 0);
+      });
 
     // X axis
     const xAxis = d3.axisBottom(xScale);
-
-    // Optionally skip some ticks if domain is large
-    const filteredDomain = xDomain.filter((_, i) => i % 5 === 0); // every 5th
+    const filteredDomain = xDomain.filter((_, i) => i % 5 === 0);
     xAxis.tickValues(filteredDomain);
 
     g.append('g')
@@ -111,7 +132,13 @@ const ScatterD3 = ({ chartData, width, height }) => {
 
   }, [chartData, width, height]);
 
-  return <div ref={svgRef} />;
+  return (
+    <div style={{ position: 'relative' }}>
+      {/* Tooltip container */}
+      <div ref={tooltipRef}></div>
+      <div ref={svgRef} />
+    </div>
+  );
 };
 
 export default ScatterD3;

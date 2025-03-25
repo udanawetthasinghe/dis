@@ -16,6 +16,10 @@ import LoginScreen from "./screens/LoginScreen.jsx";
 import RegisterScreen from "./screens/RegisterScreen.jsx";
 import ProfileScreen from "./screens/ProfileScreen.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
+import DengueInsightsScreen from "./screens/DengueInsightsScreen.jsx";
+import ActivatedUserGraphsScreen from "./screens/ActivatedUserGraphsScreen.jsx";
+
+
 import AdminRoute from "./components/AdminRoute";
 
 import AdminDashboardScreen from "./screens/AdminDashboardScreen.jsx";
@@ -37,7 +41,6 @@ import AdminGraphCreateScreen from "./screens/AdminGraphCreateScreen.jsx";
 import AdminGraphEditScreen from "./screens/AdminGraphEditScreen.jsx";
 import AdminUserGraphsScreen from "./screens/AdminUserGraphsScreen.jsx";
 import AdminCreateUserGraphScreen from "./screens/AdminCreateUserGraphScreen.jsx";
-import ActivatedUserGraphsScreen from "./screens/ActivatedUserGraphsScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,6 +49,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
       <Route path="/activated-user-graphs" element={<ActivatedUserGraphsScreen />} />
+      <Route path="/dengue-insights" element={<DengueInsightsScreen/>}/>
 
 
       <Route path="" element={<PrivateRoute />}>
