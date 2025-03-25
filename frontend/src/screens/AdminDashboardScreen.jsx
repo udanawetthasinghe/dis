@@ -9,6 +9,7 @@ import { useGetDngDataQuery } from '../slices/dngDataApiSlice';
 import DistrictMap from '../components/DistrictMap';
 
 import { districts } from '../config/config';
+import CustomizeMap from '../components/CustomizeMap';
 
 const AdminDashboardScreen = () => {
   const [selectedDistrict, setSelectedDistrict] = useState('LK-11');
@@ -78,7 +79,7 @@ const AdminDashboardScreen = () => {
             </Col>
           </Row>
 
-          {/* Row with Sample Graph Data Formats */}
+          {/* Row with Dengue Heatmap Component */}
           <Row>
             <Col>
               <Card className="mb-3">
@@ -86,6 +87,24 @@ const AdminDashboardScreen = () => {
                 <div>
       <h1>Dengue Heatmap</h1>
       <DistrictMap />
+    </div>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+
+
+
+
+
+                {/* Row with Customize Dengue Heatmap Component */}
+                <Row>
+            <Col>
+              <Card className="mb-3">
+                <Card.Body>
+                <div>
+      <h1>Customize Dengue Heatmap</h1>
+      <CustomizeMap/>
     </div>
                 </Card.Body>
               </Card>

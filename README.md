@@ -1,5 +1,66 @@
 # dis
 Dengue Information System
+## 📖 Dengue Information System (DIS) — Functional Overview
+
+### Home Page
+- **Image slider:** Rotating announcements & system overview  
+- **News feed:** Latest dengue‑related updates  
+
+### Top Menu Structure
+
+| Menu     | Functionality                                                         |
+|----------|-----------------------------------------------------------------------|
+| Insights | Interactive data visualizations                                       |
+| News     | Admin‑posted bulletins                                                |
+| Feedback | Public submits breeding site reports (location, description, photos)  |
+| Profile  | Role‑based login: General User, Researcher, Admin                     |
+
+---
+
+## Insights (Data Visualization Dashboard)
+
+| Visualization           | Description                          | Controls                              |
+|-------------------------|--------------------------------------|---------------------------------------|
+| I. Yearly Line Chart    | Compare dengue cases by year         | Select district; compare 1–3 years     |
+| II. District Bar Chart  | Dengue cases per district            | Select year/week                      |
+| III. District Pie Chart | Percentage distribution of cases     | Select year                           |
+| IV. GIS Heatmap         | Choropleth Sri Lanka map             | Click district for details; select year |
+| V. Hotspot Map          | Google map heat intensity of breeding site reports | Real‑time updates from user feedback |
+
+---
+
+## Role‑Based Permissions
+
+| Role           | Permissions                                                                 |
+|----------------|-----------------------------------------------------------------------------|
+| General User   | Submit/view own feedback; view public dashboards                            |
+| Researcher     | Access raw dengue data; run/test models via DIS; submit graphs for admin approval |
+| Admin          | Manage all users; approve researcher accounts; CRUD dengue data; review/publish researcher graphs |
+
+---
+
+## Technology Stack
+
+- **Frontend:** React + Redux Toolkit Query + D3.js (dynamic, interactive charts)  
+- **Backend:** Node.js/Express for data API + Flask (Python) service for dengue risk modeling  
+- **Database:** MongoDB (stores users, graph configurations, feedback)  
+- **Deployment:** CORS‑enabled REST APIs; responsive design  
+
+---
+
+## Figure
+
+Single architectural diagram showing data flow:
+
+```mermaid
+flowchart TD
+    ExcelData[Excel data] --> PythonForecast[Python forecasting (Flask API)]
+    PythonForecast --> NodeAPI[MongoDB + Node/Express API]
+    NodeAPI --> ReactDash[React Dashboard + D3.js]
+```
+
+
+
 
 
 # Data Verification and Duplicate Prevention for Weekly Dengue Data
@@ -365,3 +426,118 @@ const exportMap = () => {
 | CSV Export      | Download annual totals per district as CSV          |
 | Time Slider     | Animate heatmap over years                          |
 | Accessibility   | Add ARIA labels and keyboard navigation support     |
+
+
+
+# Customize Map — User‑Driven Choropleth
+
+**Date:** 2025‑03‑25  
+**Author:** Development Team  
+
+---
+
+## 1️⃣ Objective
+
+Extend our existing Sri Lanka dengue heatmap into a **fully customizable mapping tool**, empowering users to:
+
+- Enter a custom **map title**  
+- Supply their own district‑level data (numeric only)  
+- Choose between **Warm (red)** or **Cold (blue)** color ramps  
+- Generate a dynamic choropleth instantly  
+- Export the result as a high‑resolution PNG  
+
+This “Customize Map” component maximizes data entry convenience, accessibility, and visual clarity.
+
+---
+
+## 2️⃣ Technology Stack
+
+| Layer | Library / Tool |
+|-------|----------------|
+| UI Layout | React + React‑Bootstrap |
+| Map Rendering | React‑Leaflet + GeoJSON |
+| Data Binding | React state + useMemo |
+| Export PNG | html-to-image + downloadjs |
+| Styling | CSS + Bootstrap utilities |
+
+---
+
+## 3️⃣ Layout & User Flow
+
+The screen is split into **two equal columns**:
+
+| Left Column | Right Column |
+|-------------|--------------|
+| ✏️ **Map Title**<br/>Rendered from user input | 🔤 **Title Input**<br/>Editable text field |
+| 🗺️ **Choropleth Map**<br/>Rendered only after “Generate Map” | 📋 **Data Table**<br/>Two‑column: District + Value |
+| 📊 **Legend**<br/>Dynamic color bins at bottom‑right | 🎨 **Palette Selector**<br/>Warm vs Cold |
+| 📥 **Export Button**<br/>Downloads PNG | ▶️ **Generate Map Button**<br/>Creates the map |
+
+---
+
+## 4️⃣ Data Entry Convenience
+
+- **Default Sample Values**  
+  - Pre‑loaded from `dengue-data.json`  
+  - Automatically selected on focus (no backspace needed)  
+- **Keyboard Navigation**  
+  - Press **Tab** or **Enter** to move to the next input cell  
+- **Validation & Fallback**  
+  - Only numeric input accepted  
+  - Empty cells automatically treated as **0** on generate  
+
+---
+
+## 5️⃣ Dynamic Choropleth Logic
+
+### Aggregation
+
+- User inputs aggregated into `{ districtId: totalCases }`  
+- Missing → 0  
+
+### Threshold Calculation
+
+- Sort totals → compute median → sub‑range = ⌊median/3⌋ (min 1)  
+- Thresholds: `[0, sr, 2sr, 3sr, 4sr, 5sr, 6sr]`
+
+### Dual Palettes
+
+| Range   | Warm (reds) | Cold (blues) |
+|---------|-------------|--------------|
+| >6·sr   | #800026     | #08519c      |
+| >5·sr   | #BD0026     | #3182bd      |
+| >4·sr   | #E31A1C     | #6baed6      |
+| >3·sr   | #FC4E2A     | #9ecae1      |
+| >2·sr   | #FD8D3C     | #c6dbef      |
+| >1·sr   | #FEB24C     | #deebf7      |
+| >0      | #FFEDA5     | #f7fbff      |
+| =0      | #FFEDA0     | #ffffff      |
+
+---
+
+## 6️⃣ Legend & Export
+
+- **Legend** implemented as a Leaflet control in bottom‑right  
+- **Export PNG** captures the entire map container (tiles, GeoJSON, legend) via `html-to-image` and triggers a download
+
+```js
+toPng(mapRef.current, { backgroundColor: '#fff', cacheBust: true })
+  .then(url => download(url, `${topic}.png`));
+```
+
+## 7️⃣ Accessibility & Performance
+
+- All form inputs are properly labeled and support keyboard navigation (Tab/Enter)  
+- Input values auto‑select on focus to streamline data entry  
+- Computation (aggregation + threshold calculation) wrapped in `useMemo` to minimize re-renders  
+- GeoJSON layer keyed by data change (`key={selectedYear}`) prevents stale styles  
+- Leaflet’s built‑in tile virtualization ensures smooth panning/zoom even with large boundary data
+
+## 8️⃣ Future Enhancements
+
+| Feature           | Description                                      |
+|-------------------|--------------------------------------------------|
+| CSV Download      | Export user-entered district values as a CSV file |
+| Reset Form        | Clear all input fields with a single click        |
+| Theme Presets     | Save and reuse custom color palettes              |
+| Mobile Layout     | Adapt two‑column layout for small screens         |
