@@ -3,3 +3,21 @@
     outline: none !important;
   }
   
+
+
+  .info.legend {
+    background: white;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.3);
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  .info.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.8;
+  }
+  
