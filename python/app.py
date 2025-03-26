@@ -3,7 +3,7 @@ from flask_cors import CORS
 import pandas as pd
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": "http://34.88.15.232:3000"}})
 
 def load_data():
     file_path = "Dengue Risk Colombo.xlsx"
