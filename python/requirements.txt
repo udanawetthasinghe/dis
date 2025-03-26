@@ -1,0 +1,5 @@
+flask
+openpyxl
+pandas
+Jinja2==3.0.3
+flask_cors

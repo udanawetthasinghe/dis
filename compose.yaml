@@ -10,3 +10,10 @@ services:
       - "5000:5000"
     env_file:
       - .env
+
+  forcast-app:
+    image: ghcr.io/udanawetthasinghe/forcast-app:latest
+    container_name: forcast-app
+    restart: always
+    ports:
+      - "8080:8080"
