@@ -3,6 +3,8 @@ import { useGetYearsQuery, useGetWeeklyByYearQuery } from '../slices/weeklyDngDa
 import WeeklyTrendLineChart from '../components/charts/WeeklyTrendLineChart';
 import YearlyDistrictBarChart from '../components/charts/YearlyDistrictBarChart';
 import YearlyDistrictPieChart from '../components/charts/YearlyDistrictPieChart';
+import WeeklyComparisonChart from '../components/charts/WeeklyComparisonChart';
+
 
 function DengueInsightsScreen() {
   // Fetch available years
@@ -26,8 +28,9 @@ function DengueInsightsScreen() {
   if (errorWeekly) return <div className="p-4 text-red-500">Error loading weekly data: {errorWeekly?.message || 'Unknown error'}</div>;
 
   return (
-    <div className="p-4 space-y-8">
-      <h1 className="text-3xl font-bold mb-4">Dengue Insights Dashboard</h1>
+    <div className="p-4 grid grid-cols-3 gap-8">
+      <div className="col-span-2 space-y-8">
+              <h1 className="text-3xl font-bold mb-4">Dengue Insights Dashboard</h1>
       <select
         value={year}
         onChange={e => setYear(Number(e.target.value))}
@@ -45,7 +48,12 @@ function DengueInsightsScreen() {
         <YearlyDistrictBarChart data={weeklyData} year={year} />
         <YearlyDistrictPieChart data={weeklyData} year={year} />
       </div>
-    </div>
+
+      </div>
+
+{/* Right‑hand comparison panel */}
+<WeeklyComparisonChart />
+</div>
   );
 }
 
