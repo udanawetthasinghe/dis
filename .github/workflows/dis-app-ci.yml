@@ -42,7 +42,7 @@ jobs:
 
     - name: Build and tag forcast model docker image
       run: |
-        docker build . \
+        docker build ./python \
           -t ghcr.io/udanawetthasinghe/forcast-app:latest \
           -t ghcr.io/udanawetthasinghe/forcast-app:${{ github.sha }}
 
