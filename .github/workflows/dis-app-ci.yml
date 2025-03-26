@@ -29,16 +29,27 @@ jobs:
         username: ${{ secrets.GHCR_USERNAME }}
         password: ${{ secrets.GHCR_TOKEN }}
 
-    - name: Build and tag Docker image
+    - name: Build and tag DIS docker image
       run: |
         docker build . \
           -t ghcr.io/udanawetthasinghe/dis-app:latest \
           -t ghcr.io/udanawetthasinghe/dis-app:${{ github.sha }}
 
-    - name: Push Docker image
+    - name: Push DIS docker image
       run: |
         docker push ghcr.io/udanawetthasinghe/dis-app:latest
         docker push ghcr.io/udanawetthasinghe/dis-app:${{ github.sha }}
+
+    - name: Build and tag forcast model docker image
+      run: |
+        docker build ./python \
+          -t ghcr.io/udanawetthasinghe/forcast-app:latest \
+          -t ghcr.io/udanawetthasinghe/forcast-app:${{ github.sha }}
+
+    - name: Push forcast docker image
+      run: |
+        docker push ghcr.io/udanawetthasinghe/forcast-app:latest
+        docker push ghcr.io/udanawetthasinghe/forcast-app:${{ github.sha }}
 
   deploy_to_server:
     runs-on: ubuntu-latest
