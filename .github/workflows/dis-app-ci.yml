@@ -35,7 +35,7 @@ jobs:
           -t ghcr.io/udanawetthasinghe/dis-app:latest \
           -t ghcr.io/udanawetthasinghe/dis-app:${{ github.sha }}
 
-    - name: Push DIS Docker image
+    - name: Push DIS docker image
       run: |
         docker push ghcr.io/udanawetthasinghe/dis-app:latest
         docker push ghcr.io/udanawetthasinghe/dis-app:${{ github.sha }}
@@ -46,7 +46,7 @@ jobs:
           -t ghcr.io/udanawetthasinghe/forcast-app:latest \
           -t ghcr.io/udanawetthasinghe/forcast-app:${{ github.sha }}
 
-    - name: Push forcast Docker image
+    - name: Push forcast docker image
       run: |
         docker push ghcr.io/udanawetthasinghe/forcast-app:latest
         docker push ghcr.io/udanawetthasinghe/forcast-app:${{ github.sha }}
