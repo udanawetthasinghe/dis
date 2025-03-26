@@ -78,9 +78,15 @@ const ScatterD3 = ({ chartData, width, height }) => {
       });
 
     // X axis
-    const xAxis = d3.axisBottom(xScale);
-    const filteredDomain = xDomain.filter((_, i) => i % 5 === 0);
-    xAxis.tickValues(filteredDomain);
+
+    // Compute tick interval so we show ~40 labels max
+const tickInterval = Math.max(1, Math.round(xDomain.length / 40));
+
+
+
+  // Filter every nth label
+const filteredDomain = xDomain.filter((_, i) => i % tickInterval === 0);
+const xAxis = d3.axisBottom(xScale).tickValues(filteredDomain);
 
     g.append('g')
       .attr('transform', `translate(0,${innerHeight})`)
