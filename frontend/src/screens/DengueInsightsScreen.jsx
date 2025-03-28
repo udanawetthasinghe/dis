@@ -4,6 +4,8 @@ import WeeklyTrendLineChart from '../components/charts/WeeklyTrendLineChart';
 import YearlyDistrictBarChart from '../components/charts/YearlyDistrictBarChart';
 import YearlyDistrictPieChart from '../components/charts/YearlyDistrictPieChart';
 import WeeklyComparisonChart from '../components/charts/WeeklyComparisonChart';
+import DistrictComparisonContainer from '../components/visualization/DistrictComparisonContainer';
+import DistrictDistributionContainer from '../components/visualization/DistrictDistributionContainer';
 
 
 function DengueInsightsScreen() {
@@ -53,7 +55,14 @@ function DengueInsightsScreen() {
 
 {/* Right‑hand comparison panel */}
 <WeeklyComparisonChart />
+
+<DistrictComparisonContainer/>
+
+<DistrictDistributionContainer/>
+
 </div>
+
+
   );
 }
 

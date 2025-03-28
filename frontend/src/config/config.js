@@ -19,6 +19,7 @@ export const userCatNoToName = {
 
 
 export const districts = {
+  'All Island':'All Island',
   'LK-11': 'Colombo',
   'LK-12': 'Gampaha',
   'LK-13': 'Kalutara',

@@ -2,8 +2,10 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useGetYearsQuery, useGetWeeklyByYearQuery } from '../../slices/weeklyDngDataApiSlice';
 import { skipToken } from '@reduxjs/toolkit/query';
 import MultiLineChart from './ThreeLineChart';
+import { districts } from "../../config/config";
 
-export default function WeeklyComparisonChart({ width = 600, height = 400 }) {
+
+export default function WeeklyComparisonChart({ width = 850, height = 400 }) {
   const { data: years = [] } = useGetYearsQuery();
   const [year1, setYear1] = useState();
   const [year2, setYear2] = useState();
@@ -14,8 +16,8 @@ export default function WeeklyComparisonChart({ width = 600, height = 400 }) {
   useEffect(() => {
     if (years.length >= 3 && !year1 && !year2 && !year3) {
       setYear1(years[0]);
-      setYear2(years[1]);
-      setYear3(years[2]);
+      setYear2(years[0]);
+      setYear3(years[0]);
     }
   }, [years, year1, year2, year3]);
 
@@ -23,7 +25,7 @@ export default function WeeklyComparisonChart({ width = 600, height = 400 }) {
   const { data: data2 = [] } = useGetWeeklyByYearQuery(year2 ?? skipToken);
   const { data: data3 = [] } = useGetWeeklyByYearQuery(year3 ?? skipToken);
 
-  const districts = useMemo(() => {
+  const districtsSlct = useMemo(() => {
     const setIds = new Set(['All Island']);
     [data1, data2, data3].forEach(arr => arr.forEach(r => setIds.add(r.districtId)));
     return Array.from(setIds);
@@ -40,13 +42,13 @@ export default function WeeklyComparisonChart({ width = 600, height = 400 }) {
   }, [year1, data1, year2, data2, year3, data3, district]);
 
   const legend = {
-    [`year${year1}`]: String(year1),
-    [`year${year2}`]: String(year2),
-    [`year${year3}`]: String(year3),
+    [`year${year1}`]: [`Year ${year1}`],
+    [`year${year2}`]:  [`Year ${year2}`],
+    [`year${year3}`]:  [`Year ${year3}`],
   };
 
   const chartData = {
-    title: 'Weekly Dengue Cases Comparison',
+    title: 'Weekly Dengue Cases Comparison in '+districts[district],
     xAxisLabel: 'Week',
     yAxisLabel: 'Cases',
     legend,
@@ -54,25 +56,34 @@ export default function WeeklyComparisonChart({ width = 600, height = 400 }) {
   };
 
   return (
-    <div className="p-4 border rounded-lg shadow-sm">
-      <h2 className="text-xl font-semibold mb-4">Weekly Comparison</h2>
+    <div className="p-4 border rounded-lg shadow-sm" >
+      <h2 className="text-xl font-semibold mb-4">Trends of Weekly Dengue Data with Comparison</h2>
+      <div className="flex items-center space-x-10 mb-4">
+  <label className="flex items-center text-sm font-medium">
+    District:&nbsp;
+    <select
+      value={district}
+      onChange={e => setDistrict(e.target.value)}
+      className="border p-2 rounded w-40"
+    >
+      {districtsSlct.map(d => (
+        <option key={d} value={d}>{districts[d]}</option>
+      ))}
+    </select>
+  </label>
+  &nbsp; &nbsp; &nbsp; Years: &nbsp; {[ [year1, setYear1], [year2, setYear2], [year3, setYear3] ].map(([yr, setter], idx) => (
+    <label key={idx} className="flex items-center text-sm font-medium">
+      <select
+        value={yr || ''}
+        onChange={e => setter(e.target.value ? Number(e.target.value) : undefined)}
+        className="border p-2 rounded w-24"
+      >
+        {years.map(y => <option key={y} value={y}>{y}</option>)}
+      </select>
+    </label>
+  ))}
+</div>
 
-      <div className="flex gap-2 mb-4">
-        <select value={district} onChange={e => setDistrict(e.target.value)} className="border p-2 rounded w-40">
-          {districts.map(d => <option key={d} value={d}>{d}</option>)}
-        </select>
-        {[ [year1, setYear1], [year2, setYear2], [year3, setYear3] ].map(([yr, setter], idx) => (
-          <select
-            key={idx}
-            value={yr || ''}
-            onChange={e => setter(e.target.value ? Number(e.target.value) : undefined)}
-            className="border p-2 rounded w-24"
-          >
-            <option value="">Year</option>
-            {years.map(y => <option key={y} value={y}>{y}</option>)}
-          </select>
-        ))}
-      </div>
 
       <MultiLineChart chartData={chartData} width={width} height={height} />
     </div>

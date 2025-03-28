@@ -14,10 +14,16 @@ const ThreeLineChart=({ chartData, width, height }) => {
     const innerHeight = height - margin.top - margin.bottom;
 
     const svg = d3.select(containerRef.current)
-      .append('svg').attr('width', width).attr('height', height);
+    .append('svg')
+    .attr('viewBox', `0 0 ${width} ${height}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet')
+    .style('width', '100%')
+    .style('height', 'auto');
 
+
+    
     svg.append('text')
-      .attr('x', width/2).attr('y', margin.top/2)
+      .attr('x', width/2).attr('y', (margin.top-10)/2)
       .attr('text-anchor','middle').style('font-size','16px')
       .text(title);
 
@@ -95,17 +101,26 @@ const ThreeLineChart=({ chartData, width, height }) => {
       .attr('x', -height/2).attr('y',20)
       .attr('text-anchor','middle').style('font-size','12px').text(yAxisLabel);
 
-    // Legend
-    const legendGroup = svg.append('g').attr('transform', `translate(${width-150},${margin.top})`);
+    // Legenddistrict
+    const legendY = margin.top-10;
+const legendX = (width / 2) - ((Object.keys(legend).length * 100) / 2);
+    const legendGroup = svg.append('g').attr('transform', `translate(${legendX},${legendY})`);
     series.forEach((s,i) => {
-      legendGroup.append('rect').attr('x',0).attr('y',i*20).attr('width',10).attr('height',10).attr('fill', s.color);
-      legendGroup.append('text').attr('x',20).attr('y',i*20+10).text(s.label).style('font-size','12px');
+        const xOffset = i * 100; // spacing between items
+
+      legendGroup.append('rect').attr('x', xOffset)
+      .attr('y', 0)
+      .attr('width', 12)
+      .attr('height', 12).attr('fill', s.color);
+      legendGroup.append('text') .attr('x', xOffset + 18)
+      .attr('y', 10)
+      .style('font-size', '12px').text(s.label);
     });
 
   }, [chartData, width, height]);
 
   return (
-    <div style={{ position:'relative' }}>
+    <div style={{ width: '100%', position:'relative'}}>
       <div ref={tooltipRef}></div>
       <div ref={containerRef} />
     </div>
