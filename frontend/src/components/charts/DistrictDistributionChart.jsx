@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { districts } from '../../config/config';
+import ResponsiveChartWrapper from './ResponsiveChartWrapper';
 
 export default function DistrictDistributionChart({ data, width, height }) {
   const svgRef = useRef();
@@ -85,13 +86,10 @@ sorted.forEach((d, i) => {
       });  }, [data]);
 
   return (
-    <div style={{ width: '50%', maxWidth: '600px', margin: '0 auto' }}>
-
-    <div style={{ position:'relative' }}>
+    <ResponsiveChartWrapper maxWidth="800px">
       <div ref={tooltipRef}></div>
       <div ref={svgRef} />
-    </div>
-    </div>
+    </ResponsiveChartWrapper>
 
   );
 }

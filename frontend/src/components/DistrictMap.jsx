@@ -1,4 +1,4 @@
-import React, { useState,useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { MapContainer, GeoJSON } from 'react-leaflet';
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Message from "../components/Message";
@@ -38,16 +38,16 @@ const DistrictMap = () => {
   }, [years, selectedYear]);
 
 
-   // Aggregate weekly data into per-district totals using useMemo (avoids repeated setState calls)
-   const yearTotals = useMemo(() => {
+  // Aggregate weekly data into per-district totals using useMemo (avoids repeated setState calls)
+  const yearTotals = useMemo(() => {
     return weeklyRecords.reduce((acc, { districtId, dengueCases }) => {
       acc[districtId] = (acc[districtId] || 0) + dengueCases;
       return acc;
     }, {});
   }, [weeklyRecords]);
 
-   // Reset selected district when year changes.
-   useEffect(() => {
+  // Reset selected district when year changes.
+  useEffect(() => {
     setSelectedDistrict(null);
   }, [selectedYear]);
 
@@ -60,44 +60,44 @@ const DistrictMap = () => {
       ? totals[(totals.length - 1) / 2]
       : (totals[totals.length / 2 - 1] + totals[totals.length / 2]) / 2;
     const sr = Math.max(Math.floor(mid / 3), 1);
-// Now include 6×sr as the top threshold
-const thresholds = [0, sr, sr * 2, sr * 3, sr * 4, sr * 5, sr * 6];
+    // Now include 6×sr as the top threshold
+    const thresholds = [0, sr, sr * 2, sr * 3, sr * 4, sr * 5, sr * 6];
 
-const colorFn = (cases) =>
-  cases > thresholds[6] ? '#800026'
-    : cases > thresholds[5] ? '#BD0026'
-    : cases > thresholds[4] ? '#E31A1C'
-    : cases > thresholds[3] ? '#FC4E2A'
-    : cases > thresholds[2] ? '#FD8D3C'
-    : cases > thresholds[1] ? '#FEB24C'
-    : cases > 0            ? '#FFEDA5'
-    : '#FFEDA0'; // or whatever you want for zero
+    const colorFn = (cases) =>
+      cases > thresholds[6] ? '#800026'
+        : cases > thresholds[5] ? '#BD0026'
+          : cases > thresholds[4] ? '#E31A1C'
+            : cases > thresholds[3] ? '#FC4E2A'
+              : cases > thresholds[2] ? '#FD8D3C'
+                : cases > thresholds[1] ? '#FEB24C'
+                  : cases > 0 ? '#FFEDA5'
+                    : '#FFEDA0'; // or whatever you want for zero
 
 
     return { subRange: sr, grades: thresholds, getColor: colorFn };
   }, [yearTotals]);
 
 
-// Style generator (always uses the latest yearTotals)
-const styleFn = (feature) => {
-  const cases = yearTotals[feature.properties.id] ?? 0;
-  return {
-    fillColor: getColor(cases),
-    weight: 1,
-    color: "#fff",
-    fillOpacity: 1,
+  // Style generator (always uses the latest yearTotals)
+  const styleFn = (feature) => {
+    const cases = yearTotals[feature.properties.id] ?? 0;
+    return {
+      fillColor: getColor(cases),
+      weight: 1,
+      color: "#fff",
+      fillOpacity: 1,
+    };
   };
-};
 
 
-const exportMap = () => {
-  if (!mapRef.current) return;
-  toPng(mapRef.current, { cacheBust: true, backgroundColor: '#fff' })
-    .then((dataUrl) => {
-      download(dataUrl, `SriLanka_Dengue_${selectedYear}.png`, 'image/png');
-    })
-    .catch((err) => console.error('Export failed:', err));
-};
+  const exportMap = () => {
+    if (!mapRef.current) return;
+    toPng(mapRef.current, { cacheBust: true, backgroundColor: '#fff' })
+      .then((dataUrl) => {
+        download(dataUrl, `SriLanka_Dengue_${selectedYear}.png`, 'image/png');
+      })
+      .catch((err) => console.error('Export failed:', err));
+  };
 
 
 
@@ -105,70 +105,83 @@ const exportMap = () => {
 
     <Container fluid className="mt-3">
 
-<Row className="align-items-center mb-4">
-        <Col md={3}>
+
+      <Row className="align-items-center mb-4">
+        <Col md={1}>
           <Form.Label>Select Year</Form.Label>
+          </Col>
+
+          <Col md={2}>
+          
           <Form.Select
             value={selectedYear}
             onChange={(e) => setSelectedYear(e.target.value)}
             disabled={loadingYears}
+            className="border p-2 rounded w-28"
+
           >
             {years.map((year) => (
               <option key={year} value={year}>{year}</option>
             ))}
           </Form.Select>
         </Col>
-        <Col md={3}>
-    <Button onClick={exportMap} disabled={loadingData}>Export Map as PNG</Button>
-  </Col>
+        
+
+      </Row>
+
+      {dataError && <Message variant="danger">{dataError.message}</Message>}
+
+
+
+<Row>
+<Col md={6}>
+
+        <MapContainer
+          center={[7.8731, 80.7718]}
+          zoom={7.5}
+          scrollWheelZoom={false}
+          style={{ height: '780px', width: '100%', backgroundColor: '#fff' }}
+        >
+          {!loadingData && (
+            <GeoJSON
+              key={selectedYear}                // 🔑 remount on each new year
+              data={sriDistricts}
+              style={feature => styleFn(feature)} // always uses current yearTotals
+              onEachFeature={(feature, layer) => {
+                const id = feature.properties.id;
+                const name = districts[id] || "Unknown";
+                const cases = yearTotals[id] ?? 0;
+
+                layer.bindTooltip(name, { sticky: true });
+                layer.on("click", () => setSelectedDistrict({ id, dstName: name }));
+                layer.on("mouseover", () => layer.setStyle({ weight: 3, fillOpacity: 0.7 }));
+                layer.on("mouseout", () => layer.setStyle(styleFn(feature)));
+              }}
+            />
+
+          )}
+          <Legend grades={grades} getColor={getColor} />
+
+        </MapContainer>
+
+        </Col>
+
+        <Col md={6}>
+
+
+          {selectedDistrict
+            ? <><h3>{selectedDistrict.dstName}</h3>
+              <p>
+                <strong>Dengue Cases ({selectedYear}):</strong>{" "}
+                {(yearTotals[selectedDistrict.id] || 0).toLocaleString()}
+              </p>              </>
+            : <p>Click a district for details</p>}
+</Col>
+<Col md={3}>
+          <Button onClick={exportMap} disabled={loadingData}>Export Map as PNG</Button>
+        </Col>
 </Row>
-
-
-{dataError && <Message variant="danger">{dataError.message}</Message>}
-
-
-
-
-    <div ref={mapRef} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-      <MapContainer
-        center={[7.8731, 80.7718]}
-        zoom={7.5}
-        scrollWheelZoom={false}
-        style={{ height: '780px', width: '48%', backgroundColor: '#fff'  }}
-      >
-{!loadingData && (
-  <GeoJSON
-    key={selectedYear}                // 🔑 remount on each new year
-    data={sriDistricts}
-    style={feature => styleFn(feature)} // always uses current yearTotals
-    onEachFeature={(feature, layer) => {
-      const id = feature.properties.id;
-      const name = districts[id] || "Unknown";
-      const cases = yearTotals[id] ?? 0;
-
-      layer.bindTooltip(name, { sticky: true });
-      layer.on("click", () => setSelectedDistrict({ id, dstName: name}));
-      layer.on("mouseover", () => layer.setStyle({ weight: 3, fillOpacity: 0.7 }));
-      layer.on("mouseout", () => layer.setStyle(styleFn(feature)));
-    }}
-  />
-  
-)}
-        <Legend grades={grades} getColor={getColor} />
-
-      </MapContainer>
-     
-      <div style={{ padding: '1rem', width: '52%' }}>
-        {selectedDistrict 
-          ? <><h3>{selectedDistrict .dstName}</h3>
- <p>
-   <strong>Dengue Cases ({selectedYear}):</strong>{" "}
-   {(yearTotals[selectedDistrict.id] || 0).toLocaleString()}
- </p>              </>
-          : <p>Click a district for details</p>}
-      </div>
-
-      </div>
+ 
     </Container>
 
   );

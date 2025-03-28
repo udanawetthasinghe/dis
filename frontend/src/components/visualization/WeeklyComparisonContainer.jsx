@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useGetYearsQuery, useGetWeeklyByYearQuery } from '../../slices/weeklyDngDataApiSlice';
 import { skipToken } from '@reduxjs/toolkit/query';
-import MultiLineChart from '../charts/ThreeLineChart';
+import ThreeLineChart from '../charts/ThreeLineChart';
 import { districts } from "../../config/config";
 
 
@@ -85,7 +85,7 @@ export default function WeeklyComparisonContainer({ width = 850, height = 400 })
 </div>
 
 
-      <MultiLineChart chartData={chartData} width={width} height={height} />
+      <ThreeLineChart chartData={chartData}/>
     </div>
   );
 }

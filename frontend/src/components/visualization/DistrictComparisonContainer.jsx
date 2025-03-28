@@ -34,7 +34,7 @@ const DistrictComparisonContainer = () => {
   }, [data1, data2, data3, year1, year2, year3]);
 
   return (
-    <div className="p-4 border rounded-lg shadow-sm">
+    <div className="p-4">
       <h2 className="text-2xl font-semibold mb-4">District Comparison</h2>
 
       <div className="flex items-center gap-4 mb-6">

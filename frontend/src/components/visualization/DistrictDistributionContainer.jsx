@@ -24,9 +24,9 @@ const DistrictDistributionContainer = () => {
   }, [weeklyData]);
 
   return (
-    <div className="p-4 border rounded-lg shadow-sm">
+    <div className="p-4">
       <h2 className="text-2xl font-semibold mb-4">District Distribution</h2>
-
+      &nbsp; &nbsp; &nbsp; Years: &nbsp; 
       <select
         value={year || ''}
         onChange={e => setYear(Number(e.target.value))}

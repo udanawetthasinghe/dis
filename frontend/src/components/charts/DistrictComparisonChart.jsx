@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import ResponsiveChartWrapper from './ResponsiveChartWrapper';
 
 export default function DistrictComparisonChart({ data, years, width, height }) {
   const svgRef = useRef();
@@ -13,8 +14,11 @@ export default function DistrictComparisonChart({ data, years, width, height }) 
     const innerHeight = height - margin.top - margin.bottom;
 
     const svg = d3.select(svgRef.current)
-      .append('svg').attr('width', width).attr('height', height);
-
+    .append('svg')
+    .attr('viewBox', `0 0 ${width} ${height}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet')
+    .style('width', '100%')
+    .style('height', 'auto');
     const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
     const districts = data.map(d => d.district);
@@ -63,9 +67,9 @@ export default function DistrictComparisonChart({ data, years, width, height }) 
   }, [data, years]);
 
   return (
-    <div style={{ position:'relative' }}>
+    <ResponsiveChartWrapper>
       <div ref={tooltipRef}></div>
       <div ref={svgRef} />
-    </div>
+    </ResponsiveChartWrapper>
   );
 }
