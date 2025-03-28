@@ -3,7 +3,7 @@ import { useGetYearsQuery, useGetWeeklyByYearQuery } from '../slices/weeklyDngDa
 import WeeklyTrendLineChart from '../components/charts/WeeklyTrendLineChart';
 import YearlyDistrictBarChart from '../components/charts/YearlyDistrictBarChart';
 import YearlyDistrictPieChart from '../components/charts/YearlyDistrictPieChart';
-import WeeklyComparisonChart from '../components/charts/WeeklyComparisonChart';
+import WeeklyComparisonContainer from '../components/visualization/WeeklyComparisonContainer';
 import DistrictComparisonContainer from '../components/visualization/DistrictComparisonContainer';
 import DistrictDistributionContainer from '../components/visualization/DistrictDistributionContainer';
 
@@ -54,7 +54,7 @@ function DengueInsightsScreen() {
       </div>
 
 {/* Right‑hand comparison panel */}
-<WeeklyComparisonChart />
+<WeeklyComparisonContainer />
 
 <DistrictComparisonContainer/>
 

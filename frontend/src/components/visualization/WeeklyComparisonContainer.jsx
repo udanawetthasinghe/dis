@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useGetYearsQuery, useGetWeeklyByYearQuery } from '../../slices/weeklyDngDataApiSlice';
 import { skipToken } from '@reduxjs/toolkit/query';
-import MultiLineChart from './ThreeLineChart';
+import MultiLineChart from '../charts/ThreeLineChart';
 import { districts } from "../../config/config";
 
 
-export default function WeeklyComparisonChart({ width = 850, height = 400 }) {
+export default function WeeklyComparisonContainer({ width = 850, height = 400 }) {
   const { data: years = [] } = useGetYearsQuery();
   const [year1, setYear1] = useState();
   const [year2, setYear2] = useState();
