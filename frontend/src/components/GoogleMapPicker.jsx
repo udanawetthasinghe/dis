@@ -6,42 +6,48 @@ const containerStyle = {
   height: '300px',
 };
 
-const defaultCenter = {
-  lat: 23.8103,
-  lng: 90.4125,
-};
+const defaultCenter = { lat: 6.9271, lng: 79.8612 }; // Colombo, Sri Lanka
 
 const GoogleMapPicker = ({ onLocationSelect }) => {
   const [markerPosition, setMarkerPosition] = useState(null);
 
   const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY, // Use env var here
+    googleMapsApiKey:"AIzaSyDPRLHyCbz6ilidw1xcohG3q-xhXKRrJhE",
   });
 
-  const handleMapClick = useCallback((e) => {
-    const lat = e.latLng.lat();
-    const lng = e.latLng.lng();
-    setMarkerPosition({ lat, lng });
+  const handleMapClick = useCallback((event) => {
+    const lat = event.latLng.lat();
+    const lng = event.latLng.lng();
+    const selectedLocation = { lat, lng };
+    
+    // Log the selected location for debugging
+    console.log("Selected location:", selectedLocation);
+    
+    // Set marker without changing the center
+    setMarkerPosition(selectedLocation);
+    
+    // Pass the coordinates to the parent component
     if (onLocationSelect) {
       onLocationSelect(lat, lng);
     }
   }, [onLocationSelect]);
 
   if (loadError) {
-    return <div>Error loading maps</div>;
+    return <div>Error loading map.</div>;
   }
 
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={markerPosition || defaultCenter}
+      center={defaultCenter}  // Always use the default center (Colombo)
       zoom={12}
       onClick={handleMapClick}
+      options={{ draggableCursor: 'pointer' }} // Set cursor style to pointer
     >
       {markerPosition && <Marker position={markerPosition} />}
     </GoogleMap>
   ) : (
-    <div>Loading Map...</div>
+    <div>Loading map...</div>
   );
 };
 
