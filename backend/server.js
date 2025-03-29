@@ -13,7 +13,7 @@ import monthRoutes from "./routes/monthRoutes.js";
 import graphsRoutes from './routes/graphsRoutes.js';
 import userGraphsRoutes from './routes/userGraphsRoutes.js';
 import weeklyDngDataRoutes from './routes/weeklyDngDataRoutes.js';
-
+import feedbackRoutes from './routes/feedbackRoutes.js'
 // Import your routes
 
 // Select the server running port
@@ -49,7 +49,8 @@ app.use('/api/months', monthRoutes);
 app.use('/api/graphs', graphsRoutes);
 app.use('/api/usergraphs',userGraphsRoutes);
 app.use('/api/weeklyDngData', weeklyDngDataRoutes);
-
+// Use feedback routes
+app.use('/api/feedback', feedbackRoutes);
 
 
 // Select the development mode or product mode

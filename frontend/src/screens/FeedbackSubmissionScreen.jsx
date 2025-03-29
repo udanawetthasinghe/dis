@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Form, Container, Row, Col, Card, Button } from 'react-bootstrap';
-import GoogleMapPicker from '../components/GoogleMapPicker'; // your custom map picker component
+import { Form, Container, Card, Button } from 'react-bootstrap';
 import { useCreateFeedbackMutation } from '../slices/feedbackApiSlice';
+import GoogleMapPicker from '../components/GoogleMapPicker';
 
 const FeedbackSubmissionScreen = () => {
   const [location, setLocation] = useState({ lat: null, lng: null });
@@ -10,17 +10,44 @@ const FeedbackSubmissionScreen = () => {
   const [imageFile, setImageFile] = useState(null);
   const [message, setMessage] = useState('');
 
-  // RTK Query mutation hook for feedback submission
   const [createFeedback, { isLoading }] = useCreateFeedbackMutation();
 
-  // Handle location selection from the map
+  // Reverse geocode using Google Maps Geocoding API
+  const reverseGeocode = async (lat, lng) => {
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyDPRLHyCbz6ilidw1xcohG3q-xhXKRrJhE`
+      );
+
+      console.log(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyDPRLHyCbz6ilidw1xcohG3q-xhXKRrJhE`)
+      const data = await response.json();
+      if (data.status === 'OK' && data.results.length > 0) {
+        // Find an address component that indicates district or locality
+        const addressComponents = data.results[0].address_components;
+        const districtComponent = addressComponents.find(component =>
+          component.types.includes('administrative_area_level_2'));
+        if (districtComponent) {
+          console.log("Extracted district:", districtComponent.long_name);
+          setDistrict(districtComponent.long_name);
+        } else {
+          console.log("District not found in reverse geocoding results.");
+          setDistrict('');
+        }
+      } else {
+        console.error('Reverse geocoding failed:', data.status);
+        setDistrict('');
+      }
+    } catch (error) {
+      console.error('Error in reverse geocoding:', error);
+      setDistrict('');
+    }
+  };
+
+  // This function is passed to the map component
   const handleLocationSelect = async (lat, lng) => {
     setLocation({ lat, lng });
-    // Perform reverse geocoding via your own method/API if desired
-    // For example, you can call a separate RTK Query endpoint or a utility function here
-    // and then setDistrict with the result.
-    // For now, we'll assume that functionality is handled elsewhere.
-    // setDistrict(...);
+    // Call reverse geocoding to extract district
+    await reverseGeocode(lat, lng);
   };
 
   const handleFileChange = (e) => {
@@ -29,20 +56,21 @@ const FeedbackSubmissionScreen = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Prepare a FormData object to support file uploads
+
+    // Prepare form data for submission
     const formData = new FormData();
     formData.append('lat', location.lat);
     formData.append('lng', location.lng);
-    formData.append('district', district);
+    formData.append('district', district); // Automatically set via reverse geocoding
     formData.append('description', description);
     if (imageFile) {
       formData.append('image', imageFile);
     }
 
     try {
-      const result = await createFeedback(formData).unwrap();
+      await createFeedback(formData).unwrap();
       setMessage('Feedback submitted successfully!');
-      // Clear form fields if needed
+      // Optionally clear the form fields
     } catch (error) {
       console.error(error);
       setMessage('Error submitting feedback.');
@@ -59,10 +87,7 @@ const FeedbackSubmissionScreen = () => {
               <Form.Label>Select Location</Form.Label>
               <GoogleMapPicker onLocationSelect={handleLocationSelect} />
             </Form.Group>
-            <Form.Group controlId="district" className="mb-3">
-              <Form.Label>District / City</Form.Label>
-              <Form.Control type="text" value={district} readOnly />
-            </Form.Group>
+            {/* Removed district input field; district is set via reverse geocoding */}
             <Form.Group controlId="description" className="mb-3">
               <Form.Label>Short Description</Form.Label>
               <Form.Control
