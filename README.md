@@ -541,3 +541,157 @@ toPng(mapRef.current, { backgroundColor: '#fff', cacheBust: true })
 | Reset Form        | Clear all input fields with a single click        |
 | Theme Presets     | Save and reuse custom color palettes              |
 | Mobile Layout     | Adapt two‑column layout for small screens         |
+
+
+
+# Dengue Data Visualization System: A Comprehensive Report
+
+## 1. Introduction
+
+The Dengue Data Visualization System is a MERN‑stack application designed to aggregate, analyze, and visually represent dengue case data. It provides interactive statistical graphs (line, bar, and pie charts) and spatial visualizations (heatmap and customized maps) to support public health research and decision‑making. This report documents the development process from backend data modeling and API development to the frontend implementation with responsive dashboards.
+
+## 2. System Overview
+
+### Backend
+
+- **Technology:** Node.js, Express, MongoDB, Mongoose.
+- **Purpose:** Store and manage weekly dengue data (by year, week, and district) and expose RESTful API endpoints.
+- **Key Components:**
+  - **Data Model:** Defined in `weeklyDngDataModel.js` with fields for `year`, `week` (1–52), `districtId`, `dengueCases`, and timestamps.
+  - **Controller & Routes:** `weeklyDngDataController.js` implements CRUD operations and specific queries (e.g., distinct years, data by year). Routes are defined in `weeklyDngDataRoutes.js`.
+
+### Frontend
+
+- **Technology:** React, Redux Toolkit Query (RTK Query) for API communication, D3.js for charting, and React Bootstrap for layout.
+- **Purpose:** Fetch data from the backend, compute relevant statistics, and render interactive visualizations.
+- **Key Components:**
+  - **Data Fetching:** RTK Query slices (e.g., `WeeklyDngDataApiSlice`) expose hooks like `useGetWeeklyByYearQuery` and `useGetYearsQuery` for data retrieval.
+  - **Charts:** D3-powered components including:
+    - **Line Charts:** `SingleLineD3` and `ThreeLineChart` for time-series analysis.
+    - **Grouped Bar Charts:** `DistrictComparisonChart` compares dengue cases by district across multiple years.
+    - **Pie Charts:** `DistrictDistributionChart` visualizes the percentage distribution of cases among districts.
+  - **Map Visualizations:**
+    - **Dengue Heatmap:** Visualizes geographic clusters of dengue cases.
+    - **Customized Map:** Allows users to interact with and configure the map display for detailed spatial analysis.
+  - **Dashboard Layout:** The main dashboard (e.g., `DengueInsightsScreen`) uses React Bootstrap’s grid system to create a responsive layout:
+    - **Row #1:**  
+      - Left (≈65% width): Displays live comparison charts via `WeeklyComparisonContainer`.  
+      - Right (≈35% width): Shows two summary cards for _Last Week Stats_ and _Year-to-Year Comparison_.
+    - **Row #2:**  
+      - Left (≈65% width): Renders the district comparison grouped bar chart via `DistrictComparisonContainer`.  
+      - Right (≈35% width): Displays the district distribution pie chart via `DistrictDistributionContainer`.
+    - **Row #3:**  
+      - Dengue Heat Map component
+    - **Row #4:**  
+      - Customize Map component
+
+## 3. Data Modeling & Backend Implementation
+
+### 3.1 Data Model
+
+The MongoDB schema (in `weeklyDngDataModel.js`) includes:
+- **Year & Week:** Numeric fields specifying the calendar week and year.
+- **District ID:** A string identifying the district.
+- **Dengue Cases:** A numeric value representing the number of reported cases.
+- **Timestamps:** Automatic fields for creation and update times.
+
+### 3.2 Controller & Routes
+
+- **Controller:** Implements endpoints to retrieve all weekly records, fetch distinct years, and filter records by year.
+- **Routes:** Mapped in `weeklyDngDataRoutes.js` to allow creation, update, and deletion of records (with appropriate authorization).
+
+## 4. Frontend Implementation
+
+### 4.1 Data Fetching
+
+RTK Query is used to streamline API requests. Hooks such as:
+- `useGetYearsQuery`
+- `useGetWeeklyByYearQuery`
+
+enable efficient data fetching. The use of `skipToken` delays a query until valid parameters (like a selected year) are provided.
+
+### 4.2 Chart Visualizations
+
+D3.js is used to build interactive charts:
+
+- **Line Charts:**  
+  - **SingleLineD3:** Renders a responsive line chart with tooltips and dynamic tick intervals.  
+  - **ThreeLineChart:** Displays multiple lines (for comparing three years) using the same internal coordinate system.
+  
+- **Grouped Bar Charts:**  
+  - **DistrictComparisonChart:** Aggregates and compares dengue case counts by district for three selected years.
+  
+- **Pie Charts:**  
+  - **DistrictDistributionChart:** Visualizes the percentage distribution of dengue cases among districts.  
+    - Conditional logic is used to display labels only for slices meeting certain criteria (e.g., only showing percentages for slices below 5%).  
+    - A vertical legend sorted in descending order of percentages is provided.
+
+### 4.3 Map Visualizations
+
+Two additional map components enhance spatial analysis:
+- **Dengue Heatmap:** Renders a geographic heatmap indicating areas with high dengue incidence.
+- **Customized Map:** Allows users to insert their data and visualize them using our system’s infrastructure and allow user to download that customized map.
+
+### 4.4 Dashboard & Layout
+
+The main dashboard page (`DengueInsightsScreen`) is built using React Bootstrap’s grid system:
+- **Responsive Grid:** Uses `<Container fluid>`, `<Row>`, and `<Col>` components to structure the layout.
+- **Row #1:**  
+  - **Left Column (≈65% width):** Contains the `WeeklyComparisonContainer` component, displaying live comparison charts.
+  - **Right Column (≈35% width):** Contains two stacked cards:
+    - **Last Week Stats:** Displays total dengue cases and the district with the highest cases for the last week.
+    - **Year-to-Year Comparison:** Shows the total dengue cases for the current year versus the previous year.
+- **Row #2:**  
+  - **Left Column (≈65% width):** Renders the `DistrictComparisonContainer` (grouped bar chart).
+  - **Right Column (≈35% width):** Renders the `DistrictDistributionContainer` (pie chart).
+    - **Row #3:**  
+      - Dengue Heat Map component
+    - **Row #4:**  
+      - Customize Map component
+
+### 4.5 Responsive Design Approach (Using React Bootstrap)
+
+Rather than using Tailwind CSS, the system uses React Bootstrap:
+- **Container:** `<Container fluid>` ensures that the content spans the full viewport width.
+- **Row and Col Components:** `<Row>` and `<Col md={8}>` (approximately 65%) with `<Col md={4}>` (approximately 35%) create a consistent layout on medium and larger screens, while stacking vertically on smaller screens.
+- **Inline Styles:** Specific component containers use inline styles (or Bootstrap classes) to set fixed heights when needed.
+
+## 5. Challenges and Solutions
+
+### 5.1 Responsive Layout Without Tailwind
+
+- **Challenge:** Implementing a responsive dashboard layout using only React Bootstrap.
+- **Solution:** Leveraged Bootstrap’s grid system (`Container`, `Row`, and `Col`) to create a two‑row, 65/35 split layout that adapts to different screen sizes.
+
+### 5.2 Data Aggregation and Computation
+
+- **Challenge:** Aggregating weekly dengue data to compute summary statistics (last week’s totals, highest reporting district, year-to-year comparisons).
+- **Solution:** Utilized React hooks (`useEffect`, `useMemo`) to compute these statistics from the fetched data.
+
+### 5.3 Integration of Multiple Visualization Types
+
+- **Challenge:** Combining time-series charts, grouped bar charts, pie charts, and map visualizations in one dashboard.
+- **Solution:** Modularized the frontend into reusable components for each visualization type and integrated them into the dashboard using Bootstrap’s responsive grid.
+
+### 5.4 Map Visualizations
+
+- **Challenge:** Implementing interactive map components for spatial analysis.
+- **Solution:** Developed separate components for the Dengue Heatmap and Customized Map to provide interactive geographic visualizations.
+
+## 6. Conclusion and Future Enhancements
+
+The Dengue Data Visualization System effectively integrates backend data management with dynamic, interactive frontend visualizations in a responsive dashboard. Key features include:
+- **Dynamic, interactive charts** built with D3.js.
+- **Responsive dashboard layouts** using React Bootstrap.
+- **Comprehensive data aggregation** using React hooks.
+- **Advanced map visualizations** for spatial analysis.
+
+### Future Enhancements
+
+- **Real-Time Data Updates:** Implement WebSocket or polling mechanisms to display real-time data.
+- **Advanced Analytics:** Incorporate predictive analytics and trend forecasting.
+- **User Customization:** Expand filtering options and allow users to customize visualizations.
+- **UI/UX Improvements:** Enhance the overall design and interactivity for an improved user experience.
+
+---
+
