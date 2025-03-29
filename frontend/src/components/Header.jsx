@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
-import logo from "../assets/logo1.png";
+//import logo from "../assets/logo1.png";
 import LogoSVG from "./LogoSVG";
 
 const Header = () => {
@@ -52,6 +52,9 @@ const Header = () => {
               <LinkContainer to="/activated-user-graphs">
                 <Nav.Link> Forecasts</Nav.Link>
               </LinkContainer>
+              <LinkContainer to="/feedback">
+                <Nav.Link> Feedback</Nav.Link>
+              </LinkContainer>
               {userInfo ? (
                 <>
                   <NavDropdown
@@ -78,7 +81,7 @@ const Header = () => {
                   )}
 
                   {userInfo.userCat === 4 && (
-                    <LinkContainer to="/user/feedback">
+                    <LinkContainer to="/feedback">
                       <Nav.Link>Feedback</Nav.Link>
                     </LinkContainer>
                   )}

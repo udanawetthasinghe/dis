@@ -34,7 +34,7 @@ import AdminUsersScreen from "./screens/AdminUsersScreen.jsx";
 import AdminUserEditScreen from "./screens/AdminUserEditScreen.jsx";
 import AdminRegisterUserScreen from "./screens/AdminRgisterUserScreen.jsx";
 import ResearcherDashboardScreen from "./screens/ResearcherDashboardScreen.jsx";
-import UserFeedbackScreen from "./screens/UserFeedbackScreen.jsx";
+import FeedbackSubmissionScreen from "./screens/FeedbackSubmissionScreen.jsx";
 
 import AdminGraphsInfoScreen from "./screens/AdminGraphsInfoScreen.jsx";
 import AdminGraphCreateScreen from "./screens/AdminGraphCreateScreen.jsx";
@@ -50,6 +50,7 @@ const router = createBrowserRouter(
       <Route path="/register" element={<RegisterScreen />} />
       <Route path="/activated-user-graphs" element={<ActivatedUserGraphsScreen />} />
       <Route path="/dengue-insights" element={<DengueInsightsScreen/>}/>
+      <Route path="/feedback" element={<FeedbackSubmissionScreen />} />
 
 
       <Route path="" element={<PrivateRoute />}>
@@ -57,7 +58,6 @@ const router = createBrowserRouter(
         {/*Only allow for the logged users */}
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/researcher/dashboard" element={<ResearcherDashboardScreen />} />
-        <Route path="/user/feedback" element={<UserFeedbackScreen />} />
       </Route>
 
       <Route path="" element={<AdminRoute />}>

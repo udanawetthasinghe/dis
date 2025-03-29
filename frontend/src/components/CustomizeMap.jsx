@@ -14,7 +14,7 @@ const CustomizeMap = () => {
   const [mapData, setMapData] = useState(null);
   const mapRef = useRef(null);
   const inputRefs = useRef({});
-  const districtIds = Object.keys(districts);
+  const districtIds = Object.keys(districts).slice(1);
   const [palette, setPalette] = useState("warm");
 
   // Auto‑generate map on first load
@@ -117,7 +117,7 @@ const CustomizeMap = () => {
   });
 
   return (
-    <Container fluid className="mt-4">
+    <Container fluid className="mt-3">
       <Row>
         <Col md={6}>
           <Form.Label className="fs-3 mb-3">{topic || "Map Title"}</Form.Label>
