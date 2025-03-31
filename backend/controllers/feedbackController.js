@@ -62,6 +62,18 @@ export const getAllFeedback = asyncHandler(async (req, res) => {
   res.json(feedbacks);
 });
 
+// @desc    Get feedback records by week number
+// @route   GET /api/feedback/week?week=XX
+// @access  Public
+export const getFeedbackByWeek = asyncHandler(async (req, res) => {
+  const week = Number(req.query.week);
+  if (!week) {
+    res.status(400);
+    throw new Error('Week number is required');
+  }
+  const feedbacks = await Feedback.find({week});
+  res.json(feedbacks);
+});
 // @desc    Get a feedback record by ID
 // @route   GET /api/feedback/:id
 // @access  Public
@@ -75,18 +87,7 @@ export const getFeedbackById = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Get feedback records by week number
-// @route   GET /api/feedback/week?week=XX
-// @access  Public
-export const getFeedbackByWeek = asyncHandler(async (req, res) => {
-  const week = Number(req.query.week);
-  if (!week) {
-    res.status(400);
-    throw new Error('Week number is required');
-  }
-  const feedbacks = await Feedback.find({ week });
-  res.json(feedbacks);
-});
+
 
 // @desc    Delete a feedback record by ID
 // @route   DELETE /api/feedback/:id

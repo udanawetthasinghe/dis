@@ -16,13 +16,15 @@ router.route('/')
   .post(upload.single('image'), createFeedback)
   .get(getAllFeedback);
 
+  // Get feedback by week (e.g., /api/feedback/week?week=42)
+router.route('/week')
+.get(getFeedbackByWeek);
+
 // Get feedback by ID and delete feedback
 router.route('/:id')
   .get(getFeedbackById)
   .delete(deleteFeedback);
 
-// Get feedback by week (e.g., /api/feedback/week?week=42)
-router.route('/week')
-  .get(getFeedbackByWeek);
+
 
 export default router;

@@ -18,7 +18,7 @@ export default function DistrictDistributionChart({ data, width, height }) {
     .style('height', 'auto');
   
 
-    const radius = Math.min(width, height) / 2 - 40;
+    const radius = Math.min(width, height) / 2 - 50;
     const g = svg.append('g')
       .attr('transform', `translate(${width/2},${height/2})`);
 
@@ -50,7 +50,7 @@ const sorted = pie
   .sort((a, b) => b.pct - a.pct);
 
 // Position legend at right edge, 20px down
-const legendX = width - 120;
+const legendX = width - 130;
 const legendY = 20;
 
 const legendGroup = svg.append('g')
@@ -66,9 +66,9 @@ sorted.forEach((d, i) => {
     .attr('fill', color(d.district));
 
   legendGroup.append('text')
-    .attr('x', 18)
+    .attr('x',16)
     .attr('y', yOffset + 10)
-    .style('font-size', '10px')
+    .style('font-size', '11px')
     .text(`${districts[d.district]} — ${d.pct.toFixed(1)}%`);
 });
 
@@ -78,7 +78,7 @@ sorted.forEach((d, i) => {
       .enter().append('text')
       .attr('transform', d => `translate(${labelArc.centroid(d)})`)
       .attr('text-anchor','middle')
-      .style('font-size','10px')
+      .style('font-size','17px')
       .style('font-weight', 'bold')  
       .text(d => {
         const pct = (d.data.cases / totalCases) * 100;
