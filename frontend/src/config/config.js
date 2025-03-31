@@ -78,6 +78,15 @@ export const dengueData = [
 ];
 
 
+//****************   This arrangement for the google map hot-pots indication according to user feedbacks */
+
+export const districtCoordinates = {
+  Colombo: { lat: 6.9271, lng: 79.8612 },
+  Kandy: { lat: 7.2906, lng: 80.6337 },
+  Galle: { lat: 6.0535, lng: 80.2210 },
+  // ... other districts
+};
+
 /////**  Common Functions  */
 // Convert standard timestamp format to user readable format
 export const formatDate = (isoString) => {

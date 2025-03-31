@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Container, Card, Button } from 'react-bootstrap';
+import { toast } from "react-toastify";
 import { useCreateFeedbackMutation } from '../slices/feedbackApiSlice';
 import GoogleMapPicker from '../components/GoogleMapPicker';
 
@@ -56,6 +57,7 @@ const FeedbackSubmissionScreen = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateInputs()) return;
 
     // Prepare form data for submission
     const formData = new FormData();
@@ -63,7 +65,7 @@ const FeedbackSubmissionScreen = () => {
     formData.append('lng', location.lng);
     formData.append('district', district); // Automatically set via reverse geocoding
     formData.append('description', description);
-    if (imageFile) {
+  if (imageFile) {
       formData.append('image', imageFile);
     }
 
@@ -76,6 +78,26 @@ const FeedbackSubmissionScreen = () => {
       setMessage('Error submitting feedback.');
     }
   };
+
+
+  // ====== Single Entry Form Validation ======
+    const validateInputs = () => {
+ 
+
+      let errorMessage = "";
+      if (!district) {
+        errorMessage += "Please pick the location |";
+      }
+
+      if (!description) {
+        errorMessage += " Please add a short description";
+      }
+      if (errorMessage) {
+        toast.error(errorMessage);
+        return false;
+      }
+      return true;
+    };
 
   return (
     <Container className="mt-3">

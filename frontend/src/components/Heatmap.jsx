@@ -5,6 +5,7 @@ import L from 'leaflet';
 import 'leaflet.heat';
 import { dengueData } from '../config/config';
 
+
 const HeatLayer = () => {
     const map = useMap();
   

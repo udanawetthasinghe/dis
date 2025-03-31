@@ -1,5 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Feedback from '../models/feedbackModel.js';
+import jwt from 'jsonwebtoken';
+import User from '../models/userModel.js';
 
 // Helper function to compute ISO week number from a Date
 function getWeekNumber(date) {
@@ -16,11 +18,24 @@ function getWeekNumber(date) {
 // @route   POST /api/feedback
 // @access  Public (or Protected if you want to restrict it)
 export const createFeedback = asyncHandler(async (req, res) => {
+
+let token;
+
+  token = req.cookies.jwt;
+
+  if (token) {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+      req.user = await User.findById(decoded.userId).select('-password'); // get user without password
+    }
+
+
+
   // Retrieve values from req.body and req.file (if using multer for file upload)
   const { lat, lng, district, description } = req.body;
   // If a file was uploaded, assume middleware (e.g., multer) set req.file.path
   const image = req.file ? req.file.path : null;
-
+  //console.log(req.user.id);
   // Determine the user ID: if logged in, use req.user.id, otherwise set as "unknown_user"
   const userId = req.user && req.user.id ? req.user.id : "unknown_user";
 

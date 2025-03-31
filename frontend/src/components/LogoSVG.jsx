@@ -20,7 +20,7 @@ const LogoSVG = (props) => (
       fontSize="150"
       fill="#90EE90"
     >
-      G
+      D
     </text>
 
     {/* Shorter "i" (dotless), so we can place the globe as the dot */}
