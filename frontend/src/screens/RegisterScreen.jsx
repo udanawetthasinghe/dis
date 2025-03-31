@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button, Row, Col, Container } from 'react-bootstrap';
 import FormContainer from '../components/FormContainer';
 import Loader from '../components/Loader';
 // import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { toast } from 'react-toastify';
 import { userCatNo,userStateNo } from '../config/config';
-import logo from '../assets/fullLogo.jpeg';
+import logo from '../assets/fullLogo.png';
 
 const RegisterScreen = () => {
   const [name, setName] = useState('');
@@ -60,11 +60,13 @@ const RegisterScreen = () => {
   };
   return (
     <FormContainer>
-     <img
+    <Container style={{ width: 'auto',alignContent:'center'}}>
+    <img
                 src={logo}
-                alt="Prodms"
-                style={{ width: '150px', height: 'auto', marginRight: '60px' }}
+                alt="dis"
+                style={{ width: '200px', height: '150px', alignItems:'center' }}
               />
+      </Container> 
       <h1>Register</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className='my-2' controlId='name'>

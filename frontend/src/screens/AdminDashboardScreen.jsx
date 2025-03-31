@@ -10,6 +10,7 @@ import DistrictMap from '../components/DistrictMap';
 
 import { districts } from '../config/config';
 import CustomizeMap from '../components/CustomizeMap';
+import FeedbackHotspotsMap from '../components/FeedbackHotspotsMap';
 
 const AdminDashboardScreen = () => {
   const [selectedDistrict, setSelectedDistrict] = useState('LK-11');
@@ -56,7 +57,7 @@ const AdminDashboardScreen = () => {
               <Card className="mb-3">
                 <Card.Body>
                   <h4>Latest Dengue Hotspot</h4>
-                  <Heatmap />
+                  <FeedbackHotspotsMap />
                 </Card.Body>
               </Card>
             </Col>

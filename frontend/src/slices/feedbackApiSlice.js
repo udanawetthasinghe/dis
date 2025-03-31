@@ -10,7 +10,23 @@ export const feedbackApiSlice = apiSlice.injectEndpoints({
         body: formData,
       }),
     }),
+  
+
+ // New endpoint: Fetch feedback submissions for a given week
+ getFeedbackByWeek: builder.query({
+    query: (week) => `/api/feedback/week?week=${week}`,
+    providesTags: ['Feedback'],
   }),
+  // New endpoint: Get all feedback records (for admin use)
+  getAllFeedback: builder.query({
+    query: () => '/api/feedback',
+    providesTags: ['Feedback'],
+  }),
+}),
 });
 
-export const { useCreateFeedbackMutation } = feedbackApiSlice;
+export const {
+useCreateFeedbackMutation,
+useGetFeedbackByWeekQuery,
+useGetAllFeedbackQuery,
+} = feedbackApiSlice;

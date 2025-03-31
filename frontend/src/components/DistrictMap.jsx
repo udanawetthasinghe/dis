@@ -107,7 +107,7 @@ const DistrictMap = () => {
 
 
       <Row className="align-items-center mb-4">
-        <Col md={1}>
+        <Col md={2}>
           <Form.Label>Select Year</Form.Label>
           </Col>
 
@@ -134,7 +134,7 @@ const DistrictMap = () => {
 
 
 <Row>
-<Col md={6}>
+<Col md={9}>
 
         <MapContainer
           center={[7.8731, 80.7718]}
@@ -166,7 +166,7 @@ const DistrictMap = () => {
 
         </Col>
 
-        <Col md={6}>
+        <Col md={3}>
 
 
           {selectedDistrict

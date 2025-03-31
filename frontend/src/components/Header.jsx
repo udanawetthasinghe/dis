@@ -6,8 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
-//import logo from "../assets/logo1.png";
-import LogoSVG from "./LogoSVG";
+import logo from "../assets/logo.png";
+//import LogoSVG from "./LogoSVG";
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -33,19 +33,20 @@ const Header = () => {
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
-              <Container fluid className="mt-3">
-                <Row className="align-items-center">
-                  <Col>
-                    <LogoSVG style={{ width: "110px" }} />
-                    Dengue Information System
-                  </Col>
-                </Row>
-              </Container>
+              <img
+                src={logo}
+                alt="dis"
+                style={{ width: '80px', height: 'auto', marginRight: '30px' }}
+              />Dengue Information System
+               
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
+            <LinkContainer to="/">
+                <Nav.Link> Home</Nav.Link>
+              </LinkContainer>
             <LinkContainer to="/dengue-insights">
                 <Nav.Link> Insights</Nav.Link>
               </LinkContainer>

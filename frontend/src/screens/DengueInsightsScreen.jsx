@@ -5,6 +5,7 @@ import DistrictComparisonContainer from '../components/visualization/DistrictCom
 import DistrictDistributionContainer from '../components/visualization/DistrictDistributionContainer';
 import DistrictMap from '../components/DistrictMap';
 import CustomizeMap from '../components/CustomizeMap';
+import FeedbackHotspotsMap from '../components/FeedbackHotspotsMap';
 import { useGetYearsQuery, useGetWeeklyByYearQuery } from '../slices/weeklyDngDataApiSlice';
 import { districts } from '../config/config';
 
@@ -57,9 +58,10 @@ function DengueInsightsScreen() {
         {/* Right column = 35% => md=4 */}
         <Col md={5}>
           {/* Two stacked boxes */}
-          <h1 className="mb-4">Important Numbers</h1>
+          <h2>Important Numbers</h2>
+<br />
           <Form.Group controlId="yearSelect" className="mb-4">
-            <Form.Label>Select Year</Form.Label>
+            <Form.Label><strong>Select Year</strong></Form.Label>
             <Form.Control
               as="select"
               value={year}
@@ -108,18 +110,27 @@ function DengueInsightsScreen() {
 
 
 
+      {/* Spacing between rows */}
+      <hr />
 
  {/* Row #3 with Dengue Heatmap Component */}
  <Row>
- <Col>
+ <Col md={7}>
  <Card className="mb-3">
                 <Card.Body>
                 <div>
-      <h1>Dengue Heatmap</h1>
+      <h2>Dengue Heatmap</h2>
       <DistrictMap />
     </div>
                 </Card.Body>
               </Card>
+            </Col>
+
+            <Col md={5}>
+
+                  <h2>Latest Dengue Hotspot</h2>
+                  <FeedbackHotspotsMap />
+    
             </Col>
           </Row>
 
@@ -133,7 +144,7 @@ function DengueInsightsScreen() {
               <Card className="mb-3">
                 <Card.Body>
                 <div>
-      <h1>Customize Dengue Heatmap</h1>
+      <h2>Customize Dengue Heatmap</h2>
       <CustomizeMap/>
     </div>
                 </Card.Body>

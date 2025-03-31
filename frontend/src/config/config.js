@@ -78,6 +78,37 @@ export const dengueData = [
 ];
 
 
+//****************   This arrangement for the google map hot-pots indication according to user feedbacks */
+
+export const districtCoordinates = {
+  "Colombo": { lat: 6.9271, lng: 79.8612 },
+  "Gampaha": { lat: 7.0913, lng: 79.9994 },
+  "Kalutara": { lat: 6.5854, lng: 79.9607 },
+  "Kandy": { lat: 7.2906, lng: 80.6337 },
+  "Matale": { lat: 7.4671, lng: 80.6234 },
+  "Nuwaraeliya": { lat: 6.9497, lng: 80.7891 },  // from "N Eliya"
+  "Galle": { lat: 6.0535, lng: 80.2200 },
+  "Hambantota": { lat: 6.1241, lng: 81.1185 },
+  "Matara": { lat: 5.9549, lng: 80.5540 },
+  "Jaffna": { lat: 9.6615, lng: 80.0255 },
+  "Kilinochchi": { lat: 9.3803, lng: 80.3847 },
+  "Mannar": { lat: 8.9779, lng: 79.9052 },
+  "Vavuniya": { lat: 8.7514, lng: 80.4979 },
+  "Mullaitivu": { lat: 9.2674, lng: 80.8148 },  // from "Mulativu"
+  "Batticaloa": { lat: 7.7102, lng: 81.6924 },
+  "Ampara": { lat: 7.2964, lng: 81.6747 },
+  "Trincomalee": { lat: 8.5874, lng: 81.2152 },
+  "Kurunegala": { lat: 7.4863, lng: 80.3647 },
+  "Puttalam": { lat: 8.0322, lng: 79.8570 },
+  "Anuradhapura": { lat: 8.3450, lng: 80.4109 },  // "Apura" mapped to "Anuradhapura"
+  "Polonnaruwa": { lat: 7.9397, lng: 81.0014 },
+  "Badulla": { lat: 6.9896, lng: 81.0556 },
+  "Moneragala": { lat: 6.8719, lng: 81.3483 },
+  "Rathnapura": { lat: 6.6828, lng: 80.3990 },    // "Ratnapura" mapped to "Rathnapura"
+  "Kegalle": { lat: 7.2535, lng: 80.3464 }
+};
+
+
 /////**  Common Functions  */
 // Convert standard timestamp format to user readable format
 export const formatDate = (isoString) => {
