@@ -11,7 +11,7 @@ const ActivatedUserGraphsScreen = () => {
 
   return (
     <Container fluid className="mt-3">
-      <h1>Research Findings</h1>
+      <h2>Research Findings</h2>
       {isLoading && <p>Loading activated graphs...</p>}
       {error && <p>Error: {error.message}</p>}
 

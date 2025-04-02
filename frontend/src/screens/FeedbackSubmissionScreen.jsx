@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Container, Card, Button } from 'react-bootstrap';
+import { Form, Container, Card, Button, Col, Row } from 'react-bootstrap';
 import { toast } from "react-toastify";
 import { useCreateFeedbackMutation } from '../slices/feedbackApiSlice';
 import GoogleMapPicker from '../components/GoogleMapPicker';
@@ -100,10 +100,21 @@ const FeedbackSubmissionScreen = () => {
     };
 
   return (
-    <Container className="mt-3">
-      <Card className="mb-3">
+    <Container>
+      
+          <h2>Submit Dengue Breeding Place Feedback</h2>
+
+          <Row>
+          <p>Report potential dengue breeding sites quickly and easily! 
+            Simply click on the interactive map to choose a location, add a short description, and optionally attach a photo. 
+            Your feedback helps us identify and address high-risk areas in your community.</p>
+          
+        
+          </Row>
+          <Row>
+          
+          <Card>
         <Card.Body>
-          <h3>Submit Dengue Breeding Place Feedback</h3>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="locationSelect" className="mb-3">
               <Form.Label>Select Location</Form.Label>
@@ -126,10 +137,21 @@ const FeedbackSubmissionScreen = () => {
             <Button type="submit" variant="primary" disabled={isLoading}>
               {isLoading ? 'Submitting...' : 'Submit Feedback'}
             </Button>
+            {message && <p className="mt-3">{message}</p>}
+
           </Form>
-          {message && <p className="mt-3">{message}</p>}
-        </Card.Body>
-      </Card>
+          </Card.Body>
+          </Card>  
+          
+ 
+       
+   
+
+          
+
+
+          </Row>
+          
     </Container>
   );
 };

@@ -695,3 +695,181 @@ The Dengue Data Visualization System effectively integrates backend data managem
 
 ---
 
+# Dengue Feedback Submission and Hotspots Map Report
+
+## 1. Overview
+
+This section details two interrelated features of the Dengue Information System (DIS):
+
+### Dengue Feedback Submission
+- **Functionality:** Any user (logged in or not) can submit information about a potential dengue breeding site.
+- **Process:**
+  - The user interacts with a feedback form that includes an integrated Google Map.
+  - The user selects a location on the map, provides a short description, and optionally uploads a photo.
+  - **Mandatory fields:** Location selection and description.
+- **Data Storage:** Submitted data is stored in a MongoDB collection named `Feedback`.
+
+### Hotspots Map Display
+- **Functionality:** Aggregates user-submitted feedback by district and visualizes it as a heatmap.
+- **Visualization:**
+  - Uses Leaflet along with the Leaflet heat plugin.
+  - Highlights areas with a higher concentration of reported dengue breeding sites.
+- **Purpose:** Helps to identify potential high-risk zones.
+
+## 2. System Architecture and File Structure
+
+### Backend
+
+#### Model: `models/feedbackModel.js`
+- **Purpose:** Defines the Feedback schema for MongoDB.
+- **Key Fields:**
+  - `user`: Stores the user ID or `"unknown_user"` if not logged in.
+  - `location`: Contains latitude and longitude.
+  - `district`: Derived from reverse geocoding.
+  - `description`: The short description provided by the user.
+  - `image`: File path or URL to the uploaded image.
+  - `week`: The ISO week number (calculated automatically).
+
+#### Controller: `controllers/feedbackController.js`
+- **Responsibilities:**
+  - Creating new feedback records (with input validation and error handling).
+  - Retrieving feedback data (all records or filtered by specific week).
+  - Deleting feedback records.
+
+#### Routes: `routes/feedbackRoutes.js`
+- **Function:** Defines API endpoints (e.g., `POST /api/feedback`, `GET /api/feedback`, etc.).
+
+#### Middleware: `middleware/upload.js`
+- **Function:** Handles file uploads (using Multer or a similar library).
+
+### Frontend
+
+#### 2.1. Feedback Submission
+
+**Components:**
+
+- `components/GoogleMapPicker.jsx`
+  - **Function:** Integrates Google Maps to allow users to select a location.
+  - **Operation:** Captures latitude and longitude on map clicks and sends the data back to its parent component.
+
+**Screens:**
+
+- `screens/FeedbackSubmissionScreen.jsx`
+  - **Function:** Provides the submission form where users:
+    - Pick a location using the `GoogleMapPicker` component.
+    - Input a short description.
+    - Optionally upload an image.
+  - **Validation:** Ensures that required fields (location and description) are provided.
+  - **Reverse Geocoding:** Utilizes the Google Maps Geocoding API to determine the district based on selected coordinates.
+
+**API Slices:**
+
+- `slices/feedbackApiSlice.js`
+  - **Function:** Manages API calls related to feedback submission, ensuring communication between the frontend and backend.
+
+#### 2.2. Hotspots Map Generation
+
+**Components:**
+
+- `components/FeedbackHotspotsMap.jsx`
+  - **Function:** Uses React-Leaflet and the Leaflet heat plugin to generate a heatmap.
+  - **Workflow:**
+    - Retrieves feedback data for the current week via an API query.
+    - Aggregates records by district.
+    - Maps the aggregated data to geographic coordinates using a configuration file.
+    - Displays a heatmap reflecting the intensity of dengue breeding site reports.
+
+**Screens:**
+
+- `screens/DengueInsightsScreen.jsx`
+  - **Function:** Integrates and displays the `FeedbackHotspotsMap` component as part of a broader insights dashboard.
+
+**API Slices:**
+
+- `slices/feedbackApiSlice.js`
+  - **Function:** Also handles fetching the feedback data necessary for generating the hotspots map.
+
+## 3. Implementation Details
+
+### Feedback Submission
+
+#### Backend Workflow
+- **Data Validation and Extraction:**
+  - The backend controller validates inputs received from the client.
+  - **Mandatory Fields:** Latitude, longitude, district, and description.
+- **Week Calculation:**
+  - A helper function calculates the current ISO week number based on the submission date.
+- **User Identification:**
+  - Uses the logged-in user’s ID or defaults to `"unknown_user"` for non-logged-in users.
+- **Data Storage:**
+  - Validated data is stored in the MongoDB `Feedback` collection.
+
+#### Frontend Workflow
+- **Location Selection:**
+  - The `GoogleMapPicker` component renders an interactive map and captures coordinates when the user clicks.
+- **Reverse Geocoding:**
+  - Upon location selection, the Google Maps Geocoding API is called to extract the district.
+- **Form Validation:**
+  - The `FeedbackSubmissionScreen` checks that mandatory inputs are provided before creating a FormData object.
+- **Data Submission:**
+  - The form data, including any image file, is sent to the backend API via a Redux API slice.
+
+### Hotspots Map Generation
+
+#### Data Aggregation and Visualization
+- **Data Retrieval:**
+  - The `FeedbackHotspotsMap` component uses an API query (via `feedbackApiSlice.js`) to fetch current week feedback data.
+- **Data Processing:**
+  - Aggregates feedback records by district.
+  - Each district’s feedback count is scaled (e.g., multiplied by 100) to represent heat intensity.
+- **Map Rendering:**
+  - A heatmap layer is created using React-Leaflet and the Leaflet heat plugin.
+  - Districts with higher counts appear with increased heat intensity.
+- **Display:**
+  - The heatmap is rendered on a full-screen Leaflet map (centered on Colombo by default) and is integrated into the Dengue Insights page.
+
+## 4. User Interaction
+
+### For Feedback Submission
+- **Access:**
+  - The feedback submission feature is accessible from the header menu.
+- **Interaction:**
+  - Users select a location on the map, provide a description, and optionally upload an image.
+- **Error Handling:**
+  - If mandatory fields (location or description) are missing, an error message is displayed via toast notifications.
+- **Data Security:**
+  - Logged-in users have their user ID stored.
+  - Submissions from non-logged-in users are recorded as `"unknown_user"`.
+
+### For Hotspots Map
+- **Dashboard Integration:**
+  - The hotspots map is part of the insights dashboard, providing a visual overview of dengue risk areas.
+- **Interactivity:**
+  - Users can zoom and pan the map to view different districts.
+  - The heat intensity correlates with the volume of user-submitted feedback.
+- **Real-Time Updates:**
+  - The system updates the map as new feedback is submitted, ensuring the visualization remains current.
+
+## 5. Testing and Validation
+
+### Backend Testing
+- **Unit Tests:** Ensure that feedback creation, retrieval, and deletion function correctly.
+- **Validation Tests:** Confirm that all mandatory fields are enforced and that appropriate error messages are returned.
+
+### Frontend Testing
+- **Component Tests:** Verify that components like `GoogleMapPicker` work correctly, triggering reverse geocoding on location selection.
+- **Form Tests:** Ensure that the submission form blocks feedback submissions when mandatory inputs are missing.
+- **Integration Tests:** Validate that the API slice properly handles feedback data submission and retrieval.
+
+### Usability Testing
+- **User Trials:** Initial user feedback has been used to refine the location selection process, error handling, and overall user experience.
+- **Map Evaluation:** The hotspots map has been assessed for clarity and accuracy in representing dengue risk areas.
+
+## 6. Conclusion and Future Work
+
+This report outlined the design and implementation of two key features in the Dengue Information System:
+
+- **Feedback Submission:** Enables users to report dengue breeding sites through an interactive interface.
+- **Hotspots Map:** Provides real-time visualization of high-risk areas by aggregating user feedback.
+
+
