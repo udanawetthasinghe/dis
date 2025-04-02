@@ -26,7 +26,7 @@ const DistrictDistributionContainer = () => {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-semibold mb-4">District Distribution</h2>
-      &nbsp; &nbsp; &nbsp; Years: &nbsp; 
+      &nbsp; &nbsp; &nbsp; <strong> Year:</strong> &nbsp; 
       <select
         value={year || ''}
         onChange={e => setYear(Number(e.target.value))}

@@ -102,7 +102,7 @@ const FeedbackSubmissionScreen = () => {
   return (
     <Container>
       
-          <h2>Submit Dengue Breeding Place Feedback</h2>
+          <h1>Submit Dengue Breeding Place Feedback</h1>
 
           <Row>
           <p>Report potential dengue breeding sites quickly and easily! 

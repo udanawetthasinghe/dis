@@ -16,9 +16,6 @@ const AdminSideMenu = () => {
             <LinkContainer to="/admin/user/register">
               <Nav.Link>Add User</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/admin/users/delete">
-              <Nav.Link>Delete Users</Nav.Link>
-            </LinkContainer>
           </Nav>
         </Nav.Item>
         <Nav.Item>
@@ -29,12 +26,6 @@ const AdminSideMenu = () => {
             </LinkContainer>
             <LinkContainer to="/admin/weeklyDengueData/add">
               <Nav.Link>Add Dengue Data</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/admin/dengueData/update">
-              <Nav.Link>Update Dengue Data</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/admin/dengueData/delete">
-              <Nav.Link>Delete Dengue Data</Nav.Link>
             </LinkContainer>
           </Nav>
         </Nav.Item>
@@ -53,6 +44,19 @@ const AdminSideMenu = () => {
             </LinkContainer>
           </Nav>
         </Nav.Item>
+
+
+        <Nav.Item>
+          <Nav.Link disabled>Dengue Feedback</Nav.Link>
+          <Nav className="flex-column ms-3">
+            <LinkContainer to="/admin/feedback">
+              <Nav.Link>Users' Feedback</Nav.Link>
+            </LinkContainer>
+            
+          </Nav>
+        </Nav.Item>
+
+
       </Nav>
     </Navbar>
   );

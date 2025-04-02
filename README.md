@@ -865,7 +865,7 @@ This section details two interrelated features of the Dengue Information System 
 - **User Trials:** Initial user feedback has been used to refine the location selection process, error handling, and overall user experience.
 - **Map Evaluation:** The hotspots map has been assessed for clarity and accuracy in representing dengue risk areas.
 
-## 6. Conclusion and Future Work
+## 6. Conclusion
 
 This report outlined the design and implementation of two key features in the Dengue Information System:
 

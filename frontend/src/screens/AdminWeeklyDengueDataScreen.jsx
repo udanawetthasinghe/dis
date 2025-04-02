@@ -74,17 +74,14 @@ const AdminWeeklyDengueDataScreen = () => {
 
   return (
     <Container fluid className="mt-3">
-      <Row className="align-items-center">
-        <Col md={2}></Col>
-        <Col md={9}>
-          <h1>Weekly Dengue Data</h1>
-        </Col>
-      </Row>
+
       <Row>
         <Col md={2}>
           <AdminSideMenu />
         </Col>
         <Col md={9}>
+        <h1>Weekly Dengue Data</h1>
+
           {error && <Message variant="danger">{error?.data?.message || error.error}</Message>}
           <Table striped hover responsive className="table-sm">
             <thead>
