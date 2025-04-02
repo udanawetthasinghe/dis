@@ -2,11 +2,12 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { LinkContainer } from 'react-router-bootstrap';
-import { Table, Button } from 'react-bootstrap';
+import { Container,Col,Row,Table, Button } from 'react-bootstrap';
 import { FaTimes, FaTrash, FaEdit, FaCheck } from 'react-icons/fa';
 import Message from '../components/Message';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
+import AdminSideMenu from '../components/AdminSideMenu';
 
 import {
   useGetUsersQuery,
@@ -79,6 +80,14 @@ const [updateUserState] = useUpdateUserDataMutation();
   // Render users list
   return (
     <>
+       <Container fluid className="mt-3">
+          <Row>
+            <Col md={2}>
+              <AdminSideMenu />
+            </Col>
+            <Col md={10}>
+              {/* Row with Dengue Dynamics and Latest Dengue Hotspot side by side */}
+              <Row>
      <h1>Users</h1>
      <h4> Pending Users</h4>
       {error && <Message variant="danger">{error}</Message>}
@@ -212,6 +221,11 @@ const [updateUserState] = useUpdateUserDataMutation();
             ))}
         </tbody>
       </Table>
+
+      </Row>
+      </Col>
+      </Row>
+      </Container>
     </>
   );
 };

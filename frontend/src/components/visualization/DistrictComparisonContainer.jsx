@@ -33,12 +33,22 @@ const DistrictComparisonContainer = () => {
     }));
   }, [data1, data2, data3, year1, year2, year3]);
 
+    const chartData = {
+      title: 'Comparison of dengue case counts by district for ',
+      xAxisLabel: 'District',
+      yAxisLabel: 'Number of Dengue Cases',
+      years: [year1, year2, year3] ,
+      width: '800px' ,
+      height: '500px',
+      data: aggregated,
+    };
+
   return (
     <div className="p-4">
       <h2 className="text-2xl font-semibold mb-4">District Comparison</h2>
 
       <div className="flex items-center gap-4 mb-6">
-      &nbsp; &nbsp; &nbsp; Years: &nbsp; {[ [year1, setYear1], [year2, setYear2], [year3, setYear3] ].map(([yr, setter], idx) => (
+      &nbsp; &nbsp; &nbsp; <strong>Years:</strong> &nbsp; {[ [year1, setYear1], [year2, setYear2], [year3, setYear3] ].map(([yr, setter], idx) => (
     <label key={idx} className="flex items-center text-sm font-medium">
             <select
               value={yr || ''}
@@ -49,16 +59,12 @@ const DistrictComparisonContainer = () => {
                 <option key={y} value={y}>{y}</option>
               ))}
             </select>
+            &nbsp;
           </label>
         ))}
       </div>
 
-      <DistrictComparisonChart 
-        data={aggregated} 
-        years={[year1, year2, year3]} 
-        width={800} 
-        height={500} 
-      />
+      <DistrictComparisonChart chartData={chartData}/>
     </div>
   );
 };

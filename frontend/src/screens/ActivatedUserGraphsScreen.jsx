@@ -10,8 +10,21 @@ const ActivatedUserGraphsScreen = () => {
   const activatedGraphs = userGraphs ? userGraphs.filter((ug) => ug.state === 3) : [];
 
   return (
-    <Container fluid className="mt-3">
-      <h2>Research Findings</h2>
+    
+    <Container className="mt-3">
+      <h1>Research Findings</h1>
+      <br/>
+
+
+      <p>
+   This page showcases a collection of research publications on dengue forecasting. Each entry displays an interactive graph along with the researcher's name and a brief description of their findings. The visualizations are designed to help users explore and compare different forecasting results in a clear, data-driven format.
+
+</p>
+<p>
+<strong> Please Note: </strong> The displayed research findings and visualizations are provided by individual researchers. The system serves solely as a visualization platform, and all responsibility for the accuracy and reliability of the data lies with the respective researchers.
+</p>
+<br/>
+
       {isLoading && <p>Loading activated graphs...</p>}
       {error && <p>Error: {error.message}</p>}
 

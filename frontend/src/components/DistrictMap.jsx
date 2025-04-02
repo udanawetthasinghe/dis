@@ -105,26 +105,28 @@ const DistrictMap = () => {
 
     <Container fluid className="mt-3">
 
-
+<br/>
       <Row className="align-items-center mb-4">
         <Col md={2}>
-          <Form.Label>Select Year</Form.Label>
-          </Col>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Year</strong>
 
+        </Col>
+   
           <Col md={2}>
           
           <Form.Select
             value={selectedYear}
             onChange={(e) => setSelectedYear(e.target.value)}
             disabled={loadingYears}
-            className="border p-2 rounded w-28"
+            className="border p-2 rounded w-40"
 
           >
             {years.map((year) => (
               <option key={year} value={year}>{year}</option>
             ))}
-          </Form.Select>
-        </Col>
+          </Form.Select>         
+          </Col>
+
         
 
       </Row>
