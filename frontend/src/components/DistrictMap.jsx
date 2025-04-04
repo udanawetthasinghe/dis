@@ -180,7 +180,7 @@ const DistrictMap = () => {
             : <p>Click a district for details</p>}
 </Col>
 <Col md={3}>
-          <Button onClick={exportMap} disabled={loadingData}>Export Map as PNG</Button>
+          <Button onClick={exportMap} variant="secondary" disabled={loadingData}>Export Map as PNG</Button>
         </Col>
 </Row>
  

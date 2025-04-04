@@ -4,8 +4,6 @@ export const singleLineGraphSample = {
     title: "Dengue Cases Over Time",
     xAxisLabel: "Year-Week",
     yAxisLabel: "Cases",
-    apiRoute: "/samples/singleLineGraph.json",
-
     data: [
       { year: 2018, week: 1, value: 0.02 },
       { year: 2018, week: 2, value: 0.05 },
@@ -19,8 +17,6 @@ export const singleLineGraphSample = {
     title: "Expected vs. Real Dengue Cases",
     xAxisLabel: "Year-Week",
     yAxisLabel: "Cases",
-    apiRoute: "/samples/multiLineGraph.json",
-
     legend: {
       data1: "Expected Cases",
       data2: "Real Cases",
@@ -37,8 +33,6 @@ export const singleLineGraphSample = {
     xAxisLabel: "Year-Week",
     yAxisLabel: "Dengue Cases",
     categoryKey: "riskLevel",
-    apiRoute: "/samples/categoricalScatterGraph.json",
-
     categoryColors: {
       low: "green",
       medium: "orange",

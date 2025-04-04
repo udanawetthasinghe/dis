@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AdminSideMenu from '../components/AdminSideMenu';
 import { useSelector } from 'react-redux';
 import { useCreateUserGraphMutation } from '../slices/userGraphsApiSlice';
 import { useGetGraphsQuery } from '../slices/graphsApiSlice';
+import AdminGraphSamples from '../components/AdminGraphSamples';
 
 const AdminCreateUserGraphScreen = () => {
   const navigate = useNavigate();
@@ -78,7 +81,7 @@ const AdminCreateUserGraphScreen = () => {
         <Col md={2}>
           <AdminSideMenu />
         </Col>
-        <Col md={10}>
+        <Col md={5}>
           <h1>Add a New User Graph</h1>
 
           {/* Display loading/error for graphs */}
@@ -117,7 +120,7 @@ const AdminCreateUserGraphScreen = () => {
 
             {/* 3. API Route */}
             <Form.Group className="my-2" controlId="apiRoute">
-              <Form.Label>API Route</Form.Label>
+              <Form.Label>API Route <br/>(The API route should return structured JSON data that matches the sample graph data formats)</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter the API route (e.g., http://...)"
@@ -166,6 +169,20 @@ const AdminCreateUserGraphScreen = () => {
             </Button>
           </Form>
         </Col>
+
+        <Col md={5}>
+        <Card className="mb-3">
+                <Card.Body>
+                  <h2>Sample Graph Data Formats</h2>
+                  <p>The following sample JSON formats should be used by researchers when submitting their research findings to the system via the API. Please review the JSON formats for the different graph types currently provided by the system.</p>
+                  <AdminGraphSamples />
+                  <LinkContainer to="/admin/graph-samples">
+                    <Button variant="info" className="mt-3">
+                      View More Details
+                    </Button>
+                  </LinkContainer>
+                </Card.Body>
+              </Card>        </Col>
       </Row>
     </Container>
   );

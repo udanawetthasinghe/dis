@@ -144,7 +144,7 @@ const CustomizeMap = () => {
               </MapContainer>
             )}
           </div>
-          <Button className="mt-3" onClick={handleExport} disabled={!mapData}>
+          <Button className="mt-3" variant="secondary" onClick={handleExport} disabled={!mapData}>
             Export Map as PNG
           </Button>
         </Col>
@@ -197,9 +197,8 @@ const CustomizeMap = () => {
             </tbody>
           </Table>
 
-          <Button onClick={handleGenerate}>
-            Generate Map
-          </Button>
+          <Button variant="secondary" onClick={handleGenerate}>Generate Map</Button>
+
         </Col>
       </Row>
     </Container>

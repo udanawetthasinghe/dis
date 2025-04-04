@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import {
   useGetUserGraphsQuery,
   useUpdateUserGraphMutation,
+  useDeleteUserGraphMutation,
 } from '../slices/userGraphsApiSlice';
 import GraphRenderer from '../components/GraphRenderer';
 import { singleLineGraphSampleNew,singleLineGraphSample, multiLineGraphSample, categoricalScatterGraphSample } from '../config/sampleGraphData';
@@ -14,6 +15,8 @@ import { singleLineGraphSampleNew,singleLineGraphSample, multiLineGraphSample, c
 const AdminUserGraphsScreen = () => {
   const { data: userGraphs, error, isLoading, refetch } = useGetUserGraphsQuery();
   const [updateUserGraph] = useUpdateUserGraphMutation();
+  const [deleteUserGraph] = useDeleteUserGraphMutation();
+  
 
   // Local state to hold the record being viewed
   const [viewRecord, setViewRecord] = useState(null);
@@ -42,12 +45,25 @@ const AdminUserGraphsScreen = () => {
   };
 
   const handleActivate = (id) => updateGraphState(id, 3); // Active
-  const handleReject = (id) => updateGraphState(id, 5);   // Rejected
+  const handleReject = (id) => updateGraphState(id, 1);   // Rejected
   const handleRemove = (id) => updateGraphState(id, 99);  // Removed
 
   // "View" button sets the record to be viewed
   const handleView = (record) => setViewRecord(record);
   const handleCloseView = () => setViewRecord(null);
+
+    const deleteHandler = async (id) => {
+      if (window.confirm('Are you sure you want to delete this graph?')) {
+        try {
+          console.log(id)
+          await deleteUserGraph(id).unwrap();
+          toast.success('Graph deleted successfully');
+          refetch();
+        } catch (err) {
+          toast.error(err?.data?.message || err.error);
+        }
+      }
+    };
 
   return (
     <Container fluid className="mt-3">
@@ -76,6 +92,8 @@ const AdminUserGraphsScreen = () => {
               <thead>
                 <tr>
                   <th>ID</th>
+                  <th>User</th>
+
                   <th>Graph Title</th>
                   <th>API Route</th>
                   <th>Status</th>
@@ -86,6 +104,8 @@ const AdminUserGraphsScreen = () => {
                 {pendingGraphs.map((ug) => (
                   <tr key={ug._id}>
                     <td>{ug._id}</td>
+                    <td>{ug.userId?.name || 'Unknown User'}</td>
+
                     <td>{ug.graphTitle}</td>
                     <td>{ug.apiRoute}</td>
                     <td>Pending</td>
@@ -96,11 +116,8 @@ const AdminUserGraphsScreen = () => {
                       <Button variant="success" className="btn-sm mx-1" onClick={() => handleActivate(ug._id)}>
                         Activate
                       </Button>
-                      <Button variant="warning" className="btn-sm mx-1" onClick={() => handleReject(ug._id)}>
-                        Reject
-                      </Button>
-                      <Button variant="danger" className="btn-sm mx-1" onClick={() => handleRemove(ug._id)}>
-                        Remove
+                      <Button variant="danger" className="btn-sm mx-1" onClick={() => deleteHandler(ug._id)}>
+                        Delete
                       </Button>
                     </td>
                   </tr>
@@ -144,8 +161,8 @@ const AdminUserGraphsScreen = () => {
                             Reject
                           </Button>
                         )}
-                        <Button variant="danger" className="btn-sm mx-1" onClick={() => handleRemove(ug._id)}>
-                          Remove
+                        <Button variant="danger" className="btn-sm mx-1" onClick={() => deleteHandler(ug._id)}>
+                          delete
                         </Button>
                       </td>
                     </tr>

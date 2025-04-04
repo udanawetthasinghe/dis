@@ -9,10 +9,12 @@ export const getUserGraphs = asyncHandler(async (req, res) => {
   // Optionally, filter by userId (if you want only the logged-in user's graphs)
   // For now, we'll return all user graphs with populated user and graph details.
   const userGraphs = await UserGraph.find()
-    .populate('userId', 'name email') // Adjust fields as per your User model
+    .populate('userId', 'name email') // Adjust fields as per User model
     .populate('graphId',  'graphName graphType');
   res.status(200).json(userGraphs);
 });
+
+
 
 // @desc    Get a single user graph by id
 // @route   GET /api/usergraphs/:id
@@ -40,6 +42,11 @@ export const createUserGraph = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('Please provide userId, graphId, graphTitle, and apiRoute');
   }
+  let state=0;
+  if(req.user.userCat === 1||2){
+    state=1;
+  }
+
 
   // state defaults to 0 (testing) automatically
   const userGraph = await UserGraph.create({
@@ -51,7 +58,7 @@ export const createUserGraph = asyncHandler(async (req, res) => {
     xTitle,
     yTitle,
     configuration,
-    state: 0, // initial state: testing
+    state, // initial state: testing
   });
 
   res.status(201).json(userGraph);

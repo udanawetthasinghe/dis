@@ -47,10 +47,9 @@ app.use(cors({
 }));
 
 
-// Make "uploads" folder publicly accessible
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-
+// Serve static files from the uploads folder using the environment variable
+const uploadsPath = process.env.UPLOADS_PATH || path.join(__dirname, 'uploads');
+app.use('/uploads', express.static(uploadsPath));
 
 
 // Define your routes

@@ -65,6 +65,8 @@ function DengueInsightsScreen() {
             <Form.Control
               as="select"
               value={year}
+              style={{ width: '25rem' }}
+
               onChange={e => setYear(Number(e.target.value))}
             >
               {years.map(y => (
@@ -74,19 +76,36 @@ function DengueInsightsScreen() {
               ))}
             </Form.Control>
           </Form.Group>
-          <Card>
+          <Card
+          bg={"Danger".toLowerCase()}
+          key="Danger"
+          text={"Danger".toLowerCase() === 'light' ? 'dark' : 'white'}
+          style={{ width: '25rem' }}
+          className="mb-2"
+        >
+                    <Card.Header>Last Week of {year} Stats (week {lastWeekNumber})</Card.Header>
 
             <Card.Body>
-              <h4>Last Week Stats ({year} week - {lastWeekNumber})</h4>
+            <Card.Title></Card.Title>
+
               <p>Total Dengue Cases:  <strong>{lastWeekTotal}</strong></p>
               <p>Highest District: <strong>{districts[highestDistrict]}</strong></p>
             </Card.Body>
 </Card>
-          <Card>
-            <Card.Body>
-              <h4>Year-to-Year Comparison</h4>
-              <p>Current Year Total({year}): <strong>{currentYearTotal}</strong></p>
-              <p>Last Year Total ({lastYear}): <strong>{lastYearTotal}</strong></p>
+<br/>
+<Card
+          bg={"Dark".toLowerCase()}
+          key="Dark"
+          text={"Dark".toLowerCase() === 'light' ? 'dark' : 'white'}
+          style={{ width: '25rem' }}
+          className="mb-2"
+        >
+                    <Card.Header>Year-to-Year Comparison</Card.Header>
+                    
+                                <Card.Body>
+  
+              <p>Year {year} Total: <strong>{currentYearTotal}</strong></p>
+              <p>Previous Year( {lastYear}) Total: <strong>{lastYearTotal}</strong></p>
             </Card.Body>
           </Card>
         </Col>
