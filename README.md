@@ -873,3 +873,6 @@ This report outlined the design and implementation of two key features in the De
 - **Hotspots Map:** Provides real-time visualization of high-risk areas by aggregating user feedback.
 
 
+# Edit Weekly Dengue Data
+
+- Only Dengue Cases can be edited by the admin, other field show as disabled input field, this will increase consistency of data.
