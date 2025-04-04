@@ -16,6 +16,13 @@ import weeklyDngDataRoutes from './routes/weeklyDngDataRoutes.js';
 import feedbackRoutes from './routes/feedbackRoutes.js'
 // Import your routes
 
+
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
 // Select the server running port
 const port = process.env.PORT || 5000;
 
@@ -24,6 +31,10 @@ connectDB();  // config -> db..js
 
 // Use express framework
 const app = express();
+
+
+
+
 
 // Body parser middleware
 app.use(express.json());
@@ -34,6 +45,12 @@ app.use(cors({
   origin: 'http://localhost:3000',  
   credentials: true,                // Allow cookies (e.g.,  JWT) to be sent/received
 }));
+
+
+// Make "uploads" folder publicly accessible
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
 
 
 // Define your routes

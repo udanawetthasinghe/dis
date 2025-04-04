@@ -31,10 +31,14 @@ let token;
 
 
 
+
   // Retrieve values from req.body and req.file (if using multer for file upload)
   const { lat, lng, district, description } = req.body;
   // If a file was uploaded, assume middleware (e.g., multer) set req.file.path
-  const image = req.file ? req.file.path : null;
+  //const image = req.file ? req.file.path : null;
+
+// send file name only to the database
+const image = req.file ? req.file.filename : null;
   //console.log(req.user.id);
   // Determine the user ID: if logged in, use req.user.id, otherwise set as "unknown_user"
   const userId = req.user && req.user.id ? req.user.id : "unknown_user";
@@ -95,8 +99,9 @@ export const getFeedbackById = asyncHandler(async (req, res) => {
 export const deleteFeedback = asyncHandler(async (req, res) => {
   const feedback = await Feedback.findById(req.params.id);
   if (feedback) {
-    await feedback.remove();
-    res.json({ message: 'Feedback removed' });
+
+        await feedback.deleteOne({ _id: feedback._id });
+        res.json({ message: 'Feedback removed' });
   } else {
     res.status(404);
     throw new Error('Feedback not found');

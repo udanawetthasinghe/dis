@@ -11,6 +11,7 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import store from "./store";
 import { Provider } from "react-redux";
+
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen.jsx";
 import RegisterScreen from "./screens/RegisterScreen.jsx";
@@ -18,7 +19,7 @@ import ProfileScreen from "./screens/ProfileScreen.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import DengueInsightsScreen from "./screens/DengueInsightsScreen.jsx";
 import ActivatedUserGraphsScreen from "./screens/ActivatedUserGraphsScreen.jsx";
-
+import FeedbackSubmissionScreen from "./screens/FeedbackSubmissionScreen.jsx";
 
 import AdminRoute from "./components/AdminRoute";
 
@@ -29,18 +30,23 @@ import AdminDengueEditUpdatedScreen from "./screens/DengueDataScreen.jsx";
 import AdminDengueDataAdd from "./screens/AdminDengueDataAddScreen.jsx";
 import AdminWeeklyDengueDataAddScreen from "./screens/AdminWeeklyDengueDataAddScreen.jsx";
 import AdminWeeklyDengueDataScreen from "./screens/AdminWeeklyDengueDataScreen.jsx";
+import AdminWeeklyDengueDataEditScreen from "./screens/AdminWeeklyDengueDataEditScreen.jsx";
+
 
 import AdminUsersScreen from "./screens/AdminUsersScreen.jsx";
 import AdminUserEditScreen from "./screens/AdminUserEditScreen.jsx";
 import AdminRegisterUserScreen from "./screens/AdminRgisterUserScreen.jsx";
-import ResearcherDashboardScreen from "./screens/ResearcherDashboardScreen.jsx";
-import FeedbackSubmissionScreen from "./screens/FeedbackSubmissionScreen.jsx";
+
+import AdminFeedbackScreen from "./screens/AdminFeedbackScreen.jsx";
 
 import AdminGraphsInfoScreen from "./screens/AdminGraphsInfoScreen.jsx";
 import AdminGraphCreateScreen from "./screens/AdminGraphCreateScreen.jsx";
 import AdminGraphEditScreen from "./screens/AdminGraphEditScreen.jsx";
 import AdminUserGraphsScreen from "./screens/AdminUserGraphsScreen.jsx";
 import AdminCreateUserGraphScreen from "./screens/AdminCreateUserGraphScreen.jsx";
+
+
+import ResearcherDashboardScreen from "./screens/ResearcherDashboardScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -66,7 +72,7 @@ const router = createBrowserRouter(
         {/* Dengue Data routes */}
 
         <Route path="/admin/dengueData" element={<DengueData />} />
-        <Route path="/admin/dengueData/:id/edit" element={<AdminDengueEditScreen />}/>
+        <Route path="/admin/WeeklyDengueData/:id/edit" element={<AdminWeeklyDengueDataEditScreen />}/>
         <Route path="/admin/dengueData/:id" element={<AdminDengueEditUpdatedScreen />} />
         <Route path="/admin/dengueData/add" element={<AdminDengueDataAdd />} />
         <Route path="/admin/weeklyDengueData/add" element={<AdminWeeklyDengueDataAddScreen />}/>
@@ -84,9 +90,14 @@ const router = createBrowserRouter(
         <Route path="/admin/graphs/create" element={<AdminGraphCreateScreen />} />
         <Route path="/admin/graphs/:graphId/edit" element={<AdminGraphEditScreen />}/>
 
-        {/* NEW: User Graphs routes */}
+        {/* NEW: User-Graphs routes */}
         <Route path="/admin/usergraphs" element={<AdminUserGraphsScreen />} />
         <Route path="/admin/usergraphs/create" element={<AdminCreateUserGraphScreen />} />
+
+        {/* NEW: Admin User-Feedback manage routes */}
+        <Route path="/admin/feedback" element={<AdminFeedbackScreen />} />
+
+
       </Route>
     </Route>
   )
