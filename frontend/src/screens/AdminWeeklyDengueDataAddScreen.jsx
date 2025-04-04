@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef  } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Card, CardBody } from "react-bootstrap";
 import FormContainer from "../components/FormContainer";
 import { toast } from "react-toastify";
 import { useCreateWeeklyDngCasesMutation } from "../slices/weeklyDngDataApiSlice"; 
 import { districts, getDistrictIdByName } from "../config/config";
+import AdminSideMenu from "../components/AdminSideMenu";
 
 
 
@@ -224,12 +225,32 @@ const handleSelectDistrict = (dist) => {
 };
   return (
     <>
-      <Link to="/admin/weeklyDengueData" className="btn btn-light my-3">
-        Go Back
-      </Link>
+<Row>
+        <Col md={2}>
+          <AdminSideMenu />
+        </Col>
 
-      <FormContainer>
-        <h1>Add Weekly Dengue Data (Single Record)</h1>
+<Col md={10}>
+
+
+
+
+      
+
+<Row>
+
+<h1>Insert Weekly Dengue Data</h1>
+<br/><br/><br/>
+</Row>
+
+<Row>
+
+
+
+        <Col md={5}>
+        <Card>
+        <CardBody>
+                  <h2>Add Single Weekly Dengue Data</h2>
         <Form onSubmit={submitHandler}>
           {/* YEAR */}
           <Form.Group controlId="year" className="my-3">
@@ -316,14 +337,14 @@ const handleSelectDistrict = (dist) => {
             Add Weekly Dengue Data
           </Button>
         </Form>
-      </FormContainer>
+        </CardBody>
+        
+      </Card></Col>
+      <Col md={5}>
 
-      <hr />
-
-      <FormContainer>
-        <h1>Upload Multiple Weekly Dengue Data (JSON)</h1>
-        <Row>
-          <Col md={6}>
+      <Card>
+        <CardBody>
+        <h2>Upload Multiple Weekly Dengue Data (JSON)</h2>
             <Form.Group controlId="jsonFile" className="my-3">
               <Form.Label>Select JSON File</Form.Label>
               <Form.Control type="file" accept=".json" onChange={handleFileChange} />
@@ -337,9 +358,15 @@ const handleSelectDistrict = (dist) => {
             >
               Upload JSON
             </Button>
-          </Col>
-        </Row>
-      </FormContainer>
+
+        </CardBody>
+        
+      </Card>
+      </Col>
+      </Row>
+
+      </Col>
+      </Row>
     </>
   );
 };

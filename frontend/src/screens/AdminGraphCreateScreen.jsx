@@ -30,7 +30,7 @@ const AdminGraphCreateScreen = () => {
         <Col md={2}>
           <AdminSideMenu />
         </Col>
-        <Col md={10}>
+        <Col md={6}>
           <h1>Add New Graph</h1>
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="graphIndex" className="my-2">
