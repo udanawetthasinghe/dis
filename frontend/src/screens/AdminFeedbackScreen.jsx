@@ -100,12 +100,12 @@ const AdminFeedbackScreen = () => {
                                             href="#"
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                window.open(`http://localhost:5000/uploads/${fb.image}`, 'popupWindow', 'width=600,height=400,scrollbars=yes');
+                                                window.open(`http://34.88.15.232:5000/uploads/${fb.image}` || `http://localhost:5000/uploads/${fb.image}`, 'popupWindow', 'width=600,height=400,scrollbars=yes');
                                             }}
                                         >
                                             {fb.image && (
                                                 <Image
-                                                    src={`http://localhost:5000/uploads/${fb.image}`}
+                                                    src={`http://34.88.15.232:5000/uploads/${fb.image}` || `http://localhost:5000/uploads/${fb.image}`}
                                                     alt="breeding"
                                                     fluid
                                                     thumbnail
