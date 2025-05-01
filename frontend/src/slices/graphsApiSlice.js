@@ -1,7 +1,9 @@
 // src/slices/graphsApiSlice.js
 import { apiSlice } from './apiSlice';
-import { GRAPHS_URL } from '../constants'; 
-// Suppose GRAPHS_URL = '/api/graphs'
+import { GRAPHS_URL } from '../constants';
+
+
+// Sample GRAPHS_URL = '/api/graphs'
 
 export const graphsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

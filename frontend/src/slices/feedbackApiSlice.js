@@ -1,5 +1,5 @@
 // src/slices/feedbackApiSlice.js
-import { apiSlice } from './apiSlice'; // your base API slice
+import { apiSlice } from './apiSlice'; // base API slice
 
 export const feedbackApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

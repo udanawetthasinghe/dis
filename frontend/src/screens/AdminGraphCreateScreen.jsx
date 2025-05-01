@@ -74,7 +74,7 @@ const AdminGraphCreateScreen = () => {
               />
             </Form.Group>
 
-            <Button type="submit" variant="primary" className="mt-3" disabled={isLoading}>
+            <Button type="submit" variant="success" className="mt-3" disabled={isLoading}>
               {isLoading ? 'Creating...' : 'Add Graph'}
             </Button>
           </Form>

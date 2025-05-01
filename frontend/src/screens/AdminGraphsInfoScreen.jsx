@@ -33,7 +33,7 @@ const AdminGraphsInfoScreen = () => {
         <Col md={10}>
           <h1>Graphs Info</h1>
           <LinkContainer to="/admin/graphs/create">
-            <Button variant="primary" className="my-3">
+            <Button variant="success" className="my-3">
               Add New Graph
             </Button>
           </LinkContainer>

@@ -16,10 +16,7 @@ import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router
-  .route("/")
-  .post(registerUser)
-  .get(protect, getUsersList); //GET method for admin
+router.route("/").post(registerUser).get(protect, getUsersList); //GET method for admin
 router.post("/auth", authUser);
 router.post("/logout", logoutUser);
 router
@@ -36,11 +33,6 @@ router
   .put(protect, updateUserProfileByAdmin)
   .delete(protect, deleteUser); // These routes are protected by the protect middleware.
 
-
-  router.post("/admin",protect, registerUserByAdmin);
-
-
-
-
+router.post("/admin", protect, registerUserByAdmin);
 
 export default router;

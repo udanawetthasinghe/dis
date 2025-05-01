@@ -108,7 +108,7 @@ const AdminRegisterUserScreen = () => {
             </Form.Select>
           </Form.Group>
 
-          <Button type="submit" variant="primary" className="my-2">
+          <Button type="submit" variant="success" className="my-2">
             Create
           </Button>
         </Form>

@@ -64,6 +64,9 @@ const router = createBrowserRouter(
         {/*Only allow for the logged users */}
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/researcher/dashboard" element={<ResearcherDashboardScreen />} />
+        <Route path="/admin/weeklyDengueData" element={<AdminWeeklyDengueDataScreen />}/>
+        <Route path="/admin/usergraphs/create" element={<AdminCreateUserGraphScreen />} />
+
       </Route>
 
       <Route path="" element={<AdminRoute />}>

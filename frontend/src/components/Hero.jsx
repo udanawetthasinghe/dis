@@ -1,5 +1,5 @@
 import { Container, Card, Button } from "react-bootstrap";
-import mainImage from "../img/main.jpg"; // Update with the actual path to your image
+import mainImage from "../img/main.jpg"; // Update with the actual path to the image
 
 const Hero = () => {
   return (

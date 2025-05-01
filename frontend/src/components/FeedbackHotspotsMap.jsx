@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet.heat';
-import { useGetFeedbackByWeekQuery } from '../slices/feedbackApiSlice';
+import { useGetFeedbackByWeekQuery,useGetAllFeedbackQuery } from '../slices/feedbackApiSlice';
 import { getWeekNumber } from '../config/dateUtils'; // helper function for week number
 import 'leaflet/dist/leaflet.css';
 import { districtCoordinates } from '../config/config'; // e.g., { Colombo: { lat: 6.9271, lng: 79.8612 }, ... }
@@ -17,7 +17,10 @@ L.Icon.Default.mergeOptions({
 
 const HeatLayer = () => {
   const currentWeek = getWeekNumber(new Date());
-  const { data: feedbackData = [] } = useGetFeedbackByWeekQuery(currentWeek);
+
+  const { data: feedbackData = [] } = useGetAllFeedbackQuery();
+  //  following command can be used to get latest week feedbacks
+  //const { data: feedbackData = [] } = useGetFeedbackByWeekQuery(currentWeek);
 
   const map = useMap();
 

@@ -5,6 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AdminSideMenu from '../components/AdminSideMenu';
+import ResearcherSideMenu from '../components/ResearcherSideMenu';
 import { useSelector } from 'react-redux';
 import { useCreateUserGraphMutation } from '../slices/userGraphsApiSlice';
 import { useGetGraphsQuery } from '../slices/graphsApiSlice';
@@ -15,7 +16,7 @@ const AdminCreateUserGraphScreen = () => {
 
   // 1. Get the logged-in user from Redux (JWT token stored in 'auth.userInfo')
   const { userInfo } = useSelector((state) => state.auth);
-  const userId = userInfo?._id; // If your user object has '_id' or 'id'
+  const userId = userInfo?._id; // If  user object has '_id' or 'id'
 
   // 2. Fetch available graphs from the 'graphs' collection
   const { data: graphs, isLoading: isGraphsLoading, error: graphsError } = useGetGraphsQuery();
@@ -79,7 +80,15 @@ const AdminCreateUserGraphScreen = () => {
     <Container fluid className="mt-3">
       <Row>
         <Col md={2}>
+
+
+{userInfo && userInfo.userCat===1 ? (
           <AdminSideMenu />
+        ) : (
+          <ResearcherSideMenu />
+  )}
+
+
         </Col>
         <Col md={5}>
           <h1>Add a New User Graph</h1>
@@ -131,7 +140,7 @@ const AdminCreateUserGraphScreen = () => {
 
             {/* 4. Description */}
             <Form.Group className="my-2" controlId="description">
-              <Form.Label>Description</Form.Label>
+              <Form.Label>Description*</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
@@ -164,11 +173,46 @@ const AdminCreateUserGraphScreen = () => {
             </Form.Group>
 
             {/* 7. Submit */}
-            <Button type="submit" variant="primary" className="mt-3" disabled={isLoading || isGraphsLoading}>
+            <Button type="submit" variant="success" className="mt-3" disabled={isLoading || isGraphsLoading}>
               {isLoading ? 'Creating...' : 'Add User Graph'}
             </Button>
           </Form>
-        </Col>
+          <br/>
+          <div
+  style={{
+    border: '1px solid #ccc',
+    padding: '16px',
+    backgroundColor: '#f9f9f9',
+    borderRadius: '6px',
+    marginBottom: '20px',
+  }}
+>
+  <h4 style={{ marginTop: 0, color: '#2c3e50' }}>Instructions for Graph Description</h4>
+  <p>
+    Please provide the following information in the <strong>description field</strong> before submitting your graph for review:
+  </p>
+  <ol style={{ paddingLeft: '20px' }}>
+    <li>
+      <strong>Data Source:</strong> Clearly state where your data comes from (e.g., dataset name, database, institution, or collected source).
+    </li>
+    <li>
+      <strong>Time Period:</strong> Mention the time range your data covers (e.g., 2018–2023).
+    </li>
+    <li>
+      <strong>Affiliation:</strong> Indicate your institutional or organizational affiliation (e.g., university, research center, project name).
+    </li>
+    <li>
+      <strong>Optional Details:</strong> If applicable, include brief notes about how the forecast was generated (e.g., model name or technique used).
+    </li>
+  </ol>
+  <p style={{ marginBottom: 0 }}>
+    <em>
+      Your graph submission will be reviewed by the system administrator. Graphs with complete and credible descriptions will be considered for public display.
+    </em>
+  </p>
+</div>
+
+  </Col>
 
         <Col md={5}>
         <Card className="mb-3">

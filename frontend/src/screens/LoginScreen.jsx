@@ -73,7 +73,7 @@ const LoginScreen = () => {
           disabled={isLoading}
           data-testid="submitSigninBtn"
           type='submit'
-          variant='primary'
+          variant='success'
           className='mt-3'
         >
           Sign In
