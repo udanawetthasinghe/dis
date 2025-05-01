@@ -134,7 +134,7 @@ const FeedbackSubmissionScreen = () => {
               <Form.Label>Upload Photo</Form.Label>
               <Form.Control type="file" onChange={handleFileChange} />
             </Form.Group>
-            <Button type="submit" variant="primary" disabled={isLoading}>
+            <Button type="submit" variant="success" disabled={isLoading}>
               {isLoading ? 'Submitting...' : 'Submit Feedback'}
             </Button>
             {message && <p className="mt-3">{message}</p>}

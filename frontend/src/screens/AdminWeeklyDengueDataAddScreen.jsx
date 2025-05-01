@@ -330,7 +330,7 @@ const handleSelectDistrict = (dist) => {
           {/* SUBMIT BUTTON */}
           <Button
             type="submit"
-            variant="primary"
+            variant="success"
             className="my-2"
             disabled={isLoading}
           >

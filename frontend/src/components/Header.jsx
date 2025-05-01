@@ -1,6 +1,10 @@
 // import { Navbar, Nav, Container, NavDropdown, Badge } from 'react-bootstrap';
 import { Navbar, Nav, Container, NavDropdown, Row, Col } from "react-bootstrap";
-import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
+import { FaHome ,FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
+import { MdFeedback , MdOutlineBatchPrediction, MdDashboard, MdAccountCircle, MdPersonAddAlt1 } from "react-icons/md";
+import { ImStatsDots } from "react-icons/im";
+
+
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -45,45 +49,51 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
             <LinkContainer to="/">
-                <Nav.Link> Home</Nav.Link>
+                <Nav.Link>   <FaHome /> Home</Nav.Link>
               </LinkContainer>
             <LinkContainer to="/dengue-insights">
-                <Nav.Link> Insights</Nav.Link>
+                <Nav.Link> <ImStatsDots /> Insights</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/activated-user-graphs">
-                <Nav.Link> Forecasts</Nav.Link>
+                <Nav.Link> <MdOutlineBatchPrediction /> Forecasts</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/feedback">
-                <Nav.Link> Feedback</Nav.Link>
+                <Nav.Link><MdFeedback  /> Feedback </Nav.Link>
               </LinkContainer>
-              {userInfo ? (
+              
+             {userInfo ? (
                 <>
                   <NavDropdown
                     data-testid="userNameDropDown"
-                    title={userInfo.name}
+                    title={
+                      <>
+                        <MdAccountCircle  />&nbsp;
+                        {userInfo.name}
+                      </>
+                    }
                     id="username"
                   >
                     <LinkContainer to="/profile">
-                      <NavDropdown.Item>Profile</NavDropdown.Item>
+                      <NavDropdown.Item>  Profile</NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Item onClick={logoutHandler}>
-                      Logout
+                     <FaSignOutAlt /> Logout
                     </NavDropdown.Item>
                   </NavDropdown>
                   {userInfo.userCat === 1 && (
                     <LinkContainer to="/admin/dashboard">
-                      <Nav.Link>Admin</Nav.Link>
+                      <Nav.Link><MdDashboard /> Admin</Nav.Link>
                     </LinkContainer>
                   )}
                   {userInfo.userCat === 3 && (
                     <LinkContainer to="/researcher/dashboard">
-                      <Nav.Link>Researcher</Nav.Link>
+                      <Nav.Link><MdDashboard /> Researcher</Nav.Link>
                     </LinkContainer>
                   )}
 
                   {userInfo.userCat === 4 && (
                     <LinkContainer to="/feedback">
-                      <Nav.Link>Feedback</Nav.Link>
+                      <Nav.Link>Feedbacks</Nav.Link>
                     </LinkContainer>
                   )}
                 </>
@@ -96,7 +106,7 @@ const Header = () => {
                   </LinkContainer>
                   <LinkContainer to="/register">
                     <Nav.Link data-testid="signUpBtn">
-                      <FaSignOutAlt /> Sign Up
+                      <MdPersonAddAlt1  /> Sign Up
                     </Nav.Link>
                   </LinkContainer>
                 </>

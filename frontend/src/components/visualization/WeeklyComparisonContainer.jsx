@@ -43,12 +43,12 @@ export default function WeeklyComparisonContainer({ width = 850, height = 400 })
 
   const legend = {
     [`year${year1}`]: [`Year ${year1}`],
-    [`year${year2}`]:  [`Year ${year2}`],
-    [`year${year3}`]:  [`Year ${year3}`],
+    [`year${year2}`]: [`Year ${year2}`],
+    [`year${year3}`]: [`Year ${year3}`],
   };
 
   const chartData = {
-    title: 'Weekly Dengue Cases Comparison in '+districts[district],
+    title: 'Weekly Dengue Cases Comparison in ' + districts[district],
     xAxisLabel: 'Week',
     yAxisLabel: 'Number of Dengue Cases',
     legend,
@@ -59,34 +59,34 @@ export default function WeeklyComparisonContainer({ width = 850, height = 400 })
     <div className="p-4 border rounded-lg shadow-sm" >
       <h2 className="text-xl font-semibold mb-4">Trends of Weekly Dengue Data with Comparison</h2>
       <div className="flex items-center space-x-10 mb-4">
-  <label className="flex items-center text-sm font-medium">
-  <strong>District:</strong>&nbsp;
-    <select
-      value={district}
-      onChange={e => setDistrict(e.target.value)}
-      className="border p-2 rounded w-40"
-    >
-      {districtsSlct.map(d => (
-        <option key={d} value={d}>{districts[d]}</option>
-      ))}
-    </select>
-  </label>
-  &nbsp; &nbsp; &nbsp; <strong>Years:</strong> &nbsp; {[ [year1, setYear1], [year2, setYear2], [year3, setYear3] ].map(([yr, setter], idx) => (
-    <label key={idx} className="flex items-center text-sm font-medium">
-      <select
-        value={yr || ''}
-        onChange={e => setter(e.target.value ? Number(e.target.value) : undefined)}
-        className="border p-2 rounded w-24"
-      >
-        {years.map(y => <option key={y} value={y}>{y}</option>)}
-      </select>
-      &nbsp;
-    </label>
-  ))}
-</div>
+        <label className="flex items-center text-sm font-medium">
+          <strong>District:</strong>&nbsp;
+          <select
+            value={district}
+            onChange={e => setDistrict(e.target.value)}
+            className="border p-2 rounded w-40"
+          >
+            {districtsSlct.map(d => (
+              <option key={d} value={d}>{districts[d]}</option>
+            ))}
+          </select>
+        </label>
+        &nbsp; &nbsp; &nbsp; <strong>Years:</strong> &nbsp; {[[year1, setYear1], [year2, setYear2], [year3, setYear3]].map(([yr, setter], idx) => (
+          <label key={idx} className="flex items-center text-sm font-medium">
+            <select
+              value={yr || ''}
+              onChange={e => setter(e.target.value ? Number(e.target.value) : undefined)}
+              className="border p-2 rounded w-24"
+            >
+              {years.map(y => <option key={y} value={y}>{y}</option>)}
+            </select>
+            &nbsp;
+          </label>
+        ))}
+      </div>
 
 
-      <ThreeLineChart chartData={chartData}/>
+      <ThreeLineChart chartData={chartData} />
     </div>
   );
 }

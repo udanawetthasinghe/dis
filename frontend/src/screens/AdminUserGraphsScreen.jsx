@@ -75,7 +75,7 @@ const AdminUserGraphsScreen = () => {
           <h1>User Graphs</h1>
 
           <LinkContainer to="/admin/usergraphs/create">
-            <Button variant="primary" className="my-3">
+            <Button variant="success" className="my-3">
               Add User Graph
             </Button>
           </LinkContainer>

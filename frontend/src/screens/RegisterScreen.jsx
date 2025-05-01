@@ -117,8 +117,10 @@ const RegisterScreen = () => {
           <div>
             <Form.Check
               type='radio'
-              label='Researcher'
+              label='Researcher (Please use academic email for the registration)'
               name='userCategory'
+              variant="success"
+
               value='Researcher'
               checked={userCategory === 'Researcher'}
               onChange={(e) => setUserCategory(e.target.value)}
@@ -126,6 +128,8 @@ const RegisterScreen = () => {
             <Form.Check
               type='radio'
               label='General User'
+              variant="success"
+
               name='userCategory'
               value='General User'
               checked={userCategory ==='General User'}
@@ -135,7 +139,7 @@ const RegisterScreen = () => {
         </Form.Group>
 
         
-        <Button data-testid="registerBtn" type='submit' variant='primary' className='mt-3'>
+        <Button data-testid="registerBtn" type='submit' variant='success' className='mt-3'>
           Register
         </Button>
 

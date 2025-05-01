@@ -1,7 +1,7 @@
 
 
-import { Table, Button, Row, Col } from 'react-bootstrap';
-
+import { Table, Button, Row, Col, Container } from 'react-bootstrap';
+import ResearcherSideMenu from '../components/ResearcherSideMenu';
 import { LinkContainer } from 'react-router-bootstrap';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import {Link, useParams } from 'react-router-dom';
@@ -69,9 +69,15 @@ const ResearcherDashboardScreen = () => {
     // Render dengue data
     return (
       <>
+    <Container fluid className="mt-3">
+      <Row>
+        <Col md={2}>
+          <ResearcherSideMenu />
+        </Col>
+        <Col md={10}>
 
 
-{dngCaseId ? (
+        {dngCaseId ? (
 <>
 <Col>
             <h1>Dengue Data</h1>
@@ -128,6 +134,15 @@ const ResearcherDashboardScreen = () => {
               ))}
           </tbody>
         </Table>
+                 </Col>
+         </Row>
+         </Container>
+
+
+
+
+
+
 
       </>
     );

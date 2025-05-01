@@ -62,7 +62,7 @@ const image = req.file ? req.file.filename : null;
 // @route   GET /api/feedback
 // @access  Public
 export const getAllFeedback = asyncHandler(async (req, res) => {
-  const feedbacks = await Feedback.find({});
+  const feedbacks = await Feedback.find({}).sort({  createdAt: -1});
   res.json(feedbacks);
 });
 

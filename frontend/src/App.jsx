@@ -11,7 +11,6 @@ const App = () => {
     <>
       <Header />
       <ToastContainer />
-      {/* Just a Tailwind <div> to hold your content */}
       <div className="p-4">
         <Outlet />
       </div>
