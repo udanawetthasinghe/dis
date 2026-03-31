@@ -75,11 +75,9 @@ Single architectural diagram showing data flow:
 
 ```mermaid
 flowchart TD
-    ExcelData[Excel data] --> PythonForecast[Python forecasting (Flask API)]
+    ExcelData[Excel data] --> PythonForecast[Python forecasting Flask API]
     PythonForecast --> NodeAPI[MongoDB + Node/Express API]
     NodeAPI --> ReactDash[React Dashboard + D3.js]
-```
-
 
 
 
