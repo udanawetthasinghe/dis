@@ -1,5 +1,25 @@
-# dis
-Dengue Information System http://34.88.15.232:3000/
+# Dengue Information System (DIS)
+### *A Robust Epidemic Disease Controlling & Visualization Platform*
+
+[cite_start]The **Dengue Information System (DIS)** is a full-stack MERN application designed to aggregate, analyze, and visually represent dengue case data in Sri Lanka[cite: 20, 25]. [cite_start]It bridges the gap between raw statistical data and actionable public health insights through microservices, predictive modeling, and interactive geospatial mapping[cite: 22, 27, 38].
+
+---
+
+## 🏗️ System Architecture
+[cite_start]The platform utilizes a modern, distributed architecture to ensure scalability and separation of concerns[cite: 22, 27].
+
+* **Frontend**: React with Redux Toolkit Query for efficient state management and D3.js for high-performance data visualizations.
+* **Backend (Core)**: Node.js and Express managing the primary RESTful API and MongoDB interactions.
+* **Backend (Analysis)**: A Python Flask service specifically for dengue risk forecasting and mathematical modeling.
+* **Database**: MongoDB with Mongoose, utilizing compound indexing for data integrity.
+* **DevOps**: Containerized via Docker and deployed on Google Cloud Platform (GCP) with integrated GitHub CI/CD pipelines.
+
+```mermaid
+flowchart TD
+    ExcelData[Raw Excel Data] --> PythonForecast[Python Flask API: Risk Modeling]
+    PythonForecast --> NodeAPI[Node/Express API & MongoDB]
+    NodeAPI --> ReactDash[React Dashboard: D3.js & Leaflet]
+
 ## 📖 Dengue Information System (DIS) — Functional Overview
 
 ### Home Page
