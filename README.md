@@ -72,6 +72,7 @@ flowchart TD
 
 Single architectural diagram showing data flow:
 
+
 ```mermaid
 flowchart TD
     ExcelData[Excel data] --> PythonForecast[Python forecasting (Flask API)]
